@@ -1,0 +1,3 @@
+/Users/chrisd/Desktop/jumping_physics/cmake-build-debug/CMakeFiles/jumping_physics.dir
+/Users/chrisd/Desktop/jumping_physics/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/chrisd/Desktop/jumping_physics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
