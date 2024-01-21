@@ -11,7 +11,6 @@ void Game::RunCalculations(const char *command)
     }
 }
 
-
 bool Game::init()
 {
     // Note, I had some issues due to the surface
@@ -30,9 +29,30 @@ bool Game::init()
         std::cout << "SDL failed to create a window" << std::endl;
     }
 
+    // load font
+    font = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 20);
+
+    if (font == nullptr)
+    {
+        std::cout << "Failed to open font" << SDL_GetError() << std::endl;
+    }
+
+    SDL_Color textColor = {255, 255, 255};
+    textSurface = TTF_RenderText_Solid(font, "Start", textColor);
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     return true;
 
+}
+
+void Game::StartButton(int x, int y)
+{
+    button = {x - 5, y + 5, 90, 75};
+    SDL_RenderDrawRect(renderer, &button);
+
+    message = SDL_CreateTextureFromSurface(renderer, textSurface);
+    messageRect = {x, y,80, 80};
+    SDL_RenderCopy(renderer, message, NULL, &messageRect);
 }
 
 void Game::DrawCircle( int radius, int x, int y)
@@ -56,6 +76,9 @@ void Game::ExitGame()
     // Destroy Game Elements
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_FreeSurface(textSurface);
+    SDL_DestroyTexture(message);
+    TTF_CloseFont(font);
 
     // Is this even needed?
     // Apparently it is! Failing to do so leads to
@@ -63,7 +86,9 @@ void Game::ExitGame()
     // Source:
     // https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php
     window = nullptr;
-    window = nullptr;
+    renderer = nullptr;
+    textSurface = nullptr;
+    message = nullptr;
 
     // Kill apps
     TTF_Quit();
@@ -79,14 +104,6 @@ Game::Game()
     {
         printf( "Failed to initialize!\n" );
         exit(-1);
-    }
-
-    // load font
-    font = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 25);
-
-    if (font == nullptr)
-    {
-        std::cout << "Failed to open font" << SDL_GetError() << std::endl;
     }
 
 
@@ -124,6 +141,7 @@ Game::Game()
                    screenheight - (float)ballRadius * circlePosition);
 
         circlePosition += 0.001f;
+        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
         //Update screen
         SDL_RenderPresent( renderer);
     }

@@ -13,8 +13,12 @@ class Game {
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
+    SDL_Surface *textSurface = nullptr;
+    SDL_Texture *message = nullptr;
     std::string textInput;
     TTF_Font *font;
+    SDL_Rect button;
+    SDL_Rect messageRect;
 
 public:
     Game();
@@ -24,4 +28,5 @@ private:
     void ExitGame();
     bool init();
     void DrawCircle(int radius, int x , int y);
+    void StartButton(int x , int y);
 };
