@@ -14,6 +14,7 @@ private:
     SDL_Surface *imageSurface = nullptr;
     SDL_Renderer *renderer = nullptr;
     std::string textInput;
+    TTF_Font *font;
 
 public:
     Game();

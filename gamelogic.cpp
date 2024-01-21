@@ -14,9 +14,9 @@ void Game::RunCalculations(const char *command)
 bool Game::init()
 {
     // Note, I had some issues due to the surface
-    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0 || TTF_Init() < 0)
     {
-        std::cout << "Failed to initialise SDL" << SDL_GetError() << std::endl;
+        std::cout << "Failed to initialise SDL " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -59,6 +59,12 @@ void Game::ExitGame()
 bool Game::LoadMedia()
 {
     imageSurface = SDL_LoadBMP("../Images/owl-from3axis.bmp");
+    font = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 25);
+
+    if (font == nullptr)
+    {
+        std::cout << "Failed to open font" << SDL_GetError() << std::endl;
+    }
 
     if (imageSurface == nullptr)
     {
