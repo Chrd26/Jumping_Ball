@@ -3,6 +3,7 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <cstring>
+#include <cmath>
 
 #define screenheight 720
 #define screenwidth 1280
@@ -22,5 +23,5 @@ private:
     static void RunCalculations(const char *command);
     void ExitGame();
     bool init();
-    bool drawCircle(int radius);
+    void DrawCircle(int radius, int x , int y);
 };

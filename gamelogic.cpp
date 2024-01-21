@@ -11,6 +11,7 @@ void Game::RunCalculations(const char *command)
     }
 }
 
+
 bool Game::init()
 {
     // Note, I had some issues due to the surface
@@ -34,6 +35,22 @@ bool Game::init()
 
 }
 
+void Game::DrawCircle( int radius, int x, int y)
+{
+    double currentDegree = 0.0f;
+    while (currentDegree < 360)
+    {
+        SDL_RenderDrawPoint(renderer,
+                            static_cast<int>(radius*cos(currentDegree) + (double)x),
+                            static_cast<int>(radius*sin(currentDegree) + (double)y));
+        currentDegree += 0.1f;
+    }
+
+    // Special thanks to the following thread for the info
+    // to calculate the circle:
+    // https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
+}
+
 void Game::ExitGame()
 {
     // Destroy Game Elements
@@ -55,6 +72,8 @@ void Game::ExitGame()
 
 Game::Game()
 {
+    int ballRadius = 50;
+    float circlePosition = 1.0f;
     //Start up SDL and create window
     if( !init() )
     {
@@ -100,6 +119,11 @@ Game::Game()
                             0,
                             screenwidth * 0.55f,
                             screenheight);
+
+        DrawCircle(ballRadius,screenwidth * 0.75f,
+                   screenheight - (float)ballRadius * circlePosition);
+
+        circlePosition += 0.001f;
         //Update screen
         SDL_RenderPresent( renderer);
     }
