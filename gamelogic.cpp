@@ -37,7 +37,6 @@ bool Game::init()
 void Game::ExitGame()
 {
     // Destroy Game Elements
-    SDL_FreeSurface(imageSurface);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
 
@@ -47,31 +46,11 @@ void Game::ExitGame()
     // Source:
     // https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php
     window = nullptr;
-    imageSurface = nullptr;
     window = nullptr;
 
     // Kill apps
     TTF_Quit();
     SDL_Quit();
-}
-
-bool Game::LoadMedia()
-{
-    imageSurface = SDL_LoadBMP("../Images/owl-from3axis.bmp");
-    font = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 25);
-
-    if (font == nullptr)
-    {
-        std::cout << "Failed to open font" << SDL_GetError() << std::endl;
-    }
-
-    if (imageSurface == nullptr)
-    {
-        std::cout << "Failed to open image" << SDL_GetError() << std::endl;
-        return false;
-    }
-
-    return true;
 }
 
 Game::Game()
@@ -83,12 +62,14 @@ Game::Game()
         exit(-1);
     }
 
-    //Load media
-    if( !LoadMedia() )
+    // load font
+    font = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 25);
+
+    if (font == nullptr)
     {
-        printf( "Failed to load media!\n" );
-        exit(-1);
+        std::cout << "Failed to open font" << SDL_GetError() << std::endl;
     }
+
 
     //Main loop flag
     bool quit = false;
