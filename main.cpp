@@ -2,7 +2,7 @@
 
 int main()
 {
-    int systemCode = std::system("../jumpcalculations/app/output && rm calculations.csv");
+    int systemCode = std::system("cd ../jumpcalculations/app/output && rm calculations.csv");
 
     if (systemCode != 0)
     {
