@@ -30,7 +30,6 @@ bool Game::init()
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     return true;
 
 }
@@ -116,9 +115,9 @@ Game::Game()
 
         //Draw Separator
         SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
-        SDL_RenderDrawLine( renderer, screenwidth * 0.6f,
+        SDL_RenderDrawLine( renderer, screenwidth * 0.55f,
                             0,
-                            screenwidth * 0.6f,
+                            screenwidth * 0.55f,
                             screenheight);
         //Update screen
         SDL_RenderPresent( renderer);
