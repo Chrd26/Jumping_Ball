@@ -111,32 +111,15 @@ Game::Game()
         }
 
         //Clear screen
-        SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );
         SDL_RenderClear( renderer );
 
-        //Render red filled quad
-        SDL_Rect fillRect = { screenwidth / 4, screenheight/ 4,
-                              screenwidth / 2, screenheight / 2 };
-        SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );
-        SDL_RenderFillRect( renderer, &fillRect );
-
-        //Render green outlined quad
-        SDL_Rect outlineRect = { screenwidth / 6, screenheight/ 6,
-                                 screenwidth * 2 / 3, screenheight * 2 / 3 };
-        SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );
-        SDL_RenderDrawRect( renderer, &outlineRect );
-
-        //Draw blue horizontal line
-        SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );
-        SDL_RenderDrawLine( renderer, 0, screenheight / 2, screenwidth, screenheight / 2 );
-
-        //Draw vertical line of yellow dots
-        SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0x00, 0xFF );
-        for( int i = 0; i < screenheight; i += 4 )
-        {
-            SDL_RenderDrawPoint( renderer, screenwidth / 2, i );
-        }
-
+        //Draw Separator
+        SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+        SDL_RenderDrawLine( renderer, screenwidth * 0.6f,
+                            0,
+                            screenwidth * 0.6f,
+                            screenheight);
         //Update screen
         SDL_RenderPresent( renderer);
     }
