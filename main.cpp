@@ -2,11 +2,11 @@
 
 int main()
 {
-    int systemCode = std::system("cd ../jumpcalculations/app/output && rm calculations.csv");
+    int systemCode = std::system("test -f ../jumpcalculations/app/output/calculations.csv");
 
-    if (systemCode != 0)
+    if (systemCode == 0)
     {
-        std::cout << "Failed to remove CSV file or doesn't exist." << std::endl;
+        std::system("cd ../jumpcalculations/app/output && rm calculations.csv");
     }
 
     Game game;

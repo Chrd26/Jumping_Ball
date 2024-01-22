@@ -37,9 +37,6 @@ bool Game::init()
         std::cout << "Failed to open font" << SDL_GetError() << std::endl;
     }
 
-    SDL_Color textColor = {255, 255, 255};
-    textSurface = TTF_RenderText_Solid(font, "Start", textColor);
-
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     return true;
 
@@ -60,24 +57,32 @@ bool Game::IsWithinStartButton(int x, int y)
 
 void Game::StartButton(const int x, const int y)
 {
+    if (isStartButtonHovered)
+    {
+
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
+        button = {x - 5, y + 5, 90, 75};
+        SDL_RenderFillRect(renderer, &button);
+
+        SDL_Color textColor = {0, 0, 0};
+        textSurface = TTF_RenderText_Solid(font, "Start", textColor);
+        message = SDL_CreateTextureFromSurface(renderer, textSurface);
+        messageRect = {x, y,80, 80};
+        SDL_RenderCopy(renderer, message, nullptr, &messageRect);
+
+        return;
+    }
+
+    // Button
     button = {x - 5, y + 5, 90, 75};
     SDL_RenderDrawRect(renderer, &button);
-
+    // Render Message
+    SDL_Color textColor = {255, 255, 255};
+    textSurface = TTF_RenderText_Solid(font, "Start", textColor);
     message = SDL_CreateTextureFromSurface(renderer, textSurface);
     messageRect = {x, y,80, 80};
     SDL_RenderCopy(renderer, message, nullptr, &messageRect);
-}
 
-void Game::StartButtonHover(const int x, const int y)
-{
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
-    button = {x - 5, y + 5, 90, 75};
-    SDL_RenderFillRect(renderer, &button);
-
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-    message = SDL_CreateTextureFromSurface(renderer, textSurface);
-    messageRect = {x, y,80, 80};
-    SDL_RenderCopy(renderer, message, nullptr, &messageRect);
 }
 
 void Game::DrawCircle(const int radius, const int x, const int y)
@@ -88,7 +93,7 @@ void Game::DrawCircle(const int radius, const int x, const int y)
         SDL_RenderDrawPoint(renderer,
                             static_cast<int>(radius*cos(currentDegree) + (double)x),
                             static_cast<int>(radius*sin(currentDegree) + (double)y));
-        currentDegree += 0.1f;
+        currentDegree += 1.5f;
     }
 
     // Special thanks to the following thread for the info
@@ -201,7 +206,7 @@ Game::Game()
 
         if (isStartButtonHovered)
         {
-            //std::cout << "Hovered" << std::endl;
+
         }
 
         if (isStartButtonClicked)

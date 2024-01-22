@@ -35,6 +35,5 @@ private:
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
-    void StartButtonHover(int x, int y);
     bool IsWithinStartButton(int x, int y);
 };
