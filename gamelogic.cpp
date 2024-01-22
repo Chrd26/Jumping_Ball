@@ -109,6 +109,8 @@ Game::~Game()
     SDL_FreeSurface(textSurface);
     SDL_DestroyTexture(message);
     TTF_CloseFont(font);
+    SDL_FreeSurface(inputSurface);
+    SDL_DestroyTexture(inputTexture);
 
     // Is this even needed?
     // Apparently it is! Failing to do so leads to
@@ -119,6 +121,9 @@ Game::~Game()
     renderer = nullptr;
     textSurface = nullptr;
     message = nullptr;
+    inputTexture = nullptr;
+    inputSurface = nullptr;
+    font = nullptr;
 
     // Kill apps
     TTF_Quit();
@@ -132,7 +137,7 @@ Game::Game()
     //Start up SDL and create window
     if( !init() )
     {
-        printf( "Failed to initialize!\n" );
+        std::cout << "Failed to initialize SDL" << std::endl;
         exit(-1);
     }
 
@@ -173,6 +178,8 @@ Game::Game()
                     if (IsWithinStartButton(mouseX, mouseY))
                     {
                         isStartButtonClicked = true;
+                        isStartButtonHovered = false;
+                        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
                         break;
                     }
 
@@ -181,6 +188,8 @@ Game::Game()
                     if (isStartButtonClicked)
                     {
                         isStartButtonClicked = false;
+                        isStartButtonHovered = true;
+                        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
                         break;
                     }
             }
@@ -206,5 +215,4 @@ Game::Game()
         //Update screen
         SDL_RenderPresent(renderer);
     }
-
 }

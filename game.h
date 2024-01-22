@@ -20,6 +20,8 @@ private:
     SDL_Rect button;
     SDL_Rect messageRect;
     FILE *csvFile = nullptr;
+    SDL_Surface *inputSurface = nullptr;
+    SDL_Texture *inputTexture = nullptr;
 
 // Event Variables
 private:
