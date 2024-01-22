@@ -13,8 +13,8 @@ class Game {
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
-    SDL_Surface *textSurface = nullptr;
-    SDL_Texture *message = nullptr;
+    SDL_Surface *buttontextSurface = nullptr;
+    SDL_Texture *buttonTextTexture = nullptr;
     std::string textInput;
     TTF_Font *font;
     SDL_Rect button;

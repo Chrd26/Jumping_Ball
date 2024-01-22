@@ -65,10 +65,10 @@ void Game::StartButton(const int x, const int y)
         SDL_RenderFillRect(renderer, &button);
 
         SDL_Color textColor = {0, 0, 0};
-        textSurface = TTF_RenderText_Solid(font, "Start", textColor);
-        message = SDL_CreateTextureFromSurface(renderer, textSurface);
+        buttontextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+        buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttontextSurface);
         messageRect = {x, y,80, 80};
-        SDL_RenderCopy(renderer, message, nullptr, &messageRect);
+        SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
 
         return;
     }
@@ -78,10 +78,10 @@ void Game::StartButton(const int x, const int y)
     SDL_RenderDrawRect(renderer, &button);
     // Render Message
     SDL_Color textColor = {255, 255, 255};
-    textSurface = TTF_RenderText_Solid(font, "Start", textColor);
-    message = SDL_CreateTextureFromSurface(renderer, textSurface);
-    messageRect = {x, y,80, 80};
-    SDL_RenderCopy(renderer, message, nullptr, &messageRect);
+    buttontextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+    buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttontextSurface);
+    messageRect = {x, y, 80, 80};
+    SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
 
 }
 
@@ -106,8 +106,8 @@ Game::~Game()
     // Destroy Game Elements
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
-    SDL_FreeSurface(textSurface);
-    SDL_DestroyTexture(message);
+    SDL_FreeSurface(buttontextSurface);
+    SDL_DestroyTexture(buttonTextTexture);
     TTF_CloseFont(font);
     SDL_FreeSurface(inputSurface);
     SDL_DestroyTexture(inputTexture);
@@ -119,8 +119,8 @@ Game::~Game()
     // https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php
     window = nullptr;
     renderer = nullptr;
-    textSurface = nullptr;
-    message = nullptr;
+    buttontextSurface = nullptr;
+    buttonTextTexture = nullptr;
     inputTexture = nullptr;
     inputSurface = nullptr;
     font = nullptr;
@@ -211,6 +211,13 @@ Game::Game()
 
         circlePosition += 0.001f;
         StartButton(screenwidth * 0.25f, screenheight * 0.50f);
+
+        // Text box
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_Rect textBox = {static_cast<int>(screenwidth * 0.24f),
+                            static_cast<int>(screenheight * 0.3f),
+                             100, 50};
+        SDL_RenderDrawRect(renderer, &textBox);
 
         //Update screen
         SDL_RenderPresent(renderer);
