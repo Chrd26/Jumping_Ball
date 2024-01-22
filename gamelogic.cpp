@@ -45,17 +45,29 @@ bool Game::init()
 
 }
 
-void Game::StartButton(int x, int y)
+void Game::StartButton(const int x, const int y)
 {
     button = {x - 5, y + 5, 90, 75};
     SDL_RenderDrawRect(renderer, &button);
 
     message = SDL_CreateTextureFromSurface(renderer, textSurface);
     messageRect = {x, y,80, 80};
-    SDL_RenderCopy(renderer, message, NULL, &messageRect);
+    SDL_RenderCopy(renderer, message, nullptr, &messageRect);
 }
 
-void Game::DrawCircle( int radius, int x, int y)
+void Game::StartButtonHover(const int x, const int y)
+{
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
+    button = {x - 5, y + 5, 90, 75};
+    SDL_RenderFillRect(renderer, &button);
+
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+    message = SDL_CreateTextureFromSurface(renderer, textSurface);
+    messageRect = {x, y,80, 80};
+    SDL_RenderCopy(renderer, message, nullptr, &messageRect);
+}
+
+void Game::DrawCircle(const int radius, const int x, const int y)
 {
     double currentDegree = 0.0f;
     while (currentDegree < 360)
@@ -119,10 +131,26 @@ Game::Game()
         //Handle events on queue
         while( SDL_PollEvent( &currentEvent ) != 0 )
         {
-            //User requests quit
-            if( currentEvent.type == SDL_QUIT )
+            switch (currentEvent.type)
             {
-                quit = true;
+                case SDL_QUIT:
+                    quit = true;
+                    break;
+
+                case SDL_MOUSEMOTION:
+                    SDL_GetMouseState(&mouseX, &mouseY);
+
+                    if (mouseX >= static_cast<int>((float)screenwidth * 0.25f) && mouseX <= screenwidth * 0.25 + 90)
+                    {
+                        if (mouseY >= static_cast<int>((float) screenheight * 0.50f) && mouseY <= screenheight * 0.50 + 75)
+                        {
+                            isStartButtonHovered = true;
+                        }
+                        break;
+                    }
+
+                    isStartButtonHovered = false;
+                    break;
             }
         }
 
@@ -142,6 +170,13 @@ Game::Game()
 
         circlePosition += 0.001f;
         StartButton(screenwidth * 0.25f, screenheight * 0.50f);
+
+        if (isStartButtonHovered)
+        {
+            std::cout << "Hovered" << std::endl;
+        }
+
+
         //Update screen
         SDL_RenderPresent( renderer);
     }

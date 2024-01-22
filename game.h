@@ -20,6 +20,11 @@ private:
     SDL_Rect button;
     SDL_Rect messageRect;
 
+// Event Variables
+private:
+    int mouseX, mouseY;
+    bool isStartButtonHovered = false;
+
 public:
     Game();
 
@@ -29,4 +34,5 @@ private:
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
+    void StartButtonHover(int x, int y);
 };
