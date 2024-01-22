@@ -22,6 +22,8 @@ private:
     FILE *csvFile = nullptr;
     SDL_Surface *inputSurface = nullptr;
     SDL_Texture *inputTexture = nullptr;
+    SDL_Surface *instructionsSurface = nullptr;
+    SDL_Texture *instructionsTexture = nullptr;
 
 // Event Variables
 private:

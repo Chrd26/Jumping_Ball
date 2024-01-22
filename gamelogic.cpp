@@ -111,6 +111,8 @@ Game::~Game()
     TTF_CloseFont(font);
     SDL_FreeSurface(inputSurface);
     SDL_DestroyTexture(inputTexture);
+    SDL_FreeSurface(instructionsSurface);
+    SDL_DestroyTexture(instructionsTexture);
 
     // Is this even needed?
     // Apparently it is! Failing to do so leads to
@@ -123,6 +125,8 @@ Game::~Game()
     buttonTextTexture = nullptr;
     inputTexture = nullptr;
     inputSurface = nullptr;
+    instructionsSurface = nullptr;
+    instructionsTexture = nullptr;
     font = nullptr;
 
     // Kill apps
