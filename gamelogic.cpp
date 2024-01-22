@@ -101,7 +101,7 @@ void Game::DrawCircle(const int radius, const int x, const int y)
     // https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
 }
 
-void Game::ExitGame()
+Game::~Game()
 {
     // Destroy Game Elements
     SDL_DestroyWindow(window);
@@ -180,7 +180,6 @@ Game::Game()
 
                     if (isStartButtonClicked)
                     {
-                        std::cout << "Start Simulation" << std::endl;
                         isStartButtonClicked = false;
                         break;
                     }
@@ -204,19 +203,8 @@ Game::Game()
         circlePosition += 0.001f;
         StartButton(screenwidth * 0.25f, screenheight * 0.50f);
 
-        if (isStartButtonHovered)
-        {
-
-        }
-
-        if (isStartButtonClicked)
-        {
-            //std::cout << "Clicked" << std::endl;
-        }
         //Update screen
         SDL_RenderPresent(renderer);
     }
 
-    //Free resources and close SDL
-    ExitGame();
 }

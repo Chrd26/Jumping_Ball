@@ -19,6 +19,7 @@ private:
     TTF_Font *font;
     SDL_Rect button;
     SDL_Rect messageRect;
+    FILE *csvFile = nullptr;
 
 // Event Variables
 private:
@@ -28,10 +29,10 @@ private:
 
 public:
     Game();
+    ~Game();
 
 private:
     static void RunCalculations(const char *command);
-    void ExitGame();
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
