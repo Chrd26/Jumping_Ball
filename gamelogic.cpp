@@ -45,6 +45,19 @@ bool Game::init()
 
 }
 
+bool Game::IsWithinStartButton(int x, int y)
+{
+    if (x >= static_cast<int>((float)screenwidth * 0.25f) && x <= screenwidth * 0.25 + 90)
+    {
+        if (y >= static_cast<int>((float) screenheight * 0.50f) && y <= screenheight * 0.50 + 75)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Game::StartButton(const int x, const int y)
 {
     button = {x - 5, y + 5, 90, 75};
@@ -140,17 +153,32 @@ Game::Game()
                 case SDL_MOUSEMOTION:
                     SDL_GetMouseState(&mouseX, &mouseY);
 
-                    if (mouseX >= static_cast<int>((float)screenwidth * 0.25f) && mouseX <= screenwidth * 0.25 + 90)
+                    if (IsWithinStartButton(mouseX, mouseY))
                     {
-                        if (mouseY >= static_cast<int>((float) screenheight * 0.50f) && mouseY <= screenheight * 0.50 + 75)
-                        {
-                            isStartButtonHovered = true;
-                        }
+                        isStartButtonHovered = true;
                         break;
                     }
 
                     isStartButtonHovered = false;
                     break;
+
+                case SDL_MOUSEBUTTONDOWN:
+                    SDL_GetMouseState(&mouseX, &mouseY);
+
+                    if (IsWithinStartButton(mouseX, mouseY))
+                    {
+                        isStartButtonClicked = true;
+                        break;
+                    }
+
+                case SDL_MOUSEBUTTONUP:
+
+                    if (isStartButtonClicked)
+                    {
+                        std::cout << "Start Simulation" << std::endl;
+                        isStartButtonClicked = false;
+                        break;
+                    }
             }
         }
 
@@ -173,12 +201,15 @@ Game::Game()
 
         if (isStartButtonHovered)
         {
-            std::cout << "Hovered" << std::endl;
+            //std::cout << "Hovered" << std::endl;
         }
 
-
+        if (isStartButtonClicked)
+        {
+            //std::cout << "Clicked" << std::endl;
+        }
         //Update screen
-        SDL_RenderPresent( renderer);
+        SDL_RenderPresent(renderer);
     }
 
     //Free resources and close SDL

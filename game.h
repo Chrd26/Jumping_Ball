@@ -24,6 +24,7 @@ private:
 private:
     int mouseX, mouseY;
     bool isStartButtonHovered = false;
+    bool isStartButtonClicked = false;
 
 public:
     Game();
@@ -35,4 +36,5 @@ private:
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
     void StartButtonHover(int x, int y);
+    bool IsWithinStartButton(int x, int y);
 };
