@@ -13,7 +13,7 @@ class Game {
 private:
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
-    SDL_Surface *buttontextSurface = nullptr;
+    SDL_Surface *buttonTextSurface = nullptr;
     SDL_Texture *buttonTextTexture = nullptr;
     std::string textInput;
     TTF_Font *font;
@@ -24,6 +24,7 @@ private:
     SDL_Texture *inputTexture = nullptr;
     SDL_Surface *instructionsSurface = nullptr;
     SDL_Texture *instructionsTexture = nullptr;
+    SDL_Rect instructionsHolder;
 
 // Event Variables
 private:
@@ -35,10 +36,12 @@ public:
     Game();
     ~Game();
 
+    // Functions
 private:
     static void RunCalculations(const char *command);
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
+    void InstructionText(int x, int y);
     bool IsWithinStartButton(int x, int y);
 };

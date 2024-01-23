@@ -55,6 +55,18 @@ bool Game::IsWithinStartButton(int x, int y)
     return false;
 }
 
+void Game::InstructionText(int x, int y)
+{
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
+    SDL_Color instructionsTextColor = {255, 255, 255};
+    instructionsSurface = TTF_RenderText_Solid(font,
+                                               "Type the initial velocity of the ball",
+                                               instructionsTextColor);
+    instructionsTexture = SDL_CreateTextureFromSurface(renderer, instructionsSurface);
+    instructionsHolder = {x, y, 500, 50};
+    SDL_RenderCopy(renderer, instructionsTexture, nullptr, &instructionsHolder);
+}
+
 void Game::StartButton(const int x, const int y)
 {
     if (isStartButtonHovered)
@@ -63,23 +75,20 @@ void Game::StartButton(const int x, const int y)
         SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
         button = {x - 5, y + 5, 90, 75};
         SDL_RenderFillRect(renderer, &button);
-
         SDL_Color textColor = {0, 0, 0};
-        buttontextSurface = TTF_RenderText_Solid(font, "Start", textColor);
-        buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttontextSurface);
+        buttonTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+        buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
         messageRect = {x, y,80, 80};
         SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
 
         return;
     }
 
-    // Button
     button = {x - 5, y + 5, 90, 75};
     SDL_RenderDrawRect(renderer, &button);
-    // Render Message
     SDL_Color textColor = {255, 255, 255};
-    buttontextSurface = TTF_RenderText_Solid(font, "Start", textColor);
-    buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttontextSurface);
+    buttonTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+    buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
     messageRect = {x, y, 80, 80};
     SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
 
@@ -106,7 +115,7 @@ Game::~Game()
     // Destroy Game Elements
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
-    SDL_FreeSurface(buttontextSurface);
+    SDL_FreeSurface(buttonTextSurface);
     SDL_DestroyTexture(buttonTextTexture);
     TTF_CloseFont(font);
     SDL_FreeSurface(inputSurface);
@@ -121,7 +130,7 @@ Game::~Game()
     // https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php
     window = nullptr;
     renderer = nullptr;
-    buttontextSurface = nullptr;
+    buttonTextSurface = nullptr;
     buttonTextTexture = nullptr;
     inputTexture = nullptr;
     inputSurface = nullptr;
@@ -138,6 +147,7 @@ Game::Game()
 {
     int ballRadius = 50;
     float circlePosition = 1.0f;
+
     //Start up SDL and create window
     if( !init() )
     {
@@ -222,6 +232,10 @@ Game::Game()
                             static_cast<int>(screenheight * 0.3f),
                              100, 50};
         SDL_RenderDrawRect(renderer, &textBox);
+
+        // Instructions Text
+        InstructionText(screenwidth * 0.08f, screenheight * 0.15f);
+
 
         //Update screen
         SDL_RenderPresent(renderer);
