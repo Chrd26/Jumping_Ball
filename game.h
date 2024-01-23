@@ -21,10 +21,14 @@ private:
     FILE *csvFile = nullptr;
     SDL_Surface *inputSurface = nullptr;
     SDL_Texture *inputTexture = nullptr;
+    SDL_Rect textBoxRect;
     SDL_Rect textBox;
-    SDL_Surface *instructionsSurface = nullptr;
-    SDL_Texture *instructionsTexture = nullptr;
-    SDL_Rect instructionsHolder;
+    SDL_Surface *instructionsSurface1 = nullptr;
+    SDL_Surface *instructionsSurface2 = nullptr;
+    SDL_Texture *instructionsTexture1 = nullptr;
+    SDL_Texture *instructionsTexture2 = nullptr;
+    SDL_Rect instructionsHolder1;
+    SDL_Rect instructionsHolder2;
 
 // Event Variables
 private:
@@ -44,7 +48,7 @@ private:
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y);
-    void InstructionText(int x, int y);
+    void InstructionsText(int x, int y);
     void InputValues(int x , int y);
     static bool IsWithinStartButton(int x, int y);
     static bool EnableText(int getMouseX, int getMouseY);

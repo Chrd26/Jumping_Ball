@@ -38,6 +38,11 @@ bool Game::init()
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    if (renderer == nullptr)
+    {
+        std::cout << "Failed to initialise renderer" << std::endl;
+    }
     return true;
 
 }
@@ -55,25 +60,40 @@ bool Game::IsWithinStartButton(int x, int y)
     return false;
 }
 
+// Always assign the width and height of the text's surface to the
+// rectangle that holds the text, and then destroy the surface as it's not needed.
+// This will make sure that it will not stretch or shrink the text in any way.
+//Source:
+// https://stackoverflow.com/questions/68261748/my-sdl-ttf-rendered-text-ends-up-streched-how-do-i-avoid-that
+
 void Game::InputValues(const int x, const int y)
 {
-    textInput = inputString.c_str();
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    textBox = {x, y, 105, 50};
-    SDL_RenderDrawRect(renderer, &textBox);
+    textBoxRect = {x, y, 105, 25};
+    SDL_RenderDrawRect(renderer, &textBoxRect);
+    textInput = inputString.c_str();
     SDL_Color inputTextColor = {0xFF, 0xFF, 0xFF, 0xFF};
     inputSurface = TTF_RenderText_Solid(font,
                                         textInput,
                                         inputTextColor);
+    if (inputSurface != nullptr)
+    {
+        textBox = {x,y, inputSurface->w, inputSurface->h};
+    }else
+    {
+        textBox = {x, y, 0, 0};
+    }
+
     inputTexture = SDL_CreateTextureFromSurface(renderer, inputSurface);
     SDL_RenderCopy(renderer, inputTexture, nullptr, &textBox);
+    SDL_FreeSurface(inputSurface);
 }
 
 bool Game::EnableText(int getMouseX, int getMouseY)
 {
     if (getMouseX >= static_cast<int>(screenwidth * 0.24f) && getMouseX <=  static_cast<int>(screenwidth * 0.24f) + 105)
     {
-        if (getMouseY >= static_cast<int>(screenheight * 0.3f) && getMouseY <= static_cast<int>(screenheight * 0.3f) + 50)
+        if (getMouseY >= static_cast<int>(screenheight * 0.45f) && getMouseY <= static_cast<int>(screenheight * 0.45f) + 50)
         {
             return true;
         }
@@ -82,43 +102,65 @@ bool Game::EnableText(int getMouseX, int getMouseY)
     return false;
 }
 
-void Game::InstructionText(const int x, const int y)
+void Game::InstructionsText(const int x, const int y)
 {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
-    instructionsHolder = {x, y, 500, 50};
     SDL_Color instructionsTextColor = {0xFF, 0xFF, 0xFF, 0xFF};
-    instructionsSurface = TTF_RenderText_Solid(font,
-                                               "Type the initial velocity of the ball",
+    instructionsSurface1 = TTF_RenderText_Solid(font,
+                                               "Click on the box below, and type the initial velocity.",
                                                instructionsTextColor);
-    instructionsTexture = SDL_CreateTextureFromSurface(renderer, instructionsSurface);
-    SDL_RenderCopy(renderer, instructionsTexture, nullptr, &instructionsHolder);
+    instructionsHolder1 = {x, y,
+                          instructionsSurface1->w,
+                          instructionsSurface1->h};
+    instructionsTexture1 = SDL_CreateTextureFromSurface(renderer, instructionsSurface1);
+    SDL_RenderCopy(renderer, instructionsTexture1, nullptr, &instructionsHolder1);
+
+    instructionsSurface2 = TTF_RenderText_Solid(font,
+                                                "Press start when ready.",
+                                                instructionsTextColor);
+    instructionsHolder2 = {x + 120, y + 20,
+                           instructionsSurface2->w,
+                           instructionsSurface2->h};
+    instructionsTexture2 = SDL_CreateTextureFromSurface(renderer, instructionsSurface2);
+    SDL_RenderCopy(renderer, instructionsTexture2, nullptr, &instructionsHolder2);
+
+
+    SDL_FreeSurface(instructionsSurface1);
+    SDL_FreeSurface(instructionsSurface2);
+    instructionsSurface1 = nullptr;
+    instructionsSurface2 = nullptr;
 }
 
 void Game::StartButton(const int x, const int y)
 {
+    TTF_Font *buttonFont = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 35);
     if (isStartButtonHovered)
     {
-
+        button = {x - 5, y + 3, 90, 50};
         SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
-        messageRect = {x, y,80, 80};
-        button = {x - 5, y + 5, 90, 75};
         SDL_RenderFillRect(renderer, &button);
         SDL_Color textColor = {0, 0, 0};
-        buttonTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+        buttonTextSurface = TTF_RenderText_Solid(buttonFont, "Start", textColor);
+        messageRect = {x, y, buttonTextSurface->w, buttonTextSurface->h};
         buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
         SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
+        SDL_FreeSurface(buttonTextSurface);
+        buttonTextSurface = nullptr;
 
         return;
     }
 
-    button = {x - 5, y + 5, 90, 75};
+    button = {x - 5, y + 3, 90, 50};
     SDL_RenderDrawRect(renderer, &button);
     SDL_Color textColor = {255, 255, 255};
-    buttonTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+    buttonTextSurface = TTF_RenderText_Solid(buttonFont, "Start", textColor);
     buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
-    messageRect = {x, y, 80, 80};
+    messageRect = {x, y, buttonTextSurface->w, buttonTextSurface->h};
     SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
+    SDL_FreeSurface(buttonTextSurface);
+    buttonTextSurface = nullptr;
 
+    TTF_CloseFont(buttonFont);
 }
 
 void Game::DrawCircle(const int radius, const int x, const int y)
@@ -142,13 +184,10 @@ Game::~Game()
     // Destroy Game Elements
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
-    SDL_FreeSurface(buttonTextSurface);
     SDL_DestroyTexture(buttonTextTexture);
     TTF_CloseFont(font);
-    SDL_FreeSurface(inputSurface);
     SDL_DestroyTexture(inputTexture);
-    SDL_FreeSurface(instructionsSurface);
-    SDL_DestroyTexture(instructionsTexture);
+    SDL_DestroyTexture(instructionsTexture1);
 
     // Is this even needed?
     // Apparently it is! Failing to do so leads to
@@ -157,12 +196,9 @@ Game::~Game()
     // https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php
     window = nullptr;
     renderer = nullptr;
-    buttonTextSurface = nullptr;
     buttonTextTexture = nullptr;
     inputTexture = nullptr;
-    inputSurface = nullptr;
-    instructionsSurface = nullptr;
-    instructionsTexture = nullptr;
+    instructionsTexture1 = nullptr;
     font = nullptr;
 
     // Kill apps
@@ -271,10 +307,10 @@ Game::Game()
 
         // Input Box
         InputValues(static_cast<int>(screenwidth * 0.24f),
-                    static_cast<int>(screenheight * 0.3f));
+                    static_cast<int>(screenheight * 0.45f));
 
         // Instructions Text
-        InstructionText(screenwidth * 0.08f, screenheight * 0.15f);
+        InstructionsText(screenwidth * 0.09f, screenheight * 0.35f);
 
         //Update screen
         SDL_RenderPresent(renderer);
