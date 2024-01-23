@@ -1,19 +1,54 @@
 #include "game.h"
 
-void Game::RunCalculations(const char *command)
+void Game::RunCalculations(std::string value)
 {
-    int code = system(command);
+    std::fstream fin;
+    int systemCode = std::system("test -f ../jumpcalculations/app/output/calculations.csv");
 
-    if (code != 0)
+    if (systemCode == 0)
+    {
+        std::system("cd ../jumpcalculations/app/output && rm calculations.csv");
+    }
+
+    std::string createCommand = "cd ../jumpcalculations && fpm run -- " + value;
+    std::cout << createCommand << std::endl;
+
+    systemCode = system(createCommand.c_str());
+
+    if (systemCode != 0)
     {
         std::cout << "Failed to run calculations" << std::endl;
         exit(-3);
     }
+
+    SDL_Delay(100);
+
+    // Open CSV file
+    fin.open("../jumpcalculations/app/output/calculations.csv", std::ios::in);
+
+    std::vector<std::string> csvOutput;
+    std::string line, word, temp;
+
+    while (fin >> temp)
+    {
+        csvOutput.clear();
+        getline(fin, line);
+        std::stringstream s(line);
+
+        while(getline(s, word, ','))
+        {
+            csvOutput.push_back(word);
+            std::cout << csvOutput[0] << std::endl;
+            std::cin.get();
+        }
+    }
+
+
+    hasStarted = true;
 }
 
 bool Game::init()
 {
-    // Note, I had some issues due to the surface
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0 || TTF_Init() < 0)
     {
         std::cout << "Failed to initialise SDL " << SDL_GetError() << std::endl;
@@ -130,7 +165,7 @@ void Game::InstructionsText(const int x, const int y)
     instructionsSurface2 = nullptr;
 }
 
-void Game::StartButton(const int x, const int y)
+void Game::StartButton(const int x, const int y, std::string buttonName)
 {
     TTF_Font *buttonFont = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 35);
     if (isStartButtonHovered)
@@ -139,7 +174,7 @@ void Game::StartButton(const int x, const int y)
         SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
         SDL_RenderFillRect(renderer, &button);
         SDL_Color textColor = {0, 0, 0};
-        buttonTextSurface = TTF_RenderText_Solid(buttonFont, "Start", textColor);
+        buttonTextSurface = TTF_RenderText_Solid(buttonFont, buttonName.c_str(), textColor);
         messageRect = {x, y, buttonTextSurface->w, buttonTextSurface->h};
         buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
         SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
@@ -152,7 +187,7 @@ void Game::StartButton(const int x, const int y)
     button = {x - 5, y + 3, 90, 50};
     SDL_RenderDrawRect(renderer, &button);
     SDL_Color textColor = {255, 255, 255};
-    buttonTextSurface = TTF_RenderText_Solid(buttonFont, "Start", textColor);
+    buttonTextSurface = TTF_RenderText_Solid(buttonFont, buttonName.c_str(), textColor);
     buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
     messageRect = {x, y, buttonTextSurface->w, buttonTextSurface->h};
     SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
@@ -217,7 +252,6 @@ Game::Game()
         exit(-1);
     }
 
-
     //Main loop flag
     bool quit = false;
 
@@ -260,7 +294,14 @@ Game::Game()
                     {
                         isStartButtonClicked = true;
                         isStartButtonHovered = false;
-                        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
+
+                        if (hasStarted)
+                        {
+                            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
+                            break;
+                        }
+
+                        StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Start");
                         break;
                     }
 
@@ -273,11 +314,25 @@ Game::Game()
                     SDL_StopTextInput();
 
                 case SDL_MOUSEBUTTONUP:
+
                     if (isStartButtonClicked)
                     {
                         isStartButtonClicked = false;
                         isStartButtonHovered = true;
-                        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
+
+                        if (hasStarted)
+                        {
+                            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
+                            break;
+                        }
+
+                        if (inputString.empty())
+                        {
+                            break;
+                        }
+
+                        StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
+                        RunCalculations(inputString);
                         break;
                     }
 
@@ -328,8 +383,13 @@ Game::Game()
         DrawCircle(ballRadius,screenwidth * 0.75f,
                    screenheight - (float)ballRadius * circlePosition);
 
-        circlePosition += 0.001f;
-        StartButton(screenwidth * 0.25f, screenheight * 0.50f);
+        if (hasStarted)
+        {
+            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
+        }else
+        {
+            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Start");
+        }
 
         // Input Box
         InputValues(static_cast<int>(screenwidth * 0.24f),

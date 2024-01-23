@@ -2,8 +2,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <cmath>
+#include <fstream>
+#include <sstream>
 
 #define screenheight 720
 #define screenwidth 1280
@@ -18,7 +20,6 @@ private:
     TTF_Font *font;
     SDL_Rect button;
     SDL_Rect messageRect;
-    FILE *csvFile = nullptr;
     SDL_Surface *inputSurface = nullptr;
     SDL_Texture *inputTexture = nullptr;
     SDL_Rect textBoxRect;
@@ -38,6 +39,10 @@ private:
     bool isStartButtonClicked = false;
     std::string inputString;
     const char* textInput;
+    int maxHeight = 0.0f;
+    float timeToLand = 0.0f;
+    float timeToReachMaxHeight = 0.0f;
+    bool hasStarted = false;
 
 public:
     Game();
@@ -45,10 +50,10 @@ public:
 
     // Functions
 private:
-    static void RunCalculations(const char *command);
+    void RunCalculations(std::string value);
     bool init();
     void DrawCircle(int radius, int x , int y);
-    void StartButton(int x , int y);
+    void StartButton(int x , int y, std::string buttonName);
     void InstructionsText(int x, int y);
     void InputValues(int x , int y);
     static bool IsWithinStartButton(int x, int y);
