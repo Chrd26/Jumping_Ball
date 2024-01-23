@@ -55,15 +55,42 @@ bool Game::IsWithinStartButton(int x, int y)
     return false;
 }
 
-void Game::InstructionText(int x, int y)
+void Game::InputValues(const int x, const int y)
+{
+    textInput = inputString.c_str();
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    textBox = {x, y, 105, 50};
+    SDL_RenderDrawRect(renderer, &textBox);
+    SDL_Color inputTextColor = {0xFF, 0xFF, 0xFF, 0xFF};
+    inputSurface = TTF_RenderText_Solid(font,
+                                        textInput,
+                                        inputTextColor);
+    inputTexture = SDL_CreateTextureFromSurface(renderer, inputSurface);
+    SDL_RenderCopy(renderer, inputTexture, nullptr, &textBox);
+}
+
+bool Game::EnableText(int getMouseX, int getMouseY)
+{
+    if (getMouseX >= static_cast<int>(screenwidth * 0.24f) && getMouseX <=  static_cast<int>(screenwidth * 0.24f) + 105)
+    {
+        if (getMouseY >= static_cast<int>(screenheight * 0.3f) && getMouseY <= static_cast<int>(screenheight * 0.3f) + 50)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Game::InstructionText(const int x, const int y)
 {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
-    SDL_Color instructionsTextColor = {255, 255, 255};
+    instructionsHolder = {x, y, 500, 50};
+    SDL_Color instructionsTextColor = {0xFF, 0xFF, 0xFF, 0xFF};
     instructionsSurface = TTF_RenderText_Solid(font,
                                                "Type the initial velocity of the ball",
                                                instructionsTextColor);
     instructionsTexture = SDL_CreateTextureFromSurface(renderer, instructionsSurface);
-    instructionsHolder = {x, y, 500, 50};
     SDL_RenderCopy(renderer, instructionsTexture, nullptr, &instructionsHolder);
 }
 
@@ -73,12 +100,12 @@ void Game::StartButton(const int x, const int y)
     {
 
         SDL_SetRenderDrawColor(renderer, 0xFF, 0x0FF, 0x0FF, 0xFF);
+        messageRect = {x, y,80, 80};
         button = {x - 5, y + 5, 90, 75};
         SDL_RenderFillRect(renderer, &button);
         SDL_Color textColor = {0, 0, 0};
         buttonTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
         buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
-        messageRect = {x, y,80, 80};
         SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
 
         return;
@@ -96,6 +123,10 @@ void Game::StartButton(const int x, const int y)
 
 void Game::DrawCircle(const int radius, const int x, const int y)
 {
+    // Special thanks to the following thread for the info
+    // to calculate the circle:
+    // https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
+
     double currentDegree = 0.0f;
     while (currentDegree < 360)
     {
@@ -104,10 +135,6 @@ void Game::DrawCircle(const int radius, const int x, const int y)
                             static_cast<int>(radius*sin(currentDegree) + (double)y));
         currentDegree += 1.5f;
     }
-
-    // Special thanks to the following thread for the info
-    // to calculate the circle:
-    // https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
 }
 
 Game::~Game()
@@ -197,14 +224,30 @@ Game::Game()
                         break;
                     }
 
-                case SDL_MOUSEBUTTONUP:
+                    if (EnableText(mouseX, mouseY))
+                    {
+                        SDL_StartTextInput();
+                        break;
+                    }
 
+                    SDL_StopTextInput();
+
+                case SDL_MOUSEBUTTONUP:
                     if (isStartButtonClicked)
                     {
                         isStartButtonClicked = false;
                         isStartButtonHovered = true;
                         StartButton(screenwidth * 0.25f, screenheight * 0.50f);
                         break;
+                    }
+
+                case SDL_TEXTINPUT:
+                    inputString += currentEvent.edit.text;
+
+                case SDL_KEYDOWN:
+                    if (currentEvent.key.keysym.sym == SDLK_BACKSPACE || currentEvent.key.keysym.sym == SDLK_DELETE)
+                    {
+                        inputString.pop_back();
                     }
             }
         }
@@ -226,16 +269,12 @@ Game::Game()
         circlePosition += 0.001f;
         StartButton(screenwidth * 0.25f, screenheight * 0.50f);
 
-        // Text box
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_Rect textBox = {static_cast<int>(screenwidth * 0.24f),
-                            static_cast<int>(screenheight * 0.3f),
-                             100, 50};
-        SDL_RenderDrawRect(renderer, &textBox);
+        // Input Box
+        InputValues(static_cast<int>(screenwidth * 0.24f),
+                    static_cast<int>(screenheight * 0.3f));
 
         // Instructions Text
         InstructionText(screenwidth * 0.08f, screenheight * 0.15f);
-
 
         //Update screen
         SDL_RenderPresent(renderer);
