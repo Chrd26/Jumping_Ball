@@ -31,6 +31,7 @@ private:
     SDL_Rect instructionsHolder1;
     SDL_Rect instructionsHolder2;
     char* inputChar;
+    std::ifstream openCSV;
 
 // Event Variables
 private:

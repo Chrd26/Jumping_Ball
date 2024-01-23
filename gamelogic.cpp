@@ -24,25 +24,22 @@ void Game::RunCalculations(std::string value)
     SDL_Delay(100);
 
     // Open CSV file
-    fin.open("../jumpcalculations/app/output/calculations.csv", std::ios::in);
+    openCSV.open("../jumpcalculations/app/output/calculations.csv");
 
     std::vector<std::string> csvOutput;
-    std::string line, word, temp;
+    std::string line;
 
-    while (fin >> temp)
+    while (getline(openCSV, line))
     {
-        csvOutput.clear();
-        getline(fin, line);
-        std::stringstream s(line);
-
-        while(getline(s, word, ','))
-        {
-            csvOutput.push_back(word);
-            std::cout << csvOutput[0] << std::endl;
-            std::cin.get();
-        }
+        csvOutput.push_back(line);
     }
 
+    size_t vectorSize = csvOutput.size();
+
+    for (size_t i = 0; i < vectorSize; i++)
+    {
+        std::cout << csvOutput[i] << std::endl;
+    }
 
     hasStarted = true;
 }

@@ -2,6 +2,7 @@ program main
     use mainfunctions
     ! import csv_module from here: https://github.com/jacobwilliams/csv-fortran
     use csv_module
+    use iso_fortran_env, only: wp => real64
     implicit none
 
     character(100) :: inputvalue
@@ -28,18 +29,21 @@ program main
     ! Open csv file
     call f%open("./app/output/calculations.csv", n_cols = 4, status_ok = status_ok)
 
-    ! Add headers and move pointer to the next row
-    call f%add(["a", "b", "c", "e"])
-    call f%next_row()
-
     maxheight = calculateheight(initialvelocity)
     tmaximumheight = timetoreachheight(initialvelocity)
     tland = timetoland(maxheight)
 
-    ! Add data to the csv file
-    call f%add([maxheight, tmaximumheight, tland], real_fmt='(F5.2)')
-    call f%add(.true.)
+    print *, maxheight
+    print *, tmaximumheight
+    print *, tland
+
+    ! Add headers and move pointer to the next row
+    call f%add(["a", "b", "c", "t"])
     call f%next_row()
+
+    ! Add data to the csv file
+    call f%add([maxheight, tmaximumheight, tland], real_fmt='(F5.1)')
+    call f%add(.true.)
 
     ! Close
     call f%close(status_ok)
