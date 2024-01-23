@@ -29,6 +29,7 @@ private:
     SDL_Texture *instructionsTexture2 = nullptr;
     SDL_Rect instructionsHolder1;
     SDL_Rect instructionsHolder2;
+    char* inputChar;
 
 // Event Variables
 private:

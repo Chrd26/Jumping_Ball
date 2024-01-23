@@ -116,14 +116,13 @@ void Game::InstructionsText(const int x, const int y)
     SDL_RenderCopy(renderer, instructionsTexture1, nullptr, &instructionsHolder1);
 
     instructionsSurface2 = TTF_RenderText_Solid(font,
-                                                "Press start when ready.",
+                                                "Only integers are accepted. Press start when ready.",
                                                 instructionsTextColor);
-    instructionsHolder2 = {x + 120, y + 20,
+    instructionsHolder2 = {x, y + 20,
                            instructionsSurface2->w,
                            instructionsSurface2->h};
     instructionsTexture2 = SDL_CreateTextureFromSurface(renderer, instructionsSurface2);
     SDL_RenderCopy(renderer, instructionsTexture2, nullptr, &instructionsHolder2);
-
 
     SDL_FreeSurface(instructionsSurface1);
     SDL_FreeSurface(instructionsSurface2);
@@ -231,6 +230,11 @@ Game::Game()
         //Handle events on queue
         while( SDL_PollEvent( &currentEvent ) != 0 )
         {
+            // Avoid declaring variables in switch cases as
+            // other cases might use the declared variables.
+            // a switch cases is not a scope
+            // Read more:
+            // https://stackoverflow.com/questions/5685471/error-jump-to-case-label-in-switch-statement
             switch (currentEvent.type)
             {
                 case SDL_QUIT:
@@ -278,12 +282,34 @@ Game::Game()
                     }
 
                 case SDL_TEXTINPUT:
+                    if (inputString.length() > 2)
+                    {
+                        break;
+                    }
+
+                    inputChar = currentEvent.edit.text;
+                    if (atoi(inputChar) == 0)
+                    {
+                        break;
+                    }
+
                     inputString += currentEvent.edit.text;
 
+                    if (inputChar == nullptr)
+                    {
+                        inputChar = nullptr;
+                        break;
+                    }
                 case SDL_KEYDOWN:
                     if (currentEvent.key.keysym.sym == SDLK_BACKSPACE || currentEvent.key.keysym.sym == SDLK_DELETE)
                     {
+                        if (inputString.empty())
+                        {
+                            break;
+                        }
+
                         inputString.pop_back();
+                        break;
                     }
             }
         }
