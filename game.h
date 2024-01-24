@@ -52,7 +52,7 @@ public:
 
     // Functions
 private:
-    void RunCalculations(std::string value);
+    void RunCalculations(std::string &value);
     bool init();
     void DrawCircle(int radius, int x , int y);
     void StartButton(int x , int y, std::string buttonName);

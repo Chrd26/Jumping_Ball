@@ -1,6 +1,6 @@
 #include "game.h"
 
-void Game::RunCalculations(std::string value)
+void Game::RunCalculations(std::string &value)
 {
     std::fstream fin;
     int systemCode = std::system("test -f ../jumpcalculations/app/output/calculations.csv");
@@ -11,8 +11,6 @@ void Game::RunCalculations(std::string value)
     }
 
     std::string createCommand = "cd ../jumpcalculations && fpm run -- " + value;
-    std::cout << createCommand << std::endl;
-
     systemCode = system(createCommand.c_str());
 
     if (systemCode != 0)
@@ -21,7 +19,7 @@ void Game::RunCalculations(std::string value)
         exit(-3);
     }
 
-    SDL_Delay(100);
+//    SDL_Delay(100);
 
     // Open CSV file
     openCSV.open("../jumpcalculations/app/output/calculations.csv");
@@ -36,9 +34,24 @@ void Game::RunCalculations(std::string value)
 
     size_t vectorSize = csvOutput.size();
 
-    for (size_t i = 0; i < vectorSize; i++)
+    for (size_t i = 4; i < vectorSize; i++)
     {
-        std::cout << csvOutput[i] << std::endl;
+        switch (i)
+        {
+            case 4:
+                maxHeight = std::stoi(csvOutput[i]);
+                break;
+
+            case 5:
+                timeToLand = std::stof(csvOutput[i]);
+                break;
+
+            case 6:
+                timeToReachMaxHeight = std::stof(csvOutput[i]);
+
+            default:
+                break;
+        }
     }
 
     hasStarted = true;
@@ -162,7 +175,7 @@ void Game::InstructionsText(const int x, const int y)
     instructionsSurface2 = nullptr;
 }
 
-void Game::StartButton(const int x, const int y, std::string buttonName)
+void Game::StartButton(const int x, const int y,const std::string buttonName)
 {
     TTF_Font *buttonFont = TTF_OpenFont("../fonts/Montserrat-VariableFont_wght.ttf", 35);
     if (isStartButtonHovered)
