@@ -340,18 +340,20 @@ Game::Game()
                     }
 
                     inputChar = currentEvent.edit.text;
-                    if (atoi(inputChar) == 0)
+
+                    if (inputChar.empty())
+                    {
+                        break;
+                    }
+
+                    if (std::stoi(inputChar) < 0)
                     {
                         break;
                     }
 
                     inputString += currentEvent.edit.text;
+                    inputChar.pop_back();
 
-                    if (inputChar == nullptr)
-                    {
-                        inputChar = nullptr;
-                        break;
-                    }
                 case SDL_KEYDOWN:
                     if (currentEvent.key.keysym.sym == SDLK_BACKSPACE || currentEvent.key.keysym.sym == SDLK_DELETE)
                     {
