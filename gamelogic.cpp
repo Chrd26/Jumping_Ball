@@ -240,7 +240,6 @@ Game::~Game()
 Game::Game()
 {
     int ballRadius = 50;
-    float circlePosition = 1.0f;
 
     //Start up SDL and create window
     if( !init() )
@@ -319,7 +318,9 @@ Game::Game()
 
                         if (hasStarted)
                         {
-                            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
+                            StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Start");
+                            circlePosition = 1.0f;
+                            hasStarted = false;
                             break;
                         }
 
@@ -346,7 +347,11 @@ Game::Game()
                         break;
                     }
 
-                    if (std::stoi(inputChar) < 0)
+                    try
+                    {
+                        int getInt = std::stoi(inputChar);
+                    }
+                    catch(std::invalid_argument)
                     {
                         break;
                     }
@@ -396,6 +401,11 @@ Game::Game()
 
         // Instructions Text
         InstructionsText(screenwidth * 0.09f, screenheight * 0.35f);
+
+        if (hasStarted)
+        {
+            circlePosition += 0.01f;
+        }
 
         //Update screen
         SDL_RenderPresent(renderer);

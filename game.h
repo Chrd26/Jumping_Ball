@@ -44,6 +44,7 @@ private:
     float timeToLand = 0.0f;
     float timeToReachMaxHeight = 0.0f;
     bool hasStarted = false;
+    float circlePosition = 1.0f;
 
 public:
     Game();
