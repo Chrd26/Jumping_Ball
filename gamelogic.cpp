@@ -27,32 +27,46 @@ void Game::RunCalculations(std::string &value)
     std::vector<std::string> csvOutput;
     std::string line;
 
-    while (getline(openCSV, line))
+    // Delimit by comma by adding the delimiter at the end of the
+    // argument list of getline.
+    int counter = 0;
+    while (getline(openCSV, line, '\n'))
     {
+        if (counter == 0)
+        {
+            counter++;
+            continue;
+        }
+
         csvOutput.push_back(line);
     }
 
-    size_t vectorSize = csvOutput.size();
+    std::vector<std::string> temp;
+    int pos = 0;
 
-    for (size_t i = 4; i < vectorSize; i++)
+    // Delimit to vector code by Dean R.
+    // Source: https://sentry.io/answers/split-string-in-cpp/
+    while (pos < csvOutput[0].size())
     {
-        switch (i)
-        {
-            case 4:
-                maxHeight = std::stoi(csvOutput[i]);
-                break;
-
-            case 5:
-                timeToLand = std::stof(csvOutput[i]);
-                break;
-
-            case 6:
-                timeToReachMaxHeight = std::stof(csvOutput[i]);
-
-            default:
-                break;
-        }
+        pos = int(csvOutput[0].find(','));
+        temp.push_back(csvOutput[0].substr(0, pos));
+        csvOutput[0].erase(0, pos+1);
     }
+
+    int tempSize = int(temp.size());
+
+    for (int i = 0; i < tempSize; i++)
+    {
+        std::cout << temp[i] << std::endl;
+    }
+
+    maxHeight = std::stof(temp[0]);
+    timeToReachMaxHeight = std::stof(temp[1]);
+    timeToLand = std::stof(temp[2]);
+
+    std::cout << "Max Height: " << maxHeight << std::endl;
+    std::cout << "Time to Land: " << timeToLand << std::endl;
+    std::cout << "Time to reach max height: " << timeToReachMaxHeight << std::endl;
 
     hasStarted = true;
 }

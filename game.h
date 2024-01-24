@@ -40,7 +40,7 @@ private:
     bool isStartButtonClicked = false;
     std::string inputString;
     const char* textInput;
-    int maxHeight = 0.0f;
+    float maxHeight = 0.0f;
     float timeToLand = 0.0f;
     float timeToReachMaxHeight = 0.0f;
     bool hasStarted = false;

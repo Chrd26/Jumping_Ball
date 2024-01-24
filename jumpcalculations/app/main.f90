@@ -33,9 +33,9 @@ program main
     tmaximumheight = timetoreachheight(initialvelocity)
     tland = timetoland(maxheight)
 
-    print *, maxheight
-    print *, tmaximumheight
-    print *, tland
+    !print *, maxheight
+    !print *, tmaximumheight
+    !print *, tland
 
     ! Add headers and move pointer to the next row
     call f%add(["a", "b", "c", "t"])
