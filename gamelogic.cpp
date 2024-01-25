@@ -22,7 +22,9 @@ void Game::RunCalculations(std::string &value)
 //    SDL_Delay(100);
 
     // Open CSV file
-    openCSV.open("../jumpcalculations/app/output/calculations.csv");
+    while (!openCSV.is_open()) {
+        openCSV.open("../jumpcalculations/app/output/calculations.csv");
+    }
 
     std::vector<std::string> csvOutput;
     std::string line;
