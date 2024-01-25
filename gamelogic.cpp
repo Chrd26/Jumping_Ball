@@ -68,12 +68,15 @@ void Game::RunCalculations(std::string &value)
     timeToReachMaxHeight = std::stof(temp[1]);
     timeToLand = std::stof(temp[2]);
     initialVel = std::stof(inputString);
+    slowdownRate = initialVel/maxHeight;
 
+    std::cout << "Slow down rate: " << slowdownRate << std::endl;
     std::cout << "Initial Velocity: " << initialVel << std::endl;
     std::cout << "Max Height: " << maxHeight << std::endl;
     std::cout << "Time to Land: " << timeToLand << std::endl;
     std::cout << "Time to reach max height: " << timeToReachMaxHeight << std::endl;
 
+    temp.clear();
     hasStarted = true;
 }
 
@@ -151,7 +154,12 @@ void Game::InputValues(const int x, const int y)
 
     inputTexture = SDL_CreateTextureFromSurface(renderer, inputSurface);
     SDL_RenderCopy(renderer, inputTexture, nullptr, &textBox);
+    // After rendering make sure to destroy everything
+    // that have been allocated to avoid memory leaks.
     SDL_FreeSurface(inputSurface);
+    SDL_DestroyTexture(inputTexture);
+    inputTexture = nullptr;
+    inputSurface = nullptr;
 }
 
 bool Game::EnableText(int getMouseX, int getMouseY)
@@ -163,7 +171,6 @@ bool Game::EnableText(int getMouseX, int getMouseY)
             return true;
         }
     }
-
     return false;
 }
 
@@ -191,6 +198,11 @@ void Game::InstructionsText(const int x, const int y)
 
     SDL_FreeSurface(instructionsSurface1);
     SDL_FreeSurface(instructionsSurface2);
+    SDL_DestroyTexture(instructionsTexture1);
+    SDL_DestroyTexture(instructionsTexture2);
+
+    instructionsTexture1 = nullptr;
+    instructionsTexture2 = nullptr;
     instructionsSurface1 = nullptr;
     instructionsSurface2 = nullptr;
 }
@@ -209,6 +221,8 @@ void Game::StartButton(const int x, const int y,const std::string buttonName)
         buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
         SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
         SDL_FreeSurface(buttonTextSurface);
+        SDL_DestroyTexture(buttonTextTexture);
+        buttonTextTexture = nullptr;
         buttonTextSurface = nullptr;
 
         return;
@@ -222,9 +236,11 @@ void Game::StartButton(const int x, const int y,const std::string buttonName)
     messageRect = {x, y, buttonTextSurface->w, buttonTextSurface->h};
     SDL_RenderCopy(renderer, buttonTextTexture, nullptr, &messageRect);
     SDL_FreeSurface(buttonTextSurface);
-    buttonTextSurface = nullptr;
-
+    SDL_DestroyTexture(buttonTextTexture);
     TTF_CloseFont(buttonFont);
+    buttonTextTexture = nullptr;
+    buttonTextSurface = nullptr;
+    buttonFont = nullptr;
 }
 
 void Game::DrawCircle(const int radius, const int x, const int y)
@@ -417,7 +433,6 @@ Game::Game()
                             screenwidth * 0.55f,
                             screenheight);
 
-
         if (hasStarted)
         {
             StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Stop");
@@ -433,7 +448,11 @@ Game::Game()
         // Instructions Text
         InstructionsText(screenwidth * 0.09f, screenheight * 0.35f);
 
+        performanceTicks  = SDL_GetTicks64()/1000;
+        std::cout << performanceTicks << std::endl;
+
         if (hasStarted) {
+
             if (currentHeight >= maxHeight)
             {
                 DrawCircle(ballRadius,
@@ -442,12 +461,10 @@ Game::Game()
             }else
             {
                 circlePosition += initialVel/maxHeight;
-                std::cout << "Position: " << circlePosition << std::endl;
                 DrawCircle(ballRadius,
                         screenwidth * 0.75f,
                         screenheight - (float)ballRadius * circlePosition);
                 currentHeight += timeToReachMaxHeight*initialVel;
-                std::cout << "Current Height " << currentHeight << std::endl;
             }
         }else
         {
