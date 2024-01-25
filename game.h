@@ -43,6 +43,8 @@ private:
     float maxHeight = 0.0f;
     float timeToLand = 0.0f;
     float timeToReachMaxHeight = 0.0f;
+    float initialVel = 0;
+    float currentHeight = 0;
     bool hasStarted = false;
     float circlePosition = 1.0f;
 

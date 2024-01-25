@@ -41,6 +41,8 @@ void Game::RunCalculations(std::string &value)
         csvOutput.push_back(line);
     }
 
+    openCSV.close();
+
     std::vector<std::string> temp;
     int pos = 0;
 
@@ -63,7 +65,9 @@ void Game::RunCalculations(std::string &value)
     maxHeight = std::stof(temp[0]);
     timeToReachMaxHeight = std::stof(temp[1]);
     timeToLand = std::stof(temp[2]);
+    initialVel = std::stof(inputString);
 
+    std::cout << "Initial Velocity: " << initialVel << std::endl;
     std::cout << "Max Height: " << maxHeight << std::endl;
     std::cout << "Time to Land: " << timeToLand << std::endl;
     std::cout << "Time to reach max height: " << timeToReachMaxHeight << std::endl;
@@ -411,8 +415,6 @@ Game::Game()
                             screenwidth * 0.55f,
                             screenheight);
 
-        DrawCircle(ballRadius,screenwidth * 0.75f,
-                   screenheight - (float)ballRadius * circlePosition);
 
         if (hasStarted)
         {
@@ -429,9 +431,27 @@ Game::Game()
         // Instructions Text
         InstructionsText(screenwidth * 0.09f, screenheight * 0.35f);
 
-        if (hasStarted)
+        if (hasStarted) {
+            if (currentHeight >= maxHeight)
+            {
+                DrawCircle(ballRadius,
+                           screenwidth * 0.75f,
+                           screenheight - (float)ballRadius * circlePosition);
+            }else
+            {
+                circlePosition += initialVel/maxHeight;
+                std::cout << "Position: " << circlePosition << std::endl;
+                DrawCircle(ballRadius,
+                        screenwidth * 0.75f,
+                        screenheight - (float)ballRadius * circlePosition);
+                currentHeight += timeToReachMaxHeight*initialVel;
+                std::cout << "Current Height " << currentHeight << std::endl;
+            }
+        }else
         {
-            circlePosition += 0.01f;
+            DrawCircle(ballRadius,
+                       screenwidth * 0.75f,
+                       screenheight - (float)ballRadius * circlePosition);
         }
 
         //Update screen
