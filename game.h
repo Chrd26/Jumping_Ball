@@ -45,13 +45,15 @@ private:
     float timeToReachMaxHeight = 0.0f;
     float initialVel = 0;
     float currentHeight = 0;
-    float slowdownRate = 0;
     bool hasStarted = false;
     float circlePosition = 1.0f;
 
-//    Counter
+//    clock
 private:
     double performanceTicks = 0;
+    double startingTick = 0;
+    double getTime = 0;
+    bool hasStartedCalculatingTime = false;
 
 public:
     Game();

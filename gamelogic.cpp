@@ -68,9 +68,7 @@ void Game::RunCalculations(std::string &value)
     timeToReachMaxHeight = std::stof(temp[1]);
     timeToLand = std::stof(temp[2]);
     initialVel = std::stof(inputString);
-    slowdownRate = initialVel/maxHeight;
 
-    std::cout << "Slow down rate: " << slowdownRate << std::endl;
     std::cout << "Initial Velocity: " << initialVel << std::endl;
     std::cout << "Max Height: " << maxHeight << std::endl;
     std::cout << "Time to Land: " << timeToLand << std::endl;
@@ -369,6 +367,7 @@ Game::Game()
                         {
                             StartButton(screenwidth * 0.25f, screenheight * 0.50f, "Start");
                             circlePosition = 1.0f;
+                            currentHeight = 0;
                             hasStarted = false;
                             break;
                         }
@@ -448,10 +447,16 @@ Game::Game()
         // Instructions Text
         InstructionsText(screenwidth * 0.09f, screenheight * 0.35f);
 
-        performanceTicks  = SDL_GetTicks64()/1000;
-        std::cout << performanceTicks << std::endl;
+        performanceTicks  = SDL_GetTicks64()/1000.0;
 
         if (hasStarted) {
+            if (!hasStartedCalculatingTime)
+            {
+                startingTick = SDL_GetTicks64() / 1000.0;
+                hasStartedCalculatingTime = true;
+            }
+
+            getTime = performanceTicks - startingTick;
 
             if (currentHeight >= maxHeight)
             {
@@ -464,7 +469,7 @@ Game::Game()
                 DrawCircle(ballRadius,
                         screenwidth * 0.75f,
                         screenheight - (float)ballRadius * circlePosition);
-                currentHeight += timeToReachMaxHeight*initialVel;
+                currentHeight += initialVel * getTime;
             }
         }else
         {
