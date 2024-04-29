@@ -9,10 +9,11 @@
 #define screenwidth 1280
 
 // Methods
-SDL_Window *mainWindow = NULL;
+SDL_Window *appWindow = NULL;
 SDL_Renderer *appRenderer = NULL;
 
 // Functions
 bool InitApp();
+void ExitApplication();
 
 

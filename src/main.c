@@ -27,7 +27,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-
+	
+	ExitApplication();
     return EXIT_SUCCESS;
 }
 

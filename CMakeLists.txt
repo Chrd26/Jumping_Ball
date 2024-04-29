@@ -46,7 +46,7 @@ find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 
 add_executable(	${PROJECT_NAME} ./src/main.c
-				./src/app.h ./src/app.c)
+				./src/app.h ./src/app.c )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

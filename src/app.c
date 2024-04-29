@@ -8,15 +8,30 @@ bool InitApp()
 		exit(EXIT_FAILURE);
 	}
 	
-	 int createWindow = SDL_CreateWindowAndRenderer(	"Jumping Ball", screenwidth,
-																										screenheight, SDL_WINDOW_MAXIMIZED,
-																										appRenderer);
+	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth,
+																				screenheight, SDL_WINDOW_MAXIMIZED);
+																				
+	if (appWindow == NULL)
+	{
+		printF("Failed to create window %s", SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	appRenderer = SDL_CreateRenderer(	appWindow, NULL, 0);
+	
+	if (appRenderer == NULL)
+	{
+		printf("Failed to create rendenrer %s", SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
 																										
-	SDL_DestroyRenderer(appRenderer);
-	SDL_DestroyWindow(mainWindow);		
-	mainWindow = NULL;
-	appRenderer = NULL;		
-																						
-	SDL_Quit();
 										
+}
+
+void ExitApplication()
+{
+	SDL_DestroyRenderer(appRenderer);
+	SDL_DestroyWindow(appWindow);		
+	mainWindow = NULL;
+	appRenderer = NULL;																							
+	SDL_Quit();
 }
