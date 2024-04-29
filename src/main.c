@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <app.h>
 
 int main(void)
 {
@@ -20,8 +21,13 @@ int main(void)
 
 
     // Execute Simulation
+    
+    if (!InitApp)
+    {
+		exit(EXIT_FAILURE);
+	}
 
 
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
 }
 
