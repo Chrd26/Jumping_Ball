@@ -7,3 +7,6 @@
 [submodule "modules/SDL_ttf"]
 	path = modules/SDL_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
+[submodule "modules/cpplocate"]
+	path = modules/cpplocate
+	url = git@github.com:cginternals/cpplocate.git

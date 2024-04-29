@@ -20,19 +20,23 @@ indent_mode=2
 [project]
 name=jumping_physics
 base_path=/Users/chrisd/Desktop/jumping_physics
+description=
 
 [long line marker]
 long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=0
+current_page=2
+FILE_NAME_0=302;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fgamelogic.c;0;4
+FILE_NAME_1=143;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fgame.h;0;4
+FILE_NAME_2=2278;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
 
 [VTE]
 last_dir=/Users/chrisd
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/jumping_physics;
+expanded_paths=/Users/chrisd/Desktop/jumping_physics/modules;/Users/chrisd/Desktop/jumping_physics/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;
