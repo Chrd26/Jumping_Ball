@@ -11,7 +11,7 @@ bool InitApp()
 	printf("SDL started\n");
 	
 	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, 
-																SDL_WINDOW_MAXIMIZED);
+																SDL_WINDOW_FULLSCREEN);
 																				
 	if (appWindow == NULL)
 	{
