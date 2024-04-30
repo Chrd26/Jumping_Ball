@@ -1,17 +1,18 @@
 #pragma once
-#include <SDl3/SDL.h>
+#include <SDL3/SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include <resource.h>
+#include "resourcelocator.h"
+#include "text.h"
 
 #define screenheight 720
 #define screenwidth 1280
 
 // Variables
-SDL_Window *appWindow = NULL;
-SDL_Renderer *appRenderer = NULL;
-Resource appFont;
+SDL_Window *appWindow;
+SDL_Renderer *appRenderer;
+struct Resource appFont;
 
 // Functions
 bool InitApp();

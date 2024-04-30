@@ -1,6 +1,7 @@
 #pragma once
-#include <SDL3_ttf/SDL_ttf>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <stdio.h>
-#include <resourcelocator.h>
+#include <stdbool.h>
+#include "resourcelocator.h"
 
-bool TextComponentInit(Resource &resource);
+bool TextComponentInit(Resource *resource);

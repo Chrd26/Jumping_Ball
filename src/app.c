@@ -8,14 +8,19 @@ bool InitApp()
 		return false;
 	}
 	
+	printf("SDL started\n");
+	
 	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, 
-																SDL_WINDOW_MAXIMIZED|SDL_WINDOW_ALLOW_HIGHDPI);
+																SDL_WINDOW_MAXIMIZED);
 																				
 	if (appWindow == NULL)
 	{
-		printF("Failed to create window %s", SDL_GetError());
+		printf("Failed to create window %s", SDL_GetError());
 		return false;
 	}
+	
+	printf("SDL Window Created\n");
+		
 	appRenderer = SDL_CreateRenderer(	appWindow, NULL, 0);
 	
 	if (appRenderer == NULL)
@@ -24,12 +29,16 @@ bool InitApp()
 		return false;
 	}
 	
-	appFont.location = "/Contents/Resources/fonts/font.ttf"
+	printf("SDL Renderer Created\n");
 	
-	if (!TextComponentInit(appFont, ))
+	appFont.location = "/Contents/Resources/fonts/font.ttf";
+	
+	if (!TextComponentInit(&appFont))
 	{
 		return false;
 	}
+	
+	printf("Text Component Started\n");
 																										
 	return true;									
 }
@@ -38,7 +47,7 @@ void ExitApplication()
 {
 	SDL_DestroyRenderer(appRenderer);
 	SDL_DestroyWindow(appWindow);		
-	mainWindow = NULL;
+	appWindow = NULL;
 	appRenderer = NULL;																							
 	SDL_Quit();
 }

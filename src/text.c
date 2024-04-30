@@ -1,7 +1,6 @@
-#pragma once
 #include "text.h"
 
-bool TextComponentInit(Resource &resource)
+bool TextComponentInit(Resource *resource)
 {
 	int getValue = TTF_Init();
 	
@@ -12,7 +11,7 @@ bool TextComponentInit(Resource &resource)
 	}
 	
 	// load font
-	resource.location = FindResource(resource.location);
+	resource->location = FindResource(resource->location);
 	return true;
 }
 

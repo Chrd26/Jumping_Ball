@@ -6,6 +6,6 @@
 typedef struct Resource
 {
 	char *location;
-};
+}Resource;
 
 char* FindResource(char *fileLocation);
