@@ -4,7 +4,8 @@ char* FindResource(char *fileLocation)
 {
 	char *execPath; 
 	getBundlePath(execPath);
+	printf("%s\n", execPath);
 	
-	strcat(fileLocation, execPath);
-	return fileLocation;
+	strcat(execPath, fileLocation);
+	return execPath;
 }
