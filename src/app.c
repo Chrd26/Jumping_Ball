@@ -31,10 +31,20 @@ bool InitApp()
 	
 	printf("SDL Renderer Created\n");
 	
-	appFont.location = "/Contents/Resources/fonts/font.ttf";
+	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	
-	if (!TextComponentInit(&appFont))
+	if (!TextComponentInit(&fontResource))
 	{
+		return false;
+	}
+	
+	printf("%s\n", fontResource.location);
+	
+	appFont = TTF_OpenFont(fontResource.location, 50);
+	
+	if (appFont == NULL)
+	{
+		printf("Failed to open font\n");
 		return false;
 	}
 	

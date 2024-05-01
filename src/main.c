@@ -8,12 +8,12 @@ int main(void)
 	double startTick = 0, endTick = 0;
 	SDL_Event events;
 	// double  frameTime = 0;
-    int getCalcFile = system("test -f ../jumpcalculations/app/output/calculations.csv");
+    int getCalcFile = system("test -f ..modules/jumpcalculations/app/output/calculations.csv");
     printf("%d\n", getCalcFile);
 
     if (getCalcFile == 0)
     {
-        getCalcFile = system("cd ../jumpcalculations/app/output && rm calculations.csv");
+        getCalcFile = system("cd ..modules/jumpcalculations/app/output && rm calculations.csv");
 
         if (getCalcFile != 0)
         {

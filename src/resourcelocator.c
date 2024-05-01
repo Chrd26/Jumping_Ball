@@ -4,7 +4,7 @@ char* FindResource(char *fileLocation)
 {
 	char *execPath; 
 	unsigned int lengthValue = 100;
-	getExecutablePath(&execPath, &lengthValue);
+	getBundlePath(&execPath, &lengthValue);
 	printf("Path %s\n", execPath);
 	
 	strcat(execPath, fileLocation);

@@ -37,6 +37,10 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/cpplocate/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/jumpcalculations/app/main.f90")
+	message(FATAL_ERROR "Jump calculations mini app was not downloaded properly. GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
+
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
@@ -45,9 +49,35 @@ find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 
-add_executable(	${PROJECT_NAME} ./src/main.c
+file(GLOB_RECURSE MINI_APP "./modules/jumpcalculations/*")
+file(GLOB APP_FONT "./fonts/Montserrat-VariableFont_wght.ttf")
+
+add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
 				./src/app.h ./src/app.c ./src/resourcelocator.h
-				./src/resourcelocator.c ./src/text.h ./src/text.c)
+				./src/resourcelocator.c ./src/text.h ./src/text.c
+				${MINI_APP} ${APP_FONT})
+				
+foreach(APPFILE ${MINI_APP})
+
+	# Get the folder and the file name
+	file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APPFILE})
+  
+	# keep only the name of the folder
+	get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
+
+	# Add current file and directory to the resources folder
+	set_property(SOURCE ${APPFILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
+
+endforeach(APPFILE)
+
+# Get the folder and the file name
+file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})
+  
+# keep only the name of the folder
+get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
+
+# Add current file and directory to the resources folder
+set_property(SOURCE ${APP_FONT} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

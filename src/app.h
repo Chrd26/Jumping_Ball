@@ -12,7 +12,8 @@
 // Variables
 SDL_Window *appWindow;
 SDL_Renderer *appRenderer;
-struct Resource appFont;
+TTF_Font *appFont;
+struct Resource fontResource;
 
 // Functions
 bool InitApp();
