@@ -35,6 +35,7 @@ bool InitApp()
 	
 	if (!TextComponentInit(&fontResource))
 	{
+		printf("Failed to initialise font module\n");
 		return false;
 	}
 	
