@@ -13,6 +13,8 @@
 SDL_Window *appWindow;
 SDL_Renderer *appRenderer;
 TTF_Font *appFont;
+int windowWidth;
+int windowHeight;
 struct Resource fontResource;
 
 // Functions

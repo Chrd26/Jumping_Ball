@@ -8,8 +8,6 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("SDL started\n");
-	
 	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, 
 																SDL_WINDOW_FULLSCREEN);
 																				
@@ -29,8 +27,6 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("SDL Renderer Created\n");
-	
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	
 	if (!TextComponentInit(&fontResource))
@@ -39,9 +35,8 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("%s\n", fontResource.location);
-	
-	appFont = TTF_OpenFont(fontResource.location, 50);
+	appFont = TTF_OpenFont(fontResource.location, 30);
+	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL)
 	{
@@ -49,7 +44,7 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("Text Component Started\n");
+	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
 																										
 	return true;									
 }
@@ -57,7 +52,9 @@ bool InitApp()
 void ExitApplication()
 {
 	SDL_DestroyRenderer(appRenderer);
-	SDL_DestroyWindow(appWindow);		
+	SDL_DestroyWindow(appWindow);
+	TTF_CloseFont(appFont);
+	TTF_Quit();		
 	appWindow = NULL;
 	appRenderer = NULL;																							
 	SDL_Quit();
