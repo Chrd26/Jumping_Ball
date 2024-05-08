@@ -26,7 +26,6 @@ struct InteriorBox
 	bool keyboardPress;
 	int x;
 	int y;
-	int max;
 	int asciiSubstractionValue; // -48
 };
 
