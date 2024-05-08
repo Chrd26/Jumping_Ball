@@ -45,6 +45,15 @@ bool InitApp()
 	}
 	
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
+	
+	exteriorTextBox.x  = windowWidth * 0.18;
+	exteriorTextBox.y = windowHeight * 0.16;
+	exteriorTextBox.width = windowWidth/7;
+	exteriorTextBox.height = windowHeight/10;			
+	
+	interiorTextBox.cursor = "I";
+	interiorTextBox.content = calloc(4, sizeof(char));
+	interiorTextBox.keyboardPress = false;
 																										
 	return true;									
 }

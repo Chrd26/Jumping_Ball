@@ -5,7 +5,9 @@
 
 int main(void)
 {
-	double startTick = 0, endTick = 0;
+	double startTick = 0, endTick = 0, frameTime;
+	Uint32 mouseState;
+	bool quit = false;
 	SDL_Event events;
 	// double  frameTime = 0;
     int getCalcFile = system("test -f ..modules/jumpcalculations/app/output/calculations.csv");
@@ -26,10 +28,8 @@ int main(void)
     
     if (!InitApp())
     {
-		exit(EXIT_FAILURE);
-	}
-	
-	bool quit = false;
+			exit(EXIT_FAILURE);
+		}
 	
 	while(!quit)
 	{
@@ -42,30 +42,45 @@ int main(void)
 				case SDL_EVENT_QUIT:
 					quit = true;
 					break;
+				case SDL_EVENT_MOUSE_BUTTON_UP:
+					printf("Button %u\n", mouseState);
+					if (mouseState == LEFT_MOUSE_BUTTON)
+					{
+						if (IsHoveringExteriorBox(mouseX, mouseY, exteriorTextBox))
+						{
+							if(!interiorTextBox.isEnabled)
+							{
+								interiorTextBox.isEnabled = true;
+							}
+							break;
+						}
+						
+						interiorTextBox.isEnabled = false;
+					}
+					break;
 			}
 		}
 		
 		SDL_PumpEvents();
+		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);
-		SDL_RenderClear(appRenderer);
-														
+		SDL_RenderClear(appRenderer);												
 		
 		DisplayText(	appRenderer, appFont, "Add a starting value and press start",
 									windowWidth * 0.065, windowHeight * 0.1);	
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
-									
-											
+		TextBoxHandler(appFont, appRenderer, exteriorTextBox, interiorTextBox);
+		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);	
 		SDL_RenderPresent(appRenderer);
 		
 		endTick = SDL_GetTicks();
 		// Get Time in Seconds
-		// frameTime += (endTick-startTick)/1000;
+		frameTime += (endTick-startTick)/1000;
 
 	}
 	
-	
 	ExitApplication();
-    return EXIT_SUCCESS;
+   return EXIT_SUCCESS;
 }
 

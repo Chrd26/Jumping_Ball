@@ -5,17 +5,23 @@
 #include <string.h>
 #include "resourcelocator.h"
 #include "text.h"
+#include "textbox.h"
+#include <stdlib.h>
 
 #define screenheight 720
 #define screenwidth 1280
+#define LEFT_MOUSE_BUTTON 1
+#define RIGHT_MOUSE_BUTTON 4
 
 // Variables
 SDL_Window *appWindow;
 SDL_Renderer *appRenderer;
 TTF_Font *appFont;
-int windowWidth;
-int windowHeight;
+int windowWidth, windowHeight;
 struct Resource fontResource;
+struct ExteriorBox exteriorTextBox;
+struct InteriorBox interiorTextBox;
+float mouseX, mouseY;
 
 // Functions
 bool InitApp();
