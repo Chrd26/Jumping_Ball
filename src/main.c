@@ -58,6 +58,15 @@ int main(void)
 						interiorTextBox.isEnabled = false;
 					}
 					break;
+				case SDL_EVENT_KEY_UP:
+					switch(events.key.keysym.sym)
+					{
+						case SDLK_ESCAPE:
+								interiorTextBox.isEnabled = false;
+							break;
+						
+					}
+					break;
 			}
 		}
 		
@@ -70,7 +79,7 @@ int main(void)
 									windowWidth * 0.065, windowHeight * 0.1);	
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
-		TextBoxHandler(appFont, appRenderer, exteriorTextBox, interiorTextBox);
+		TextBoxHandler(appFont, appRenderer, exteriorTextBox, interiorTextBox, strlen(interiorTextBox.content));
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);	
 		SDL_RenderPresent(appRenderer);
 		
