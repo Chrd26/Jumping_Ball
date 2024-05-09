@@ -19,7 +19,7 @@ bool InitApp()
 	
 	printf("SDL Window Created\n");
 		
-	appRenderer = SDL_CreateRenderer(	appWindow, NULL, 0);
+	appRenderer = SDL_CreateRenderer(appWindow, NULL, 0);
 	
 	if (appRenderer == NULL)
 	{
@@ -54,6 +54,7 @@ bool InitApp()
 	interiorTextBox.cursor = "I";
 	interiorTextBox.content = calloc(4, sizeof(char));
 	interiorTextBox.keyboardPress = false;
+	interiorTextBox.asciiSubstractionValue = 48;
 																										
 	return true;									
 }

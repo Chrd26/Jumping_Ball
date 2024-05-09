@@ -28,6 +28,22 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 		free(temp);
 		temp = NULL;
 	}
+	
+	if (!interiorTextBox.isEnabled && strlen(interiorTextBox.content) > 0)
+	{
+		SDL_Color fontColor = {0xFF, 0xFF, 0xFF, 0xFF};
+		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, interiorTextBox.content, fontColor);
+		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
+		SDL_FRect interiorBoxRect = {	exteriorbox.x, exteriorbox.y, 
+																	interiorTextSurface->w, 
+																	interiorTextSurface->h};
+		
+		SDL_RenderTexture(renderer, interiortextTexture, NULL, &interiorBoxRect);
+		SDL_DestroySurface(interiorTextSurface);
+		interiorTextSurface = NULL;
+		SDL_DestroyTexture(interiortextTexture);
+		interiortextTexture = NULL;
+	}
 }
 
 bool IsHoveringExteriorBox(int mouseX, int mouseY, struct ExteriorBox exteriorBox)

@@ -6,6 +6,8 @@
 int main(void)
 {
 	double startTick = 0, endTick = 0, frameTime;
+	char *temp;
+	size_t currentStringSize = 0;
 	Uint32 mouseState;
 	bool quit = false;
 	SDL_Event events;
@@ -35,6 +37,8 @@ int main(void)
 	{
 		// Start counting
 		startTick = SDL_GetTicks();
+		SDL_RenderClear(appRenderer);	
+		currentStringSize = strlen(interiorTextBox.content);
 		while(SDL_PollEvent(&events))
 		{
 			switch(events.type)
@@ -43,7 +47,6 @@ int main(void)
 					quit = true;
 					break;
 				case SDL_EVENT_MOUSE_BUTTON_UP:
-					printf("Button %u\n", mouseState);
 					if (mouseState == LEFT_MOUSE_BUTTON)
 					{
 						if (IsHoveringExteriorBox(mouseX, mouseY, exteriorTextBox))
@@ -51,42 +54,74 @@ int main(void)
 							if(!interiorTextBox.isEnabled)
 							{
 								interiorTextBox.isEnabled = true;
+								SDL_StartTextInput();
 							}
 							break;
 						}
 						
 						interiorTextBox.isEnabled = false;
+						SDL_StopTextInput();
 					}
+					break;
+				case SDL_EVENT_TEXT_INPUT:
+					if (currentStringSize >= 3)
+					{
+						break;
+					}
+					
+					int getVal = (int)*events.text.text;
+					
+					if (getVal - 48 < 0 || getVal - 48 > 9)
+					{
+						break;
+					}
+					temp = calloc(currentStringSize + 1, sizeof(char));
+					strncpy(temp, interiorTextBox.content, currentStringSize);
+					strncat(temp, events.text.text, 1);
+					free(interiorTextBox.content);
+					interiorTextBox.content = calloc(strlen(temp), sizeof(char));
+					strncpy(interiorTextBox.content, temp, strlen(temp));
+					free(temp);
 					break;
 				case SDL_EVENT_KEY_UP:
 					switch(events.key.keysym.sym)
 					{
 						case SDLK_ESCAPE:
-								interiorTextBox.isEnabled = false;
+							interiorTextBox.isEnabled = false;
+							SDL_StopTextInput();
 							break;
-						
+						case SDLK_BACKSPACE:
+							if (currentStringSize <= 0)
+							{
+								break;
+							}
+							temp = calloc(currentStringSize - 1, sizeof(char));
+							strncpy(temp, interiorTextBox.content, currentStringSize - 1);
+							free(interiorTextBox.content);
+							interiorTextBox.content = calloc(strlen(temp), sizeof(char));
+							strncpy(interiorTextBox.content, temp, strlen(temp));
+							free(temp);
+							break;
 					}
 					break;
 			}
 		}
 		
 		SDL_PumpEvents();
-		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);
-		SDL_RenderClear(appRenderer);												
-		
-		DisplayText(	appRenderer, appFont, "Add a starting value and press start",
-									windowWidth * 0.065, windowHeight * 0.1);	
+		mouseState = SDL_GetMouseState(&mouseX, &mouseY);										
+		DisplayText(appRenderer, appFont, "Add a starting value and press start", 
+								windowWidth * 0.065, windowHeight * 0.1);	
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
-		TextBoxHandler(appFont, appRenderer, exteriorTextBox, interiorTextBox, strlen(interiorTextBox.content));
-		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);	
+		TextBoxHandler(	appFont, appRenderer, exteriorTextBox, interiorTextBox, 
+										strlen(interiorTextBox.content));
+		
+		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
 		SDL_RenderPresent(appRenderer);
 		
 		endTick = SDL_GetTicks();
 		// Get Time in Seconds
 		frameTime += (endTick-startTick)/1000;
-
 	}
 	
 	ExitApplication();
