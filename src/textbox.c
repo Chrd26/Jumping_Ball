@@ -4,7 +4,7 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 										struct InteriorBox interiorTextBox, size_t length)
 {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_FRect exteriorBoxRect = {exteriorbox.x, exteriorbox.y, exteriorbox.width, exteriorbox.height};
+	const SDL_FRect exteriorBoxRect = {exteriorbox.x, exteriorbox.y, exteriorbox.width, exteriorbox.height};
 	SDL_RenderRect(renderer, &exteriorBoxRect);
 	
 	// Textbox text
@@ -16,7 +16,7 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 		strcat(temp, interiorTextBox.cursor);
 		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, temp, fontColor);
 		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
-		SDL_FRect interiorBoxRect = {	exteriorbox.x, exteriorbox.y, 
+		const SDL_FRect interiorBoxRect = {	exteriorbox.x, exteriorbox.y, 
 																	interiorTextSurface->w, 
 																	interiorTextSurface->h};
 		
@@ -34,7 +34,7 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 		SDL_Color fontColor = {0xFF, 0xFF, 0xFF, 0xFF};
 		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, interiorTextBox.content, fontColor);
 		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
-		SDL_FRect interiorBoxRect = {	exteriorbox.x, exteriorbox.y, 
+		const SDL_FRect interiorBoxRect = {	exteriorbox.x, exteriorbox.y, 
 																	interiorTextSurface->w, 
 																	interiorTextSurface->h};
 		

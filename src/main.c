@@ -39,6 +39,7 @@ int main(void)
 		startTick = SDL_GetTicks();
 		SDL_RenderClear(appRenderer);	
 		currentStringSize = strlen(interiorTextBox.content);
+		
 		while(SDL_PollEvent(&events))
 		{
 			switch(events.type)
@@ -108,7 +109,8 @@ int main(void)
 		}
 		
 		SDL_PumpEvents();
-		mouseState = SDL_GetMouseState(&mouseX, &mouseY);										
+		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+		
 		DisplayText(appRenderer, appFont, "Add a starting value and press start", 
 								windowWidth * 0.065, windowHeight * 0.1);	
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
@@ -117,7 +119,7 @@ int main(void)
 										strlen(interiorTextBox.content));
 		
 		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
-		SDL_RenderPresent(appRenderer);
+		SDL_RenderPresent(appRenderer);										
 		
 		endTick = SDL_GetTicks();
 		// Get Time in Seconds
