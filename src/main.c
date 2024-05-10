@@ -115,9 +115,10 @@ int main(void)
 								windowWidth * 0.065, windowHeight * 0.1);	
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
-		TextBoxHandler(	appFont, appRenderer, exteriorTextBox, interiorTextBox, 
-										strlen(interiorTextBox.content));
 		
+			TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
+											strlen(interiorTextBox.content), &frameTime);
+											
 		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
 		SDL_RenderPresent(appRenderer);										
 		

@@ -17,6 +17,7 @@
 SDL_Window *appWindow;
 SDL_Renderer *appRenderer;
 TTF_Font *appFont;
+TTF_Font *textboxFont;
 int windowWidth, windowHeight;
 struct Resource fontResource;
 struct ExteriorBox exteriorTextBox;

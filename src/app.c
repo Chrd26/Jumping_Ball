@@ -38,7 +38,10 @@ bool InitApp()
 	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	if (appFont == NULL)
+	textboxFont = TTF_OpenFont(fontResource.location, 50);
+	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
+	
+	if (appFont == NULL || textboxFont == NULL)
 	{
 		printf("Failed to open font\n");
 		return false;
@@ -55,6 +58,7 @@ bool InitApp()
 	interiorTextBox.content = calloc(4, sizeof(char));
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
+	SDL_StopTextInput();
 																										
 	return true;									
 }
@@ -64,6 +68,7 @@ void ExitApplication()
 	SDL_DestroyRenderer(appRenderer);
 	SDL_DestroyWindow(appWindow);
 	TTF_CloseFont(appFont);
+	TTF_CloseFont(textboxFont);
 	TTF_Quit();		
 	appWindow = NULL;
 	appRenderer = NULL;																							
