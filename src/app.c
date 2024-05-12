@@ -58,6 +58,10 @@ bool InitApp()
 	interiorTextBox.content = calloc(4, sizeof(char));
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
+	
+	ball.radius = 80;
+	ball.y = windowHeight - 200;
+	ball.x = windowWidth * 0.9;
 	SDL_StopTextInput();
 																										
 	return true;									

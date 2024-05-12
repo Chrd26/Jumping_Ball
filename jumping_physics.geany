@@ -27,13 +27,15 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=5
-FILE_NAME_0=3130;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
-FILE_NAME_1=396;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
-FILE_NAME_2=1017;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;2
-FILE_NAME_3=2793;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
-FILE_NAME_4=728;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;2
-FILE_NAME_5=2030;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.c;0;2
+current_page=0
+FILE_NAME_0=3154;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
+FILE_NAME_1=590;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
+FILE_NAME_2=1582;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;2
+FILE_NAME_3=2868;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
+FILE_NAME_4=373;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;2
+FILE_NAME_5=20;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.c;0;2
+FILE_NAME_6=152;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fball.h;0;4
+FILE_NAME_7=25;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fball.c;0;4
 
 [VTE]
 last_dir=/Users/chrisd

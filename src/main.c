@@ -116,9 +116,11 @@ int main(void)
 		SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
 		
-			TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
-											strlen(interiorTextBox.content), &frameTime);
-											
+		TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
+										strlen(interiorTextBox.content), &frameTime);
+										
+		GenerateBall(ball, appRenderer);
+					
 		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
 		SDL_RenderPresent(appRenderer);										
 		

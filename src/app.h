@@ -7,6 +7,8 @@
 #include "text.h"
 #include "textbox.h"
 #include <stdlib.h>
+#include "ball.h"
+#include "startbutton.h"
 
 #define screenheight 720
 #define screenwidth 1280
@@ -22,6 +24,7 @@ int windowWidth, windowHeight;
 struct Resource fontResource;
 struct ExteriorBox exteriorTextBox;
 struct InteriorBox interiorTextBox;
+struct Ball ball;
 float mouseX, mouseY;
 
 // Functions
