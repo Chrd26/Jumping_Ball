@@ -16,5 +16,4 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton &
 																			startButton.width, startButton.height};
 																			
 	SDL_RenderTexture(renderer, buttonTextTexture, NULL, &buttonTextHolder);
-	
 }
