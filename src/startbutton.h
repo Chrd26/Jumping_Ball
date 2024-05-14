@@ -12,4 +12,5 @@ struct StartButton
 	float height;
 };
 
-void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton startButton, bool isHovering);
+void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *startButton, bool isHovering);
+bool IsHoveringStartButton(int mouseX, int mouseY, struct StartButton startButton);

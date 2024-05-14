@@ -120,6 +120,16 @@ int main(void)
 										strlen(interiorTextBox.content), &frameTime);
 										
 		GenerateBall(ball, appRenderer);
+		
+		if (mouseState && SDL_BUTTON_LMASK != 0 && IsHoveringStartButton(mouseX, mouseY, startButton))
+		{
+				GenerateButton(appFont, appRenderer, &startButton, false);
+		}
+		else
+		{
+			GenerateButton(appFont, appRenderer, &startButton, IsHoveringStartButton(mouseX, mouseY, startButton));
+		}
+	
 					
 		SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
 		SDL_RenderPresent(appRenderer);										

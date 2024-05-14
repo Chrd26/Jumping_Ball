@@ -17,8 +17,8 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, temp, fontColor);
 		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
 		const SDL_FRect interiorBoxRect = {	exteriorbox.x * 1.22, exteriorbox.y * 1.125, 
-																	interiorTextSurface->w, 
-																	interiorTextSurface->h};
+																				interiorTextSurface->w, 
+																				interiorTextSurface->h};
 		
 		SDL_RenderTexture(renderer, interiortextTexture, NULL, &interiorBoxRect);
 		SDL_DestroySurface(interiorTextSurface);

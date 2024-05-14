@@ -63,6 +63,12 @@ bool InitApp()
 	ball.y = windowHeight - 200;
 	ball.x = windowWidth * 0.9;
 	SDL_StopTextInput();
+	
+	startButton.x = windowWidth * 0.1;
+	startButton.y = windowHeight * 0.3;
+	startButton.height = 0;
+	startButton.width = 0;
+	isStartButtonPressed = false;
 																										
 	return true;									
 }
@@ -75,6 +81,8 @@ void ExitApplication()
 	TTF_CloseFont(textboxFont);
 	TTF_Quit();		
 	appWindow = NULL;
-	appRenderer = NULL;																							
+	appRenderer = NULL;			
+	appFont = NULL;
+	textboxFont = NULL;										
 	SDL_Quit();
 }
