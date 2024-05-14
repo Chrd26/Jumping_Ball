@@ -60,11 +60,11 @@ bool InitApp()
 	interiorTextBox.asciiSubstractionValue = 48;
 	
 	ball.radius = 80;
-	ball.y = windowHeight - 200;
-	ball.x = windowWidth * 0.9;
+	ball.y = windowHeight - ball.radius;
+	ball.x = windowWidth * 0.75;
 	SDL_StopTextInput();
 	
-	startButton.x = windowWidth * 0.1;
+	startButton.x = windowWidth * 0.22;
 	startButton.y = windowHeight * 0.3;
 	startButton.height = 0;
 	startButton.width = 0;

@@ -121,7 +121,9 @@ int main(void)
 										
 		GenerateBall(ball, appRenderer);
 		
-		if (mouseState && SDL_BUTTON_LMASK != 0 && IsHoveringStartButton(mouseX, mouseY, startButton))
+		// What is that?
+		// Source: https://wiki.libsdl.org/SDL3/SDL_GetMouseState
+		if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringStartButton(mouseX, mouseY, startButton))
 		{
 				GenerateButton(appFont, appRenderer, &startButton, false);
 		}

@@ -39,7 +39,7 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *
 	}
 	
 	SDL_Texture *buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
-	const SDL_FRect buttonTextHolder = {startButton->x * 1.07, startButton->y * 1.01, 
+	const SDL_FRect buttonTextHolder = {startButton->x * 1.04, startButton->y * 1.01, 
 																			startButton->width, startButton->height};
 																			
 	SDL_RenderTexture(renderer, buttonTextTexture, NULL, &buttonTextHolder);
