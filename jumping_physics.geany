@@ -27,20 +27,23 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=2
-FILE_NAME_0=3267;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
-FILE_NAME_1=671;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
-FILE_NAME_2=1568;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;2
-FILE_NAME_3=2868;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
-FILE_NAME_4=257;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fstartbutton.h;0;4
-FILE_NAME_5=1070;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fstartbutton.c;0;2
-FILE_NAME_6=2750;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.c;0;2
+current_page=1
+FILE_NAME_0=1412;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
+FILE_NAME_1=1420;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;2
+FILE_NAME_2=162;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresourcelocator.c;0;4
+FILE_NAME_3=533;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
+FILE_NAME_4=137;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresults.h;0;4
+FILE_NAME_5=48;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresults.c;0;4
+FILE_NAME_6=0;Fortran;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fmodules%2Fjumpcalculations%2Fapp%2Fmain.f90;0;4
+FILE_NAME_7=2868;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
+FILE_NAME_8=187;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.c;0;4
+FILE_NAME_9=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.h;0;4
 
 [VTE]
 last_dir=/Users/chrisd
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/jumping_physics/modules;/Users/chrisd/Desktop/jumping_physics/src;
+expanded_paths=/Users/chrisd/Desktop/jumping_physics/modules/jumpcalculations/app;/Users/chrisd/Desktop/jumping_physics/modules/jumpcalculations/src;/Users/chrisd/Desktop/jumping_physics/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

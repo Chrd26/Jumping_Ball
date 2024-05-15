@@ -60,6 +60,11 @@ int main(void)
 							break;
 						}
 						
+						if (IsHoveringStartButton(mouseX, mouseY, startButton))
+						{
+							
+						}
+						
 						interiorTextBox.isEnabled = false;
 						SDL_StopTextInput();
 					}

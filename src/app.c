@@ -8,8 +8,7 @@ bool InitApp()
 		return false;
 	}
 	
-	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, 
-																SDL_WINDOW_FULLSCREEN);
+	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN);
 																				
 	if (appWindow == NULL)
 	{
@@ -28,6 +27,7 @@ bool InitApp()
 	}
 	
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
+	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
 	
 	if (!TextComponentInit(&fontResource))
 	{
@@ -35,17 +35,24 @@ bool InitApp()
 		return false;
 	}
 	
+	printf("%s\n", fontResource.location); // This is the correct one
+	char *temp = calloc(strlen(fontResource.location), sizeof(char));
+	strcpy(temp, fontResource.location);
 	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	textboxFont = TTF_OpenFont(fontResource.location, 50);
+	printf("%s\n", fontResource.location); // This is not the correct one
+	textboxFont = TTF_OpenFont(temp, 50);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
 	{
-		printf("Failed to open font\n");
+		printf("Failed to open font ");
+		printf("%s\n", TTF_GetError());
 		return false;
 	}
+	
+	free(temp);
 	
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
 	
@@ -68,7 +75,6 @@ bool InitApp()
 	startButton.y = windowHeight * 0.3;
 	startButton.height = 0;
 	startButton.width = 0;
-	isStartButtonPressed = false;
 																										
 	return true;									
 }

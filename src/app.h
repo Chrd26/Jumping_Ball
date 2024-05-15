@@ -22,12 +22,12 @@ TTF_Font *appFont;
 TTF_Font *textboxFont;
 int windowWidth, windowHeight;
 struct Resource fontResource;
+struct Resource miniApplication;
 struct ExteriorBox exteriorTextBox;
 struct InteriorBox interiorTextBox;
 struct StartButton startButton;
 struct Ball ball;
 float mouseX, mouseY;
-bool isStartButtonPressed;
 
 // Functions
 bool InitApp();
