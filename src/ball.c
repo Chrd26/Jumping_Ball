@@ -13,7 +13,6 @@ void GenerateBall(struct Ball ball, SDL_Renderer *renderer)
 	// https://www.sanfoundry.com/c-tutorials-various-trigonometric-functions-standard-library/
 	for (float i = 0; i < 360; i += 1)
 	{
-		printf("%f\n", (ball.radius) * cos(i));
 		SDL_RenderPoint(renderer, (ball.radius * cos(i)) + ball.x, (ball.radius* sin(i)) + ball.y);
 	}
 }

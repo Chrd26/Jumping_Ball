@@ -5,34 +5,42 @@
 
 int main(void)
 {
-	double startTick = 0, endTick = 0, frameTime;
+	if (!InitApp())
+  {
+		exit(EXIT_FAILURE);
+	}
+	
+	double startTick = 0, endTick = 0, frameTime = 0;
 	char *temp;
 	size_t currentStringSize = 0;
 	Uint32 mouseState;
 	bool quit = false;
 	SDL_Event events;
-	// double  frameTime = 0;
-    int getCalcFile = system("test -f ..modules/jumpcalculations/app/output/calculations.csv");
-    printf("%d\n", getCalcFile);
+	char *testCommand = "test -f ";
+	char *fileLocation = "app/output/calculations.csv";
+	char *createCommand = calloc(strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), sizeof(char));
+	strcpy(createCommand, testCommand);
+	strcat(createCommand, miniApplication.location);
+	strcat(createCommand, fileLocation);
+  int getCalcFile = system(createCommand);
+  
+	free(createCommand);
 
-    if (getCalcFile == 0)
-    {
-        getCalcFile = system("cd ..modules/jumpcalculations/app/output && rm calculations.csv");
-
-        if (getCalcFile != 0)
-        {
-            printf("Calculations CSV removal failed\n, %d", errno);
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    // Execute Simulation
-    
-    if (!InitApp())
-    {
+  if (getCalcFile == 0)
+  {
+		char *cdCommand = "cd ";
+		char *removeCommand = " && rm calculations.csv";
+		createCommand = calloc(strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand), sizeof(char));
+		getCalcFile = system(createCommand);
+		free(createCommand);
+		
+		if (getCalcFile != 0)
+		{
+			printf("Calculations CSV removal failed\n, %d", errno);
 			exit(EXIT_FAILURE);
-		}
-	
+			}
+  }
+
 	while(!quit)
 	{
 		// Start counting
@@ -62,7 +70,7 @@ int main(void)
 						
 						if (IsHoveringStartButton(mouseX, mouseY, startButton))
 						{
-							
+							GetResults(miniApplication.location, interiorTextBox.content);
 						}
 						
 						interiorTextBox.isEnabled = false;

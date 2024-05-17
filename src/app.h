@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "ball.h"
 #include "startbutton.h"
+#include "results.h"
 
 #define screenheight 720
 #define screenwidth 1280

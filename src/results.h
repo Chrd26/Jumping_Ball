@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 struct Results
 {
@@ -7,5 +9,5 @@ struct Results
 	double timeToLand;
 };
 
-struct Results
-GetResults();
+
+void GetResults(char *location, char *value);

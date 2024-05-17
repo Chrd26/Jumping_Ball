@@ -28,6 +28,8 @@ bool InitApp()
 	
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
+	printf("File: %s\n", miniApplication.location);
+	
 	
 	if (!TextComponentInit(&fontResource))
 	{
@@ -41,8 +43,8 @@ bool InitApp()
 	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	printf("%s\n", fontResource.location); // This is not the correct one
-	textboxFont = TTF_OpenFont(temp, 50);
+	printf("%s\n", fontResource.location); // This is not the correct one, the string gets mutated after use?
+	textboxFont = TTF_OpenFont(temp, 50); // copying the path to another variable works fine.
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
