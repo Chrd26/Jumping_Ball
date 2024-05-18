@@ -31,9 +31,15 @@ void GetResults(char *location, char *value)
 
     FILE *file = fopen(csvLocation, "r");
     char line[1024];
+    int counter = 0;
 
     while(fgets(line, 1024, file))
     {
+        if (counter == 0)
+        {
+            counter++;
+            continue;
+        }
         char *temp = strdup(line);
         printf("Get Result 1: %s\n", GetField(temp, 2));
         free(temp);
