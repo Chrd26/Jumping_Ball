@@ -28,6 +28,7 @@ struct ExteriorBox exteriorTextBox;
 struct InteriorBox interiorTextBox;
 struct StartButton startButton;
 struct Ball ball;
+struct Results executionResults;
 float mouseX, mouseY;
 
 // Functions

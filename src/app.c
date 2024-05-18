@@ -8,7 +8,7 @@ bool InitApp()
 		return false;
 	}
 	
-	appWindow = SDL_CreateWindow(	"Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN);
+	appWindow = SDL_CreateWindow("Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN);
 																				
 	if (appWindow == NULL)
 	{
@@ -28,8 +28,7 @@ bool InitApp()
 	
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
-	printf("File: %s\n", miniApplication.location);
-	
+    printf("Location: %s\n", miniApplication.location);
 	
 	if (!TextComponentInit(&fontResource))
 	{
