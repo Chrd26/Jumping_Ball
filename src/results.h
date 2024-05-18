@@ -10,4 +10,5 @@ struct Results
 };
 
 
+const char* GetField(char* line, int num);
 void GetResults(char *location, char *value);

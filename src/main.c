@@ -18,7 +18,8 @@ int main(void)
 	SDL_Event events;
 	char *testCommand = "test -f ";
 	char *fileLocation = "app/output/calculations.csv";
-	char *createCommand = calloc(strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), sizeof(char));
+	char *createCommand = calloc(   strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), 
+                                    sizeof(char));
 	strcpy(createCommand, testCommand);
 	strcat(createCommand, miniApplication.location);
 	strcat(createCommand, fileLocation);
@@ -30,7 +31,8 @@ int main(void)
   {
 		char *cdCommand = "cd ";
 		char *removeCommand = " && rm calculations.csv";
-		createCommand = calloc(strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand), sizeof(char));
+		createCommand = calloc( strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand), 
+                                sizeof(char));
 		getCalcFile = system(createCommand);
 		free(createCommand);
 		
