@@ -7,24 +7,26 @@
 struct Results GetResults(const char **location, char *value)
 {
 	struct Results results;
-    const char *getLocation = *location;
+    printf("Input: %s\n", *location);
+    char *getLocation = calloc(strlen(*location), sizeof(char));
+    strcpy(getLocation, *location);
     printf("Get Location: %s\n", getLocation);
+    //const char *getLocationCopy = *location;
 	char *commandPartFirst = "cd ";
 	char *commandPartSecond = " && fpm run -- ";
 	char *command = calloc(	strlen(getLocation) + strlen(value) + strlen(commandPartFirst) + strlen(commandPartSecond), 
-													sizeof(char));
+                            sizeof(char));
 
-    printf("Input location: %s\n", getLocation);
     char *contentsCSV = "/app/output/calculations.csv";
     char *csvLocation = calloc(strlen(getLocation) + strlen(contentsCSV), sizeof(char));
     strcpy(csvLocation, getLocation);
     strcat(csvLocation, contentsCSV);
-    printf("%s\n", csvLocation);
 													
 	strcpy(command, commandPartFirst);
 	strcat(command, getLocation);
 	strcat(command, commandPartSecond);
 	strcat(command, value);
+    printf("Location after operations: %s\n", csvLocation);
 	
 	int getSystemInfo = system(command);
 
@@ -49,16 +51,25 @@ struct Results GetResults(const char **location, char *value)
             continue;
         }
         char *temp = strdup(line);
-        char *endString;
-        printf("Get Result 1: %s\n", GetField(temp, 0));
-        results.maxHeight = strtod(GetField(temp, 0), &endString);
-        results.timeToMaximumHeight = strtod(GetField(temp, 1), &endString);
-        results.timeToLand = strtod(GetField(temp, 2), &endString);
+        char *separatedValues;
+        char *tempCopy = temp;
 
+        for (int i = 0; i < 3; i++)
+        {
+            char *characterLoc = strchr(tempCopy, ',');
+            size_t index  = (size_t)(characterLoc - tempCopy);
+            char *result = calloc(index, sizeof(char));
+            strncpy(result, tempCopy, index);
+            printf("Result: %s\n", result);
+            free(result);
+            char *toCopy = calloc(strlen(tempCopy) - index, sizeof(char));
+            strncpy(toCopy, tempCopy + index + 1, strlen(tempCopy )- index);
+            printf("Copy: %s\n", toCopy);
+            tempCopy = toCopy;
+        }
         free(temp);
     }
 
-	printf("%s\n", command);
     free(command);
     free(csvLocation);
     fclose(file);
