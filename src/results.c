@@ -1,6 +1,8 @@
 #include "results.h"
 // Special thanks to the following SO post for providing a very nice solution
 // https://stackoverflow.com/questions/12911299/read-csv-file-in-c
+// Strings, pointers, and going out of scope:
+// https://stackoverflow.com/questions/32652050/mutating-array-of-char-using-a-function-but-string-values-change-after-function
 
 struct Results GetResults(const char **location, char *value)
 {
