@@ -54,6 +54,9 @@ struct Results GetResults(const char **location, char *value)
         char *separatedValues;
         char *tempCopy = temp;
 
+        // Separate results
+        // Read more : 
+        // https://stackoverflow.com/questions/6205195/given-a-starting-and-ending-indices-how-can-i-copy-part-of-a-string-in-c
         for (int i = 0; i < 3; i++)
         {
             char *characterLoc = strchr(tempCopy, ',');
