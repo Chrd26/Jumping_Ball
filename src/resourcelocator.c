@@ -1,6 +1,6 @@
 #include "resourcelocator.h"
 
-char* FindResource(char *fileLocation)
+char* FindResource(const char *fileLocation)
 {
 	char *execPath; 
 	unsigned int lengthValue = 1024;

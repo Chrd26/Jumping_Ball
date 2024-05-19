@@ -16,18 +16,15 @@ int main(void)
     Uint32 mouseState;
     bool quit = false;
     SDL_Event events;
-    const char *miniAppModuleLocation = miniApplication.location;
-    printf("%s\n", miniAppModuleLocation);
     char *testCommand = "test -f ";
     char *fileLocation = "app/output/calculations.csv";
-    char *createCommand = calloc(strlen(testCommand) + strlen(miniAppModuleLocation) + strlen(fileLocation), 
+    char *createCommand = calloc(strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), 
                                  sizeof(char));
     strcpy(createCommand, testCommand);
-    strcat(createCommand, miniAppModuleLocation);
+    strcat(createCommand, miniApplication.location);
     strcat(createCommand, fileLocation);
-    printf("%s\n", createCommand);
     int getCalcFile = system(createCommand);
-    printf("%s\n", createCommand);
+    printf("%s\n", miniApplication.location);
 
     free(createCommand);
 

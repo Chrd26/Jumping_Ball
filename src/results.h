@@ -11,4 +11,4 @@ struct Results
 
 
 const char* GetField(char* line, int num);
-struct Results GetResults(char *location, char *value);
+struct Results GetResults(const char **location, char *value);

@@ -2,22 +2,25 @@
 // Special thanks to the following SO post for providing a very nice solution
 // https://stackoverflow.com/questions/12911299/read-csv-file-in-c
 
-struct Results GetResults(char *location, char *value)
+struct Results GetResults(const char **location, char *value)
 {
 	struct Results results;
+    const char *getLocation = *location;
+    printf("Get Location: %s\n", getLocation);
 	char *commandPartFirst = "cd ";
 	char *commandPartSecond = " && fpm run -- ";
-	char *command = calloc(	strlen(location) + strlen(value) + strlen(commandPartFirst) + strlen(commandPartSecond), 
+	char *command = calloc(	strlen(getLocation) + strlen(value) + strlen(commandPartFirst) + strlen(commandPartSecond), 
 													sizeof(char));
 
+    printf("Input location: %s\n", getLocation);
     char *contentsCSV = "/app/output/calculations.csv";
-    char *csvLocation = calloc(strlen(location) + strlen(contentsCSV), sizeof(char));
-    strcpy(csvLocation, location);
+    char *csvLocation = calloc(strlen(getLocation) + strlen(contentsCSV), sizeof(char));
+    strcpy(csvLocation, getLocation);
     strcat(csvLocation, contentsCSV);
     printf("%s\n", csvLocation);
 													
 	strcpy(command, commandPartFirst);
-	strcat(command, location);
+	strcat(command, getLocation);
 	strcat(command, commandPartSecond);
 	strcat(command, value);
 	
@@ -44,15 +47,11 @@ struct Results GetResults(char *location, char *value)
             continue;
         }
         char *temp = strdup(line);
-        char *stopFirstString;
-        char *stopSecondString;
-        char *stopThirdString;
+        char *endString;
         printf("Get Result 1: %s\n", GetField(temp, 0));
-        printf("Get Result 2: %s\n", GetField(temp, 1));
-        printf("Get Result 3: %s\n", GetField(temp, 2));
-        results.maxHeight = strtod(GetField(temp, 0), &stopFirstString);
-        results.timeToMaximumHeight = strtod(GetField(temp, 1), &stopSecondString);
-        results.timeToLand = strtod(GetField(temp, 2), &stopThirdString);
+        results.maxHeight = strtod(GetField(temp, 0), &endString);
+        results.timeToMaximumHeight = strtod(GetField(temp, 1), &endString);
+        results.timeToLand = strtod(GetField(temp, 2), &endString);
 
         free(temp);
     }

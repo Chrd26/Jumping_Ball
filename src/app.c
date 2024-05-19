@@ -36,14 +36,10 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("%s\n", fontResource.location); // This is the correct one
-	char *temp = calloc(strlen(fontResource.location), sizeof(char));
-	strcpy(temp, fontResource.location);
 	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	printf("%s\n", fontResource.location); // This is not the correct one, the string gets mutated after use?
-	textboxFont = TTF_OpenFont(temp, 50); // copying the path to another variable works fine.
+	textboxFont = TTF_OpenFont(fontResource.location, 50);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
@@ -52,8 +48,6 @@ bool InitApp()
 		printf("%s\n", TTF_GetError());
 		return false;
 	}
-	
-	free(temp);
 	
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
 	
