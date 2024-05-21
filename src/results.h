@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct Results
 {
@@ -11,4 +12,4 @@ struct Results
 
 
 const char* GetField(char* line, int num);
-struct Results GetResults(const char **location, char *value);
+struct Results GetResults(const char *location, char *value);

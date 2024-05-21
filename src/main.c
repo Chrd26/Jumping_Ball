@@ -18,8 +18,6 @@ int main(void)
     SDL_Event events;
     char *testCommand = "test -f ";
     char *fileLocation = "app/output/calculations.csv";
-    const char **getApplicationLocation = &miniApplication.location;
-    printf("Copy Application Location = %s\n", *getApplicationLocation);
     char *createCommand = calloc(strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), 
                                  sizeof(char));
     strcpy(createCommand, testCommand);
@@ -74,7 +72,7 @@ int main(void)
 
                         if (IsHoveringStartButton(mouseX, mouseY, startButton))
                         {
-                            executionResults = GetResults(getApplicationLocation, interiorTextBox.content);
+                            executionResults = GetResults(miniApplication.location, interiorTextBox.content);
                         }
 
                         interiorTextBox.isEnabled = false;

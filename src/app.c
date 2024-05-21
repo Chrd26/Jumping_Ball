@@ -35,14 +35,11 @@ bool InitApp()
 		printf("Failed to initialise font module\n");
 		return false;
 	}
-
-    char *cpyLocation = calloc(strlen(fontResource.location), sizeof(char));
-    strcpy(cpyLocation, fontResource.location);
 	
-	appFont = TTF_OpenFont(cpyLocation, 30);
+	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	textboxFont = TTF_OpenFont(cpyLocation, 50);
+	textboxFont = TTF_OpenFont(fontResource.location, 50);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
