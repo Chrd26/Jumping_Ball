@@ -10,6 +10,8 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
+    char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
+    strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
     double startTick = 0, endTick = 0, frameTime = 0;
     char *temp;
     size_t currentStringSize = 0;
@@ -72,7 +74,10 @@ int main(void)
 
                         if (IsHoveringButton(mouseX, mouseY, startButton))
                         {
-                            executionResults = GetResults(miniApplication.location, interiorTextBox.content);
+                            executionResults = GetResults(miniApplicationLocationCopy, interiorTextBox.content);
+                            printf("Maximum Height, %f\n", executionResults.maxHeight);
+                            printf("Time to maximum height, %f\n", executionResults.timeToMaximumHeight);
+                            printf("Time to land, %f\n", executionResults.timeToLand);
                         }
 
                         if (IsHoveringButton(mouseX, mouseY, exitButton))
@@ -168,6 +173,7 @@ int main(void)
         frameTime += (endTick-startTick)/1000;
     }
 
+    free(miniApplicationLocationCopy);
     ExitApplication();
     return EXIT_SUCCESS;
 }

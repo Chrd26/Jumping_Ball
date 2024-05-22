@@ -16,8 +16,6 @@ bool InitApp()
 		return false;
 	}
 	
-	printf("SDL Window Created\n");
-		
 	appRenderer = SDL_CreateRenderer(appWindow, NULL, 0);
 	
 	if (appRenderer == NULL)
@@ -28,18 +26,20 @@ bool InitApp()
 	
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
-    printf("Location: %s\n", miniApplication.location);
 	
 	if (!TextComponentInit(&fontResource))
 	{
 		printf("Failed to initialise font module\n");
 		return false;
-	}
+    }
+
+    char *fontLocCopy = calloc(strlen(fontResource.location), sizeof(char));
+    strncpy(fontLocCopy, fontResource.location, strlen(fontResource.location));
 	
 	appFont = TTF_OpenFont(fontResource.location, 30);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	textboxFont = TTF_OpenFont(fontResource.location, 50);
+	textboxFont = TTF_OpenFont(fontLocCopy, 50);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
@@ -48,23 +48,22 @@ bool InitApp()
 		printf("%s\n", TTF_GetError());
 		return false;
 	}
-	
+
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
 	
 	exteriorTextBox.x  = windowWidth * 0.18;
 	exteriorTextBox.y = windowHeight * 0.16;
 	exteriorTextBox.width = windowWidth/7;
 	exteriorTextBox.height = windowHeight/10;			
-	
+
 	interiorTextBox.cursor = "I";
-	interiorTextBox.content = calloc(4, sizeof(char));
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
-	
+    interiorTextBox.content = calloc(4, sizeof(char));
+
 	ball.radius = 80;
 	ball.y = windowHeight - ball.radius;
 	ball.x = windowWidth * 0.75;
-	SDL_StopTextInput();
 	
 	startButton.x = windowWidth * 0.22;
 	startButton.y = windowHeight * 0.3;
@@ -77,6 +76,8 @@ bool InitApp()
 	exitButton.height = 0;
 	exitButton.width = 0;
     exitButton.text = "Exit";
+
+    free(fontLocCopy);
 																										
 	return true;									
 }

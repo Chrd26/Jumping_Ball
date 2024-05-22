@@ -26,7 +26,6 @@ struct Results GetResults(const char *location, char *value)
 
     if (getSystemInfo != 0)
     {
-        printf("Something went wrong!\n");
         results.maxHeight = 0;
         results.timeToMaximumHeight = 0;
         free(command);
@@ -39,7 +38,13 @@ struct Results GetResults(const char *location, char *value)
     char line[1024];
     int counter = 0;
 
-    while(fgets(line, 1024, file))
+    if (file == NULL)
+    {
+        printf("Failed to open file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while(fgets(line, sizeof(line), file) != NULL)
     {
         if (counter == 0)
         {
@@ -62,46 +67,43 @@ struct Results GetResults(const char *location, char *value)
             char *getResult = calloc(index, sizeof(char));
             strncpy(getResult, tempCopy, index);
             strncpy(toCopy, tempCopy + index + 1, strlen(tempCopy )- index);
-            printf("Copy: %s\n", toCopy);
             tempCopy = toCopy;
             char *endString;
+
+            printf("Result: %s\n", getResult);
+            free(getResult);
+            char *endLine;
 
             switch(i)
             {
                 case 0:
-                    results.maxHeight = strtod(getResult, &endString);
+                    results.maxHeight = strtod(getResult, &endLine);
+                    printf("Case 0\n");
                     break;
                 case 1:
-                    results.timeToMaximumHeight = strtod(getResult, &endString);
+                    results.timeToMaximumHeight = strtod(getResult, &endLine);
+                    printf("Case 1\n");
                     break;
                 case 2:
-                    results.timeToLand = strtod(getResult, &endString);
+                    results.timeToLand = strtod(getResult, &endLine);
+                    printf("Case 2\n");
                     break;
             }
-        }
-        break;
-    }
-    
 
-    printf("Max Height: %f", results.maxHeight);
-    printf("Time to max height: %f", results.timeToMaximumHeight);
-    printf("Time to land: %f", results.timeToLand);
+            printf("%d\n", i);
+        }
+
+    }
+
+    printf("Exit\n");
+    
+    //printf("Max Height: %f\n", results.maxHeight);
+    //printf("Time to max height: %f\n", results.timeToMaximumHeight);
+    //printf("Time to land: %f\n", results.timeToLand);
 
     free(command);
     free(csvLocation);
     fclose(file);
+    printf("Exit\n");
     return results;
-}
-
-const char* GetField(char* line, int num)
-{
-    const char* tok;
-    for (tok = strtok(line, ",");
-            tok && *tok;
-            tok = strtok(NULL, ",\n"))
-    {
-        if (!--num)
-            return tok;
-    }
-    return NULL;
 }
