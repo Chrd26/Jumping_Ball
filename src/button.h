@@ -10,6 +10,7 @@ struct Button
 	int y;
 	float width;
 	float height;
+    char *text;
 };
 
 void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct Button *button, bool isHovering);

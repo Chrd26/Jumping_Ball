@@ -18,7 +18,7 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct Button *butto
 		color.a = 0xFF;
 	}
 	
-	SDL_Surface *buttonTextSurface = TTF_RenderText_Solid(font, "Start", color);
+	SDL_Surface *buttonTextSurface = TTF_RenderText_Solid(font, button->text, color);
 	
 	if (button->width == 0 || button->height == 0)
 	{
