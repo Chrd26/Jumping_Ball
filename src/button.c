@@ -1,6 +1,6 @@
-#include "startbutton.h"
+#include "button.h"
 
-void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *startButton, bool isHovering)
+void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct Button *button, bool isHovering)
 {	
 	SDL_Color color;
 
@@ -20,15 +20,14 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *
 	
 	SDL_Surface *buttonTextSurface = TTF_RenderText_Solid(font, "Start", color);
 	
-	if (startButton->width == 0 || startButton->height == 0)
+	if (button->width == 0 || button->height == 0)
 	{
-		startButton->width = buttonTextSurface->w;
-		startButton->height = buttonTextSurface->h; 
+		button->width = buttonTextSurface->w;
+		button->height = buttonTextSurface->h; 
 	}
 	
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_FRect buttonBorderRect = {startButton->x, startButton->y, 
-																startButton->width * 1.3, startButton->height * 1.3};
+	SDL_FRect buttonBorderRect = {button->x, button->y, button->width * 1.3, button->height * 1.3};
 																
 	if (isHovering)
 	{
@@ -39,8 +38,7 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *
 	}
 	
 	SDL_Texture *buttonTextTexture = SDL_CreateTextureFromSurface(renderer, buttonTextSurface);
-	const SDL_FRect buttonTextHolder = {startButton->x * 1.04, startButton->y * 1.01, 
-																			startButton->width, startButton->height};
+	const SDL_FRect buttonTextHolder = {button->x * 1.04, button->y * 1.01, button->width, button->height};
 																			
 	SDL_RenderTexture(renderer, buttonTextTexture, NULL, &buttonTextHolder);
 	
@@ -51,11 +49,11 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct StartButton *
 	SDL_DestroyTexture(buttonTextTexture);
 }
 
-bool IsHoveringStartButton(int mouseX, int mouseY, struct StartButton startButton)
+bool IsHoveringButton(int mouseX, int mouseY, struct Button button)
 {
-	if (mouseX >= startButton.x&& mouseX <= startButton.x + startButton.width * 1.3)
+	if (mouseX >= button.x && mouseX <= button.x + button.width * 1.3)
 	{
-		if (mouseY >= startButton.y && mouseY <= startButton.y + startButton.height * 1.3)
+		if (mouseY >= button.y && mouseY <= button.y + button.height * 1.3)
 		{
 			return true;
 		}

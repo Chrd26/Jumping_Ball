@@ -8,7 +8,7 @@
 #include "textbox.h"
 #include <stdlib.h>
 #include "ball.h"
-#include "startbutton.h"
+#include "button.h"
 #include "results.h"
 
 #define screenheight 720
@@ -26,7 +26,8 @@ struct Resource fontResource;
 struct Resource miniApplication;
 struct ExteriorBox exteriorTextBox;
 struct InteriorBox interiorTextBox;
-struct StartButton startButton;
+struct Button startButton;
+struct Button exitButton;
 struct Ball ball;
 struct Results executionResults;
 float mouseX, mouseY;

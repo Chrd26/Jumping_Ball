@@ -70,9 +70,14 @@ int main(void)
                             break;
                         }
 
-                        if (IsHoveringStartButton(mouseX, mouseY, startButton))
+                        if (IsHoveringButton(mouseX, mouseY, startButton))
                         {
                             executionResults = GetResults(miniApplication.location, interiorTextBox.content);
+                        }
+
+                        if (IsHoveringButton(mouseX, mouseY, exitButton))
+                        {
+                            quit = true;
                         }
 
                         interiorTextBox.isEnabled = false;
@@ -136,17 +141,24 @@ int main(void)
 
         GenerateBall(ball, appRenderer);
 
-        // What is that?
-        // Source: https://wiki.libsdl.org/SDL3/SDL_GetMouseState
-        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringStartButton(mouseX, mouseY, startButton))
+        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, startButton))
         {
             GenerateButton(appFont, appRenderer, &startButton, false);
         }
         else
         {
-            GenerateButton(appFont, appRenderer, &startButton, IsHoveringStartButton(mouseX, mouseY, startButton));
+            GenerateButton(appFont, appRenderer, &startButton, IsHoveringButton(mouseX, mouseY, startButton));
         }
 
+
+        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, exitButton))
+        {
+            GenerateButton(appFont, appRenderer, &exitButton, false);
+        }
+        else
+        {
+            GenerateButton(appFont, appRenderer, &exitButton, IsHoveringButton(mouseX, mouseY, exitButton));
+        }
 
         SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
         SDL_RenderPresent(appRenderer);										

@@ -70,6 +70,11 @@ bool InitApp()
 	startButton.y = windowHeight * 0.3;
 	startButton.height = 0;
 	startButton.width = 0;
+
+	exitButton.x = windowWidth * 0.22;
+	exitButton.y = windowHeight * 0.3;
+	exitButton.height = 0;
+	exitButton.width = 0;
 																										
 	return true;									
 }

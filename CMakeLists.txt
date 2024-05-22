@@ -57,7 +57,7 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-				./src/startbutton.h ./src/startbutton.c ${MINI_APP} ${APP_FONT})
+				./src/button.h ./src/button.c ${MINI_APP} ${APP_FONT})
 				
 foreach(APPFILE ${MINI_APP})
 
