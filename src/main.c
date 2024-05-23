@@ -10,8 +10,11 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
+    printf("Test\n");
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
+    printf("Test\n");
     strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
+    printf("Test\n");
     double startTick = 0, endTick = 0, frameTime = 0;
     char *temp;
     size_t currentStringSize = 0;
@@ -33,8 +36,8 @@ int main(void)
     {
         char *cdCommand = "cd ";
         char *removeCommand = " && rm calculations.csv";
-        createCommand = calloc( strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand), 
-                               sizeof(char));
+        createCommand = calloc( strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand),
+                                sizeof(char));
         getCalcFile = system(createCommand);
         free(createCommand);
 

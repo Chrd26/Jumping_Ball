@@ -8,6 +8,7 @@ bool InitApp()
 		return false;
 	}
 	
+    printf("Create Window\n");
 	appWindow = SDL_CreateWindow("Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN);
 																				
 	if (appWindow == NULL)
@@ -16,6 +17,7 @@ bool InitApp()
 		return false;
 	}
 	
+    printf("Create renderer\n");
 	appRenderer = SDL_CreateRenderer(appWindow, NULL, 0);
 	
 	if (appRenderer == NULL)
@@ -24,14 +26,18 @@ bool InitApp()
 		return false;
 	}
 	
+    printf("File location\n");
 	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
 	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
 	
+    printf("Text component init\n");
 	if (!TextComponentInit(&fontResource))
 	{
 		printf("Failed to initialise font module\n");
 		return false;
     }
+
+    printf("Open fonts\n");
 
     char *fontLocCopy = calloc(strlen(fontResource.location), sizeof(char));
     strncpy(fontLocCopy, fontResource.location, strlen(fontResource.location));
@@ -49,6 +55,7 @@ bool InitApp()
 		return false;
 	}
 
+    printf("Get Window Size");
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
 	
 	exteriorTextBox.x  = windowWidth * 0.18;
