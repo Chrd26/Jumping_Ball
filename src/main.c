@@ -10,43 +10,14 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    printf("Test\n");
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
-    printf("Test\n");
-    strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
-    printf("Test\n");
+    strncat(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
     double startTick = 0, endTick = 0, frameTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
     bool quit = false;
     SDL_Event events;
-    char *testCommand = "test -f ";
-    char *fileLocation = "app/output/calculations.csv";
-    char *createCommand = calloc(strlen(testCommand) + strlen(miniApplication.location) + strlen(fileLocation), 
-                                 sizeof(char));
-    strcpy(createCommand, testCommand);
-    strcat(createCommand, miniApplication.location);
-    strcat(createCommand, fileLocation);
-    int getCalcFile = system(createCommand);
-
-    free(createCommand);
-
-    if (getCalcFile == 0)
-    {
-        char *cdCommand = "cd ";
-        char *removeCommand = " && rm calculations.csv";
-        createCommand = calloc( strlen(miniApplication.location) + strlen(cdCommand) + strlen(removeCommand),
-                                sizeof(char));
-        getCalcFile = system(createCommand);
-        free(createCommand);
-
-        if (getCalcFile != 0)
-        {
-            printf("Calculations CSV removal failed\n, %d", errno);
-            exit(EXIT_FAILURE);
-        }
-    }
 
     while(!quit)
     {
@@ -77,7 +48,8 @@ int main(void)
 
                         if (IsHoveringButton(mouseX, mouseY, startButton))
                         {
-                            executionResults = GetResults(miniApplicationLocationCopy, interiorTextBox.content);
+                            executionResults = GetResults(  miniApplicationLocationCopy, 
+                                                            interiorTextBox.content); 
                             printf("Maximum Height, %f\n", executionResults.maxHeight);
                             printf("Time to maximum height, %f\n", executionResults.timeToMaximumHeight);
                             printf("Time to land, %f\n", executionResults.timeToLand);

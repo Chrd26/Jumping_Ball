@@ -86,7 +86,7 @@ struct Results GetResults(const char *location, char *value)
                     break;
                 case 1:
                     //results.timeToMaximumHeight = atof(&getResult[0]);
-                    results.timeToMaximumHeight = strtod(getResult, &endString);
+                    results.timeToMaximumHeight = strtod(getResult, &endString)
                     break;
                 case 2:
                     //results.timeToLand = atof(&getResult[0]);
