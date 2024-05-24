@@ -50,9 +50,8 @@ int main(void)
                         {
                             executionResults = GetResults(  miniApplicationLocationCopy, 
                                                             interiorTextBox.content); 
-                            printf("Maximum Height, %f\n", executionResults.maxHeight);
-                            printf("Time to maximum height, %f\n", executionResults.timeToMaximumHeight);
-                            printf("Time to land, %f\n", executionResults.timeToLand);
+
+                            hasSimStarted = true;
                         }
 
                         if (IsHoveringButton(mouseX, mouseY, exitButton))
@@ -120,6 +119,14 @@ int main(void)
                        strlen(interiorTextBox.content), &frameTime);
 
         GenerateBall(ball, appRenderer);
+
+        if(hasSimStarted)
+        {
+            startButton.text = "Stop";
+        }else
+        {
+            startButton.text = "Start";
+        }
 
         if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, startButton))
         {

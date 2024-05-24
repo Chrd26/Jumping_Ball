@@ -84,6 +84,7 @@ bool InitApp()
 	exitButton.width = 0;
     exitButton.text = "Exit";
 
+    hasSimStarted = false;
     free(fontLocCopy);
 																										
 	return true;									

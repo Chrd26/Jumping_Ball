@@ -22,6 +22,7 @@ SDL_Renderer *appRenderer;
 TTF_Font *appFont;
 TTF_Font *textboxFont;
 int windowWidth, windowHeight;
+bool hasSimStarted;
 struct Resource fontResource;
 struct Resource miniApplication;
 struct ExteriorBox exteriorTextBox;
