@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
 
 struct Results
@@ -8,6 +9,7 @@ struct Results
 	double maxHeight;
 	double timeToMaximumHeight;
 	double timeToLand;
+    bool doResultsExist;
 };
 
 

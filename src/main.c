@@ -11,7 +11,7 @@ int main(void)
     }
 
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
-    strncat(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
+    strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
     double startTick = 0, endTick = 0, frameTime = 0;
     char *temp;
     size_t currentStringSize = 0;
@@ -38,7 +38,8 @@ int main(void)
                     {
                         if (IsHoveringExteriorBox(mouseX, mouseY, exteriorTextBox))
                         {
-                            if(!interiorTextBox.isEnabled)
+                            
+                            if(!interiorTextBox.isEnabled && hasSimStarted == false)
                             {
                                 interiorTextBox.isEnabled = true;
                                 SDL_StartTextInput();
@@ -51,7 +52,16 @@ int main(void)
                             executionResults = GetResults(  miniApplicationLocationCopy, 
                                                             interiorTextBox.content); 
 
-                            hasSimStarted = true;
+                            if (!hasSimStarted && executionResults.doResultsExist)
+                            {
+                                printf("???\n");
+                                hasSimStarted = true;
+                                free(interiorTextBox.content);
+                                interiorTextBox.content = calloc(4, sizeof(char));
+                            }else
+                            {
+                                hasSimStarted = false;
+                            }
                         }
 
                         if (IsHoveringButton(mouseX, mouseY, exitButton))

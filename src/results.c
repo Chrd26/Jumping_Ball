@@ -12,6 +12,7 @@ struct Results GetResults(const char *location, char *value)
         results.maxHeight = 0;
         results.timeToMaximumHeight = 0;
         results.timeToLand = 0;
+        results.doResultsExist = false;
         return results;
     }
 
@@ -37,9 +38,10 @@ struct Results GetResults(const char *location, char *value)
         results.maxHeight = 0;
         results.timeToMaximumHeight = 0;
         results.timeToLand = 0;
+        results.doResultsExist = false;
         free(command);
         free(csvLocation);
-        return results;
+        exit(-1);
     }
 
     FILE *file = fopen(csvLocation, "r");
@@ -96,6 +98,8 @@ struct Results GetResults(const char *location, char *value)
             free(getResult);
         }
     }
+
+    results.doResultsExist = true;
 
     free(command);
     free(csvLocation);
