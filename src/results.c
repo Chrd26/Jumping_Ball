@@ -84,15 +84,15 @@ struct Results GetResults(const char *location, char *value)
             {
                 case 0:
                     //results.maxHeight = atof(&getResult[0]);
-                    results.maxHeight = strtod(getResult, &endString); 
+                    results.maxHeight = strtod(getResult, &endString) * 1/2 * 9.8; 
                     break;
                 case 1:
                     //results.timeToMaximumHeight = atof(&getResult[0]);
-                    results.timeToMaximumHeight = strtod(getResult, &endString);
+                    results.timeToMaximumHeight = strtod(getResult, &endString) / 9.8;
                     break;
                 case 2:
                     //results.timeToLand = atof(&getResult[0]);
-                    results.timeToLand = strtod(getResult, &endString); 
+                    results.timeToLand = pow(2 * results.maxHeight/9.8), 2; 
                     break;
             }
             free(getResult);
