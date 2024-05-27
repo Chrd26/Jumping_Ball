@@ -49,7 +49,6 @@ find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 
-file(GLOB_RECURSE MINI_APP "./modules/jumpcalculations/*")
 file(GLOB APP_FONT "./fonts/Montserrat-VariableFont_wght.ttf")
 
 add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
@@ -57,20 +56,7 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-				./src/button.h ./src/button.c ${MINI_APP} ${APP_FONT})
-				
-foreach(APPFILE ${MINI_APP})
-
-	# Get the folder and the file name
-	file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APPFILE})
-  
-	# keep only the name of the folder
-	get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
-
-	# Add current file and directory to the resources folder
-	set_property(SOURCE ${APPFILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
-
-endforeach(APPFILE)
+				./src/button.h ./src/button.c ${APP_FONT})
 
 # Get the folder and the file name
 file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})

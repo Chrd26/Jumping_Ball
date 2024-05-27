@@ -49,13 +49,21 @@ int main(void)
 
                         if (IsHoveringButton(mouseX, mouseY, startButton))
                         {
-                            executionResults = GetResults(  miniApplicationLocationCopy, 
-                                                            interiorTextBox.content); 
-
-                            if (!hasSimStarted && executionResults.doResultsExist)
+                            if (!hasSimStarted)
                             {
-                                printf("???\n");
-                                hasSimStarted = true;
+                                executionResults = GetResults(interiorTextBox.content); 
+                                printf("%f\n", executionResults.maxHeight);
+                                printf("%f\n", executionResults.timeToMaximumHeight);
+                                printf("%f\n", executionResults.timeToLand);
+
+                                if (executionResults.doResultsExist)
+                                {
+                                    hasSimStarted = true;
+                                }else
+                                {
+                                    break;
+                                }
+
                                 free(interiorTextBox.content);
                                 interiorTextBox.content = calloc(4, sizeof(char));
                             }else
@@ -85,6 +93,7 @@ int main(void)
                     {
                         break;
                     }
+
                     temp = calloc(currentStringSize + 1, sizeof(char));
                     strncpy(temp, interiorTextBox.content, currentStringSize);
                     strncat(temp, events.text.text, 1);
