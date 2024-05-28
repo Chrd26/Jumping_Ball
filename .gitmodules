@@ -1,6 +1,3 @@
-[submodule "modules/jumpcalculations"]
-	path = modules/jumpcalculations
-	url = git@github.com:Chrd26/jumpcalculations.git
 [submodule "modules/SDL"]
 	path = modules/SDL
 	url = https://github.com/libsdl-org/SDL.git
