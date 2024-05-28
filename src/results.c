@@ -28,23 +28,10 @@ struct Results GetResults(char *value)
         return results;
     }
 
-    for (int i = 0; i < 3; i++)
-    {
-
-        switch(i)
-        {
-            case 0:
-                results.maxHeight = pow((double)getValue, 2) / g; 
-                break;
-            case 1:
-                results.timeToMaximumHeight = (double)getValue / g;
-                break;
-            case 2:
-                results.timeToLand = pow(results.maxHeight/g, 2); 
-                break;
-        }
-    }
-
+    results.initialVelocity = getValue;
+    results.timeToLand = pow(results.maxHeight/g, 2); 
+    results.timeToMaximumHeight = (double)results.initialVelocity / g;
+    results.maxHeight = pow((double)results.initialVelocity, 2) / g; 
     results.doResultsExist = true;
 
     return results;

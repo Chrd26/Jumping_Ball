@@ -9,6 +9,7 @@ struct Results
 	double maxHeight;
 	double timeToMaximumHeight;
 	double timeToLand;
+    int initialVelocity;
     bool doResultsExist;
 };
 

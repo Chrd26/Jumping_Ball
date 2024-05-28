@@ -137,15 +137,17 @@ int main(void)
         TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
                        strlen(interiorTextBox.content), &frameTime);
 
-        GenerateBall(ball, appRenderer);
-
         if(hasSimStarted)
         {
+            ball.y -= executionResults.initialVelocity;
             startButton.text = "Stop";
         }else
         {
+            ball.y = windowHeight - ball.radius;
             startButton.text = "Start";
         }
+
+        GenerateBall(ball, appRenderer);
 
         if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, startButton))
         {

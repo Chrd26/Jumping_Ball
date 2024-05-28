@@ -31,6 +31,7 @@ struct Button startButton;
 struct Button exitButton;
 struct Ball ball;
 struct Results executionResults;
+int ballMovementCounter;
 float mouseX, mouseY;
 
 // Functions
