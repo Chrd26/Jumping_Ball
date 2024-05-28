@@ -12,7 +12,7 @@ int main(void)
 
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
     strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
-    double startTick = 0, endTick = 0, frameTime = 0;
+    double startTick = 0, endTick = 0, cursorTimer = 0, simulationTimer = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -52,9 +52,6 @@ int main(void)
                             if (!hasSimStarted)
                             {
                                 executionResults = GetResults(interiorTextBox.content); 
-                                printf("%f\n", executionResults.maxHeight);
-                                printf("%f\n", executionResults.timeToMaximumHeight);
-                                printf("%f\n", executionResults.timeToLand);
 
                                 if (executionResults.doResultsExist)
                                 {
@@ -135,11 +132,16 @@ int main(void)
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
 
         TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
-                       strlen(interiorTextBox.content), &frameTime);
+                       strlen(interiorTextBox.content), &cursorTimer);
 
         if(hasSimStarted)
         {
-            ball.y -= executionResults.initialVelocity;
+            ball.y -= (double)executionResults.initialVelocity;
+            printf("%d\n", executionResults.initialVelocity);
+            if (executionResults.initialVelocity > 0 && (int)simulationTimer > 0)
+            {
+                executionResults.initialVelocity -= (int)executionResults.initialVelocity/(int)simulationTimer; 
+            }
             startButton.text = "Stop";
         }else
         {
@@ -173,7 +175,14 @@ int main(void)
 
         endTick = SDL_GetTicks();
         // Get Time in Seconds
-        frameTime += (endTick-startTick)/1000;
+        if (hasSimStarted)
+        {
+            simulationTimer += (endTick-startTick)/1000;
+            cursorTimer += (endTick-startTick)/1000;
+        }else
+        {
+            simulationTimer = 0;
+        }
     }
 
     free(miniApplicationLocationCopy);
