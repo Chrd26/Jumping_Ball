@@ -13,6 +13,7 @@ struct Results
     int operatedVelocity;
     double gravity;
     bool doResultsExist;
+    bool upwardsMovement;
 };
 
 

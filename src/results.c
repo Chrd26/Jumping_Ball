@@ -28,11 +28,13 @@ struct Results GetResults(char *value)
     }
 
     results.initialVelocity = getValue;
+    results.operatedVelocity = results.initialVelocity;
     results.gravity = 9.8;
     results.timeToLand = pow(results.maxHeight / results.gravity, 2); 
     results.timeToMaximumHeight = (double)results.initialVelocity / results.gravity;
     results.maxHeight = pow((double)results.initialVelocity, 2) / results.gravity; 
     results.doResultsExist = true;
+    results.upwardsMovement = true; 
 
     return results;
 }
