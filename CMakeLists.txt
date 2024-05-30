@@ -37,10 +37,6 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/cpplocate/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/jumpcalculations/app/main.f90")
-	message(FATAL_ERROR "Jump calculations mini app was not downloaded properly. GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
-endif()
-
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")

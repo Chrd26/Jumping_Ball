@@ -10,6 +10,8 @@ struct Results
 	double timeToMaximumHeight;
 	double timeToLand;
     int initialVelocity;
+    int operatedVelocity;
+    double gravity = 9.8;
     bool doResultsExist;
 };
 
