@@ -11,7 +11,7 @@ struct Results
 	double timeToLand;
     int initialVelocity;
     int operatedVelocity;
-    double gravity = 9.8;
+    double gravity;
     bool doResultsExist;
 };
 

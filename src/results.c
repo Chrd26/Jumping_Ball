@@ -17,7 +17,6 @@ struct Results GetResults(char *value)
     }
 
     int getValue = atoi(value);
-    double g = 9.8;
 
     if (getValue > 100)
     {
@@ -29,9 +28,10 @@ struct Results GetResults(char *value)
     }
 
     results.initialVelocity = getValue;
-    results.timeToLand = pow(results.maxHeight/g, 2); 
-    results.timeToMaximumHeight = (double)results.initialVelocity / g;
-    results.maxHeight = pow((double)results.initialVelocity, 2) / g; 
+    results.gravity = 9.8;
+    results.timeToLand = pow(results.maxHeight / results.gravity, 2); 
+    results.timeToMaximumHeight = (double)results.initialVelocity / results.gravity;
+    results.maxHeight = pow((double)results.initialVelocity, 2) / results.gravity; 
     results.doResultsExist = true;
 
     return results;
