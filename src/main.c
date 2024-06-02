@@ -136,7 +136,7 @@ int main(void)
 
         if(hasSimStarted)
         {
-            if (executionResults.operatedVelocity > 0 && (int)simulationTimer > 0)
+            if (executionResults.operatedVelocity > 0.1 && (int)simulationTimer > 0)
             {
                 printf("%d\n", executionResults.operatedVelocity);
 
@@ -144,17 +144,20 @@ int main(void)
                 {
                     printf("Up\n");
                     ball.y -= (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)simulationTimer/(int)executionResults.initialVelocity;  
+                    executionResults.operatedVelocity -= (int)simulationTimer/(int)executionResults.gravity;  
                 }else
                 {
                     printf("Down\n");
                     ball.y += (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)simulationTimer/(int)executionResults.initialVelocity; 
+                    executionResults.operatedVelocity += (int)simulationTimer/(int)executionResults.gravity; 
                 }
             }
-            else if (executionResults.operatedVelocity <= 0)
+            else if (executionResults.operatedVelocity <= 0.1) 
             {
-                //printf("reset\n");
+                if (!executionResults.upwardsMovement)
+                {
+                    ball.y = windowHeight - ball.radius;
+                }
                 executionResults.upwardsMovement = !executionResults.upwardsMovement;
                 executionResults.operatedVelocity = executionResults.initialVelocity;
                 simulationTimer = 0;
