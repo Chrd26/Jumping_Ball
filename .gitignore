@@ -8,5 +8,7 @@
 /dataSources.local.xml
 /jumpcalculations/build/dependencies/
 build/*
+img/*
 
 !build/.gitkeep
+!img/.gitkeep
