@@ -12,7 +12,7 @@ int main(void)
 
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
     strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
-    double startTick = 0, endTick = 0, cursorTimer = 0, simulationTimer = 0, deltaTime = 0;
+    double startTick = 0, endTick = 0, cursorTimer = 0, deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -75,7 +75,7 @@ int main(void)
                         }
 
                         interiorTextBox.isEnabled = false;
-                    SDL_StopTextInput();
+                        SDL_StopTextInput();
                     }
                 break;
                 case SDL_EVENT_TEXT_INPUT:
@@ -161,7 +161,6 @@ int main(void)
             {
                 executionResults.upwardsMovement = !executionResults.upwardsMovement;
                 executionResults.operatedVelocity = executionResults.initialVelocity;
-                simulationTimer = 0;
             }
 
             startButton.text = "Stop";
@@ -197,14 +196,10 @@ int main(void)
         SDL_RenderPresent(appRenderer);										
 
         endTick = SDL_GetTicks();
-        // Get Time in Seconds
-        if (hasSimStarted)
+
+        if (interiorTextBox.isEnabled)
         {
-            simulationTimer += (endTick-startTick)/1000;
             cursorTimer += (endTick-startTick)/1000;
-        }else
-        {
-            simulationTimer = 0;
         }
 
         deltaTime = (endTick-startTick)/1000;
