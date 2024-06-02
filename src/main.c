@@ -12,7 +12,7 @@ int main(void)
 
     char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
     strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
-    double startTick = 0, endTick = 0, cursorTimer = 0, simulationTimer = 0;
+    double startTick = 0, endTick = 0, cursorTimer = 0, simulationTimer = 0, deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -136,7 +136,7 @@ int main(void)
 
         if(hasSimStarted)
         {
-            if (executionResults.operatedVelocity > 0.1 && (int)simulationTimer > 0)
+            if (executionResults.operatedVelocity > 0)
             {
                 printf("%d\n", executionResults.operatedVelocity);
 
@@ -144,20 +144,21 @@ int main(void)
                 {
                     printf("Up\n");
                     ball.y -= (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)simulationTimer/(int)executionResults.gravity;  
+                    executionResults.operatedVelocity -= (int)executionResults.gravity * deltaTime;  
                 }else
                 {
                     printf("Down\n");
                     ball.y += (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity += (int)simulationTimer/(int)executionResults.gravity; 
+                    executionResults.operatedVelocity += (int)executionResults.gravity * deltaTime; 
+
+                    if (ball.y > windowHeight - ball.radius)
+                    {
+                        executionResults.operatedVelocity = 0;
+                    }
                 }
             }
-            else if (executionResults.operatedVelocity <= 0.1) 
+            else if (executionResults.operatedVelocity <= 0) 
             {
-                if (!executionResults.upwardsMovement)
-                {
-                    ball.y = windowHeight - ball.radius;
-                }
                 executionResults.upwardsMovement = !executionResults.upwardsMovement;
                 executionResults.operatedVelocity = executionResults.initialVelocity;
                 simulationTimer = 0;
@@ -205,6 +206,8 @@ int main(void)
         {
             simulationTimer = 0;
         }
+
+        deltaTime = (endTick-startTick)/1000;
     }
 
     free(miniApplicationLocationCopy);
