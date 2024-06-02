@@ -134,6 +134,7 @@ int main(void)
         TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
                        strlen(interiorTextBox.content), &cursorTimer);
 
+        // Simulation, it might be a good idea to use it in a function
         if(hasSimStarted)
         {
             if (executionResults.operatedVelocity > 0)
@@ -142,12 +143,10 @@ int main(void)
 
                 if (executionResults.upwardsMovement) 
                 {
-                    printf("Up\n");
                     ball.y -= (double)executionResults.operatedVelocity;
                     executionResults.operatedVelocity -= (int)executionResults.gravity * deltaTime;  
                 }else
                 {
-                    printf("Down\n");
                     ball.y += (double)executionResults.operatedVelocity;
                     executionResults.operatedVelocity += (int)executionResults.gravity * deltaTime; 
 
@@ -159,8 +158,18 @@ int main(void)
             }
             else if (executionResults.operatedVelocity <= 0) 
             {
+                if (!executionResults.upwardsMovement && executionResults.initialVelocity > 1)
+                {
+                    executionResults.initialVelocity = executionResults.initialVelocity / 1.1;
+                }
+
                 executionResults.upwardsMovement = !executionResults.upwardsMovement;
                 executionResults.operatedVelocity = executionResults.initialVelocity;
+
+                if (executionResults.initialVelocity <= 1)
+                {
+                    hasSimStarted = false;
+                }
             }
 
             startButton.text = "Stop";
