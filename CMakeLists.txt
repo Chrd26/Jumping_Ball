@@ -1,10 +1,8 @@
-# this is a cmake list
 cmake_minimum_required(VERSION 3.27)
 project("JumpingBall" LANGUAGES C VERSION 0.1 DESCRIPTION "Jumping Ball Physics Simulator")
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(liblocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
-
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -46,13 +44,21 @@ find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 
 file(GLOB APP_FONT "./fonts/Montserrat-VariableFont_wght.ttf")
+file(GLOB MACOS_ICON "./packaging assets/img/Jumping_Ball_Logo.icns")
 
 add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
 				./src/app.h ./src/app.c ./src/resourcelocator.h
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-				./src/button.h ./src/button.c ${APP_FONT})
+                ./src/button.h ./src/button.c ${APP_FONT} ${MACOS_ICON})
+
+            
+#Set macos Icon
+file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${MACOS_ICON})
+get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
+set_property(SOURCE ${MACOS_ICON} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
+set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Contents/Resources/packaging assets/img/Jumping_Ball_Logo.icns")
 
 # Get the folder and the file name
 file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})

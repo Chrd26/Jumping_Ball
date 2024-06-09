@@ -27,7 +27,7 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=0
+current_page=8
 FILE_NAME_0=1124;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
 FILE_NAME_1=1554;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;4
 FILE_NAME_2=554;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
@@ -36,12 +36,13 @@ FILE_NAME_4=58;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2F
 FILE_NAME_5=22;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresults.c;0;2
 FILE_NAME_6=460;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;4
 FILE_NAME_7=128;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresourcelocator.h;0;4
+FILE_NAME_8=669;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fbuild%2Fcmake_install.cmake;0;4
 
 [VTE]
 last_dir=/Users/chrisd
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/jumping_physics/modules/jumpcalculations/app;/Users/chrisd/Desktop/jumping_physics/modules/jumpcalculations/src;/Users/chrisd/Desktop/jumping_physics/src;
+expanded_paths=/Users/chrisd/Desktop/jumping_physics/build;/Users/chrisd/Desktop/jumping_physics/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;
