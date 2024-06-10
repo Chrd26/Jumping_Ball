@@ -92,3 +92,7 @@ endforeach()
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    INSTALL_RPATH "@executable_path/../Frameworks"
+)
