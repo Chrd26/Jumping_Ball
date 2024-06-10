@@ -27,16 +27,8 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=8
-FILE_NAME_0=1124;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;2
-FILE_NAME_1=1554;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;4
-FILE_NAME_2=554;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.h;0;4
-FILE_NAME_3=2741;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
-FILE_NAME_4=58;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresults.h;0;4
-FILE_NAME_5=22;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresults.c;0;2
-FILE_NAME_6=460;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;4
-FILE_NAME_7=128;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fresourcelocator.h;0;4
-FILE_NAME_8=669;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fbuild%2Fcmake_install.cmake;0;4
+current_page=0
+FILE_NAME_0=1150;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fbuild%2FCPackSourceConfig.cmake;0;4
 
 [VTE]
 last_dir=/Users/chrisd
