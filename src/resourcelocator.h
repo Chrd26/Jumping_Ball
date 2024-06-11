@@ -5,7 +5,7 @@
 
 typedef struct Resource
 {
-   const char *location;
+   char location[1024];
 }Resource;
 
 char* FindResource(const char *fileLocation);

@@ -23,9 +23,15 @@ bool InitApp()
 		printf("Failed to create rendenrer %s", SDL_GetError());
 		return false;
 	}
-	
-	fontResource.location = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
-	miniApplication.location = FindResource("/Contents/Resources/modules/jumpcalculations");
+
+    char *temp = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
+
+    for (int i = 0; i < strlen(temp); i++)
+    {
+        fontResource.location[i] = temp[i]; 
+    }
+
+    fontResource.location[strlen(temp)] = '\0';
 	
 	if (!TextComponentInit(&fontResource))
 	{

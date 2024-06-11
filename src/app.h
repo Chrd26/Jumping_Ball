@@ -24,7 +24,6 @@ TTF_Font *textboxFont;
 int windowWidth, windowHeight;
 bool hasSimStarted;
 struct Resource fontResource;
-struct Resource miniApplication;
 struct ExteriorBox exteriorTextBox;
 struct InteriorBox interiorTextBox;
 struct Button startButton;

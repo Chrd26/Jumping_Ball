@@ -10,8 +10,6 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    char *miniApplicationLocationCopy = calloc(strlen(miniApplication.location), sizeof(char));
-    strncpy(miniApplicationLocationCopy, miniApplication.location, strlen(miniApplication.location));
     double startTick = 0, endTick = 0, cursorTimer = 0, deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
@@ -214,7 +212,6 @@ int main(void)
         deltaTime = (endTick-startTick)/1000;
     }
 
-    free(miniApplicationLocationCopy);
     ExitApplication();
     return EXIT_SUCCESS;
 }
