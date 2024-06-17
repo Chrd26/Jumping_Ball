@@ -3,7 +3,7 @@ project("JumpingBall" LANGUAGES C VERSION 0.1 DESCRIPTION "Jumping Ball Physics 
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(liblocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
-include(CPack)
+set(CMAKE_FIND_FRAMEWORK FIRST)
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -55,8 +55,7 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-                ./src/button.h ./src/button.c ${APP_FONT} ${MACOS_ICON}
-                ${SDL_LIB_FILES} ${SDL_TTF_LIB_FILES} ${LIBLOCATE_LIB_FILES})
+                ./src/button.h ./src/button.c ${APP_FONT} ${MACOS_ICON})
 
             
 # Set macos Icon
@@ -92,7 +91,5 @@ endforeach()
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    INSTALL_RPATH "@executable_path/../Frameworks"
-)
+install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION .)
+include(CPack)
