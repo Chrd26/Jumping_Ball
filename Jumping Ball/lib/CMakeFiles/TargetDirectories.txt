@@ -1,0 +1,11 @@
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/SDL3_ttf-shared.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/SDL3_ttf-docs.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/glfont.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/showfont.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/testapp.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/edit_cache.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/rebuild_cache.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/list_install_components.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/install.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/install/local.dir
+/Users/chrisd/Desktop/jumping_physics/modules/SDL_ttf/build/CMakeFiles/install/strip.dir
