@@ -3,6 +3,9 @@ project("JumpingBall" LANGUAGES C VERSION 0.1 DESCRIPTION "Jumping Ball Physics 
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(liblocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
+
+# Installation use otool -L to figure out rpath set rpath for macos with @loader_path
+# set rpath for linux with @executable_path
 set(CMAKE_MACOXS_RPATH ON)
 set(CMAKE_INSTALL_RPATH "@loader_path/../../../lib")
 
@@ -72,8 +75,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_compile_definitions(${PROJECT_NAME} PUBLIC SDL_MAIN_USE_CALLBACKS)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 
-# Installation use otool -L to figure out rpath set rpath for macos with @loaderpath
-# set rpath for linux with @executable_path
 set(CMAKE_INSTALL_PREFIX "Jumping Ball")
 #message(${CMAKE_INSTALL_RPATH})
 install(DIRECTORY "./modules/SDL/build/" DESTINATION "lib")
