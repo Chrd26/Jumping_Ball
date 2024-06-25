@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+7eff9127216ee1b47c4bd64a1997ab97 CMakeFiles/SDL3_ttf-docs
+00037e51d72afb48fc97ae0eab975c43 docs/man/man3/TTF_Init.3
+905a0a3a30eef8722986ae205e05fa17 docs/wiki/TTF_Init.md
