@@ -9,6 +9,7 @@
 /jumpcalculations/build/dependencies/
 build/*
 img/*
+Icon?
 
 !build/.gitkeep
 !img/.gitkeep
