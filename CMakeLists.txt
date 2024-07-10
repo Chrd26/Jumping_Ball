@@ -6,8 +6,8 @@ set(liblocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
 
 # Installation use otool -L to figure out rpath set rpath for macos with @loader_path
 # set rpath for linux with @executable_path
-set(CMAKE_MACOXS_RPATH ON)
-set(CMAKE_INSTALL_RPATH "@loader_path/../../../lib")
+# set(CMAKE_MACOXS_RPATH ON)
+# set(CMAKE_INSTALL_RPATH "@loader_path/../../../lib")
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -51,24 +51,13 @@ find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 file(GLOB APP_FONT "./fonts/Montserrat-VariableFont_wght.ttf")
 file(GLOB MACOS_ICON "./packaging assets/img/Jumping_Ball_Logo.icns")
 
-add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
+add_executable(	${PROJECT_NAME} WIN32 ./src/main.c
 				./src/app.h ./src/app.c ./src/resourcelocator.h
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-                ./src/button.h ./src/button.c ${APP_FONT} ${MACOS_ICON})
+                ./src/button.h ./src/button.c ${APP_FONT})
 
-            
-# Set macos Icon
-file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${MACOS_ICON})
-get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
-set_property(SOURCE ${MACOS_ICON} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
-set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Contents/Resources/packaging assets/img/Jumping_Ball_Logo.icns")
-
-#  Include font to the .app bundle
-file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})
-get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
-set_property(SOURCE ${APP_FONT} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)

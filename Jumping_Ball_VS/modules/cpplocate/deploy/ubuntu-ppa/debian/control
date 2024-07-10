@@ -1,0 +1,70 @@
+Source: libcpplocate
+Section: misc
+Priority: optional
+Maintainer: Willy Scheibel <willy.scheibel@cginternals.com>
+Build-Depends: build-essential, cmake, doxygen, graphviz
+Standards-Version: 3.8.0
+
+Package: libcpplocate-meta
+Architecture: any
+Homepage: https://cpplocate.org
+Description: Cross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: libcpplocate
+Architecture: any
+Depends: libcpplocate-meta
+Homepage: https://cpplocate.org
+Description: Cross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: libcpplocate-dev
+Architecture: any
+Depends: libcpplocate
+Homepage: https://cpplocate.org
+Description: Cross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: libcpplocate-docs
+Architecture: any
+Homepage: https://cpplocate.org
+Description: Cross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: libcpplocate-dbg
+Architecture: any
+Depends: libcpplocate, libcpplocate-dev
+Homepage: https://cpplocate.org
+Description: ACross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: libcpplocate-all
+Architecture: any
+Depends: libcpplocate, libcpplocate-dev, libcpplocate-docs
+Homepage: https://cpplocate.org
+Description: Cross-platform C++ library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: liblocate
+Architecture: any
+Depends: libcpplocate-meta
+Homepage: https://cpplocate.org
+Description: Cross-platform C library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: liblocate-dev
+Architecture: any
+Depends: liblocate
+Homepage: https://cpplocate.org
+Description: Cross-platform C library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: liblocate-docs
+Architecture: any
+Depends: libcpplocate-docs
+Homepage: https://cpplocate.org
+Description: Cross-platform C library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: liblocate-dbg
+Architecture: any
+Depends: libcpplocate, libcpplocate-dev
+Homepage: https://cpplocate.org
+Description: ACross-platform C library providing tools for applications to locate themselves, their data assets as well as dependent modules.
+
+Package: liblocate-all
+Architecture: any
+Depends: liblocate, liblocate-dev, liblocate-docs
+Homepage: https://cpplocate.org
+Description: Cross-platform C library providing tools for applications to locate themselves, their data assets as well as dependent modules.
