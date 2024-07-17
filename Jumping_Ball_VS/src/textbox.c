@@ -10,7 +10,7 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 	// Textbox text
 	if (interiorTextBox.isEnabled && *frameTime < 0.5)
 	{
-		char *temp = calloc(length + 1, sizeof(char));
+		char *temp = calloc(length + 2, sizeof(char));
 		SDL_Color fontColor = {0xFF, 0xFF, 0xFF, 0xFF};
 		strcpy(temp, interiorTextBox.content);
 		strcat(temp, interiorTextBox.cursor);

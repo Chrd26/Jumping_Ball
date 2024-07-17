@@ -10,7 +10,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    double startTick = 0, endTick = 0, cursorTimer = 0, deltaTime = 0;
+    double startTick = 0, endTick = 0,cursorTimer = 0, deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -88,14 +88,21 @@ int main(void)
                     {
                         break;
                     }
-
+                    /*
                     temp = calloc(currentStringSize + 1, sizeof(char));
                     strncpy(temp, interiorTextBox.content, currentStringSize);
                     strncat(temp, events.text.text, 1);
                     free(interiorTextBox.content);
-                    interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                    strncpy(interiorTextBox.content, temp, strlen(temp));
+                    int tempLength = strlen(temp);
+                    interiorTextBox.content = calloc(tempLength, sizeof(char));
+                    interiorTextBox.content = temp;
                     free(temp);
+                    */
+
+                    char* newCharacter = events.text.text;
+                    free(interiorTextBox.content);
+                    interiorTextBox.content = calloc(1, sizeof(char));
+                    strncat(interiorTextBox.content, newCharacter, 1);
                 break;
                 case SDL_EVENT_KEY_UP:
                     switch(events.key.keysym.sym)
@@ -113,7 +120,8 @@ int main(void)
                             strncpy(temp, interiorTextBox.content, currentStringSize - 1);
                             free(interiorTextBox.content);
                             interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                            strncpy(interiorTextBox.content, temp, strlen(temp));
+                            interiorTextBox.content = temp;
+                            printf("Temp delete: %s\n", temp);
                             free(temp);
                         break;
                     }
@@ -128,7 +136,7 @@ int main(void)
                     windowWidth * 0.065, windowHeight * 0.1);	
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
-
+        
         TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
                        strlen(interiorTextBox.content), &cursorTimer);
 
@@ -207,6 +215,7 @@ int main(void)
         if (interiorTextBox.isEnabled)
         {
             cursorTimer += (endTick-startTick)/1000;
+            printf("%d\n", (endTick - startTick) / 1000);
         }
 
         deltaTime = (endTick-startTick)/1000;
