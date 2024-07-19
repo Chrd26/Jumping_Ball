@@ -10,7 +10,7 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 	// Textbox text
 	if (interiorTextBox.isEnabled && *frameTime < 0.5)
 	{
-		char temp[4];
+		char temp[5];
 
 		if (strlen(interiorTextBox.content) > 0)
 		{

@@ -103,36 +103,33 @@ int main(void)
                     free(temp);
                     */
                     
-                    char *newCharacter = events.text.text + '\0';
+                    char *newCharacter = events.text.text;
                     char cpyTemp[1024];
 
-                    for (int i = 0; i <= strlen(interiorTextBox.content) + 1; i++)
+                    if (strlen(interiorTextBox.content) == 0)
                     {
-                        if (i == strlen(interiorTextBox.content) + 1)
+                        for (int i = 0; i < strlen(newCharacter); i++)
                         {
-                            cpyTemp[i] = newCharacter[i];
-                            continue;
+                            interiorTextBox.content[i] = newCharacter[i];
                         }
-
-                        if (strlen(interiorTextBox.content) == 0)
-                        {
-                            cpyTemp[i] = newCharacter[i];
-                            break;
-                        }
-
-                       cpyTemp[i] = interiorTextBox.content[i];
                     }
-
-
-                    for (int i = 0; i <= strlen(cpyTemp); i++)
+                    else
                     {
-                        if (i == strlen(newCharacter))
+                        for (int i = 0; i < strlen(interiorTextBox.content); i++)
                         {
-                            interiorTextBox.content[i] == '\0';
-                            continue;
+                            cpyTemp[i] = interiorTextBox.content[i];
                         }
 
-                        interiorTextBox.content[i] = cpyTemp[i];
+                        cpyTemp[strlen(interiorTextBox.content)] = newCharacter[0];
+                        cpyTemp[strlen(interiorTextBox.content) + 1] = '\0';
+
+                        for (int k = 0; k < strlen(cpyTemp); k++)
+                        {
+                            interiorTextBox.content[k] = cpyTemp[k];
+                        }
+
+                        interiorTextBox.content[strlen(cpyTemp)] = '\0';
+                        printf("Result: %s", interiorTextBox.content);
                     }
  
 

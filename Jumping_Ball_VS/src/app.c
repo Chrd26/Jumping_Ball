@@ -65,8 +65,6 @@ bool InitApp()
 	interiorTextBox.cursor[1] = '\0';
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
-	//interiorTextBox.content = calloc(1, sizeof(char));
-	//interiorTextBox.content = NULL;
 
 	ball.radius = 140;
 	ball.y = windowHeight - ball.radius;
