@@ -22,7 +22,11 @@ int main(void)
         // Start counting
         startTick = SDL_GetTicks();
         SDL_RenderClear(appRenderer);	
-        currentStringSize = strlen(interiorTextBox.content);
+
+        if (interiorTextBox.content != NULL)
+        {
+            currentStringSize = strlen(interiorTextBox.content);
+        }
 
         while(SDL_PollEvent(&events))
         {
@@ -59,8 +63,8 @@ int main(void)
                                     break;
                                 }
 
-                                free(interiorTextBox.content);
-                                interiorTextBox.content = calloc(4, sizeof(char));
+                                //free(interiorTextBox.content);
+                                //interiorTextBox.content = calloc(4, sizeof(char));
                             }else
                             {
                                 hasSimStarted = false;
@@ -98,11 +102,40 @@ int main(void)
                     interiorTextBox.content = temp;
                     free(temp);
                     */
+                    
+                    char *newCharacter = events.text.text + '\0';
+                    char cpyTemp[1024];
 
-                    char* newCharacter = events.text.text;
-                    free(interiorTextBox.content);
-                    interiorTextBox.content = calloc(1, sizeof(char));
-                    strncat(interiorTextBox.content, newCharacter, 1);
+                    for (int i = 0; i <= strlen(interiorTextBox.content) + 1; i++)
+                    {
+                        if (i == strlen(interiorTextBox.content) + 1)
+                        {
+                            cpyTemp[i] = newCharacter[i];
+                            continue;
+                        }
+
+                        if (strlen(interiorTextBox.content) == 0)
+                        {
+                            cpyTemp[i] = newCharacter[i];
+                            break;
+                        }
+
+                       cpyTemp[i] = interiorTextBox.content[i];
+                    }
+
+
+                    for (int i = 0; i <= strlen(cpyTemp); i++)
+                    {
+                        if (i == strlen(newCharacter))
+                        {
+                            interiorTextBox.content[i] == '\0';
+                            continue;
+                        }
+
+                        interiorTextBox.content[i] = cpyTemp[i];
+                    }
+ 
+
                 break;
                 case SDL_EVENT_KEY_UP:
                     switch(events.key.keysym.sym)
@@ -119,8 +152,8 @@ int main(void)
                             temp = calloc(currentStringSize - 1, sizeof(char));
                             strncpy(temp, interiorTextBox.content, currentStringSize - 1);
                             free(interiorTextBox.content);
-                            interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                            interiorTextBox.content = temp;
+                            //interiorTextBox.content = calloc(strlen(temp), sizeof(char));
+                            //interiorTextBox.content = temp;
                             printf("Temp delete: %s\n", temp);
                             free(temp);
                         break;
@@ -137,8 +170,16 @@ int main(void)
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
         
-        TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
-                       strlen(interiorTextBox.content), &cursorTimer);
+        if (interiorTextBox.content == NULL)
+        {
+            TextBoxHandler( textboxFont, appRenderer, exteriorTextBox, interiorTextBox,
+                            0, &cursorTimer);
+        }
+        else
+        {
+            TextBoxHandler(textboxFont, appRenderer, exteriorTextBox, interiorTextBox,
+                strlen(interiorTextBox.content), &cursorTimer);
+        }
 
         // Simulation, it might be a good idea to use it in a function
         if(hasSimStarted)

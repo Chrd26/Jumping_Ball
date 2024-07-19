@@ -20,8 +20,8 @@ struct ExteriorBox
 
 struct InteriorBox
 {
-	char *content;
-	char *cursor;
+	char content[1024];
+	char cursor[2];
 	bool isEnabled;
 	bool keyboardPress;
 	int x;

@@ -10,11 +10,26 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 	// Textbox text
 	if (interiorTextBox.isEnabled && *frameTime < 0.5)
 	{
-		char *temp = calloc(length + 2, sizeof(char));
-		SDL_Color fontColor = {0xFF, 0xFF, 0xFF, 0xFF};
-		strcpy(temp, interiorTextBox.content);
-		strcat(temp, interiorTextBox.cursor);
-		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, temp, fontColor);
+		char temp[4];
+
+		if (strlen(interiorTextBox.content) > 0)
+		{
+			for (int i = 0; i < strlen(interiorTextBox.content); i++)
+			{
+				temp[i] = interiorTextBox.content[i];
+			}
+
+			temp[strlen(interiorTextBox.content)] = 'I';
+			temp[strlen(interiorTextBox.content) + 1] = '\0';
+		}
+		else
+		{
+			temp[0] = 'I';
+			temp[1] = '\0';
+		}
+
+		SDL_Color fontColor = { 0xFF, 0xFF, 0xFF, 0xFF};
+		SDL_Surface* interiorTextSurface = TTF_RenderText_Solid(font, temp, fontColor);
 		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
 		const SDL_FRect interiorBoxRect = {	exteriorbox.x * 1.22, exteriorbox.y * 1.125, 
 																				interiorTextSurface->w, 
@@ -25,29 +40,36 @@ void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox e
 		interiorTextSurface = NULL;
 		SDL_DestroyTexture(interiortextTexture);
 		interiortextTexture = NULL;
-		free(temp);
-		temp = NULL;
 	}
-	
-	if (interiorTextBox.isEnabled && *frameTime >= 0.5 && strlen(interiorTextBox.content) > 0)
+
+	if (interiorTextBox.content != NULL)
 	{
-		SDL_Color fontColor = {0xFF, 0xFF, 0xFF, 0xFF};
-		SDL_Surface *interiorTextSurface = TTF_RenderText_Solid(font, interiorTextBox.content, fontColor);
-		SDL_Texture *interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
-		const SDL_FRect interiorBoxRect = {	exteriorbox.x * 1.22, exteriorbox.y * 1.125, 
-																	interiorTextSurface->w, 
-																	interiorTextSurface->h};
-		
-		SDL_RenderTexture(renderer, interiortextTexture, NULL, &interiorBoxRect);
-		SDL_DestroySurface(interiorTextSurface);
-		interiorTextSurface = NULL;
-		SDL_DestroyTexture(interiortextTexture);
-		interiortextTexture = NULL;
+
+		if (interiorTextBox.isEnabled && *frameTime >= 0.5 && strlen(interiorTextBox.content) > 0)
+		{
+			SDL_Color fontColor = { 0xFF, 0xFF, 0xFF, 0xFF };
+			SDL_Surface* interiorTextSurface = TTF_RenderText_Solid(font, interiorTextBox.content, fontColor);
+			SDL_Texture* interiortextTexture = SDL_CreateTextureFromSurface(renderer, interiorTextSurface);
+			const SDL_FRect interiorBoxRect = { exteriorbox.x * 1.22, exteriorbox.y * 1.125,
+																		interiorTextSurface->w,
+																		interiorTextSurface->h };
+
+			SDL_RenderTexture(renderer, interiortextTexture, NULL, &interiorBoxRect);
+			SDL_DestroySurface(interiorTextSurface);
+			interiorTextSurface = NULL;
+			SDL_DestroyTexture(interiortextTexture);
+			interiortextTexture = NULL;
+		}
 	}
 	
 	if (*frameTime >= 1)
 	{
 		*frameTime = 0;
+	}
+
+	if (interiorTextBox.content == NULL)
+	{
+		return;
 	}
 	
 	if (!interiorTextBox.isEnabled && strlen(interiorTextBox.content) > 0)
