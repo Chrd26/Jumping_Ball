@@ -140,12 +140,14 @@ int main(void)
                         case SDLK_ESCAPE:
                             interiorTextBox.isEnabled = false;
                             SDL_StopTextInput();
-                        break;
+                            break;
                         case SDLK_BACKSPACE:
                             if (currentStringSize <= 0)
                             {
                                 break;
                             }
+
+                            /*
                             temp = calloc(currentStringSize - 1, sizeof(char));
                             strncpy(temp, interiorTextBox.content, currentStringSize - 1);
                             free(interiorTextBox.content);
@@ -153,7 +155,27 @@ int main(void)
                             //interiorTextBox.content = temp;
                             printf("Temp delete: %s\n", temp);
                             free(temp);
-                        break;
+                            */
+
+                            char cpyTemp[1024];
+
+                            for (int i = 0; i < strlen(interiorTextBox.content) - 1; i++)
+                            {
+                                cpyTemp[i] = interiorTextBox.content[i];
+                            }
+
+                            cpyTemp[strlen(interiorTextBox.content) - 1] = '\0';
+
+                            for (int j = 0; j < strlen(cpyTemp); j++)
+                            {
+                                interiorTextBox.content[j] = cpyTemp[j];
+                            }
+
+                            interiorTextBox.content[strlen(cpyTemp)] = '\0';
+
+                            printf("Deleted string %s\n", interiorTextBox.content);
+                                
+                            break;
                     }
                 break;
             }
