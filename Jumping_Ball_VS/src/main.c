@@ -184,7 +184,7 @@ int main(void)
         SDL_PumpEvents();
         mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-        DisplayText(appRenderer, appFont, "Add a starting value and press start", 
+        DisplayText(appRenderer, appFont, "Add a starting value under 100 and press start", 
                     windowWidth * 0.065, windowHeight * 0.1);	
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);

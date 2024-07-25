@@ -39,7 +39,7 @@ bool InitApp()
 		return false;
 	}
 
-	appFont = TTF_OpenFont(fontResource.location, 70);
+	appFont = TTF_OpenFont(fontResource.location, 50);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
 	textboxFont = TTF_OpenFont(fontResource.location, 90);
