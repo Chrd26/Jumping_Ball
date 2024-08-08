@@ -9,6 +9,45 @@ bool TextComponentInit(Resource *resource)
 		printf("Failed to load TTF, %s", TTF_GetError());
 		return false;
 	}
+
+	char *execPath;
+	int pathSize = 2048;
+	getExecutablePath(&execPath, &pathSize);
+	printf(" Path to executable: %s\n", execPath);
+
+	char* ptr = strstr(execPath, "Jumping_Ball_VS.exe");
+	int getLength = strlen(execPath);
+	int getptrLength = strlen(ptr);
+	printf("Substring Position: %s\n", ptr);
+
+	char temp[1024];
+	for (int i = 0; i < getLength - getptrLength; i++)
+	{
+		//printf("%c", execPath[i]);
+		temp[i] = execPath[i];
+	}
+
+	temp[getLength - getptrLength] = '\0';
+
+	char fontLocation[256] = "Resources\\Fonts\\Montserrat-VariableFont_wght.ttf\0";
+	int getTempLength = strlen(temp);
+	printf("%d\n", getTempLength);
+	int getResourceLocationLength = strlen(fontLocation);
+	
+	for (int i = getTempLength; i < getResourceLocationLength + getTempLength; i++)
+	{
+		temp[i] = fontLocation[i - getTempLength];
+	}
+
+	temp[getResourceLocationLength + getTempLength] = '\0';
+	getTempLength = strlen(temp);
+
+	for (int i = 0; i < getTempLength; i++)
+	{
+		resource->location[i] = temp[i];
+	}
+
+	printf("Result: %s\n", resource->location);
 	
 	return true;
 }

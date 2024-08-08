@@ -109,9 +109,20 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\cpplocate;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL_ttf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\cpplocate;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL_ttf;./Resources/Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;liblocated.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)SDL3.dll" "$(TargetDir)"
+copy "$(SolutionDir)liblocated.dll" "$(TargetDir)"
+copy "$(SolutionDir)SDL3_ttf.dll" "$(TargetDir)"
+copy "$(SolutionDir)SDL3.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)liblocated.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)SDL3_ttf.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)fonts\Montserrat-VariableFont_wght.ttf" "$(TargetDir)/Resources/Fonts"
+
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -128,9 +139,20 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\cpplocate;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL_ttf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\cpplocate;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL;C:\Users\chris\Desktop\Jumping_Ball\Jumping_Ball_VS\modules\SDL_ttf;./Resources/Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;liblocated.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)SDL3.dll" "$(TargetDir)"
+copy "$(SolutionDir)liblocated.dll" "$(TargetDir)"
+copy "$(SolutionDir)SDL3_ttf.dll" "$(TargetDir)"
+copy "$(SolutionDir)SDL3.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)liblocated.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)SDL3_ttf.lib" "$(TargetDir)/Resources/Libs"
+copy "$(SolutionDir)fonts\Montserrat-VariableFont_wght.ttf" "$(TargetDir)/Resources/Fonts"
+
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\app.h" />

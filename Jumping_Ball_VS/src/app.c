@@ -45,7 +45,7 @@ bool InitApp()
 	textboxFont = TTF_OpenFont(fontResource.location, 90);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
-	printf("%s\n", fontResource.location);
+	//printf("%s\n", fontResource.location);
 
 	if (appFont == NULL || textboxFont == NULL)
 	{
