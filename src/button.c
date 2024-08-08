@@ -27,7 +27,7 @@ void GenerateButton(TTF_Font *font, SDL_Renderer *renderer, struct Button *butto
 	}
 	
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_FRect buttonBorderRect = {button->x, button->y, button->width * 1.3, button->height * 1.3};
+	SDL_FRect buttonBorderRect = {button->x, button->y, button->width * 1.5, button->height * 1.3};
 																
 	if (isHovering)
 	{

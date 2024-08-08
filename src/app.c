@@ -8,7 +8,7 @@ bool InitApp()
 		return false;
 	}
 	
-	appWindow = SDL_CreateWindow("Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN);
+	appWindow = SDL_CreateWindow("Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN|SDL_WINDOW_HIGH_PIXEL_DENSITY);
 																				
 	if (appWindow == NULL)
 	{
@@ -42,7 +42,7 @@ bool InitApp()
     char *fontLocCopy = calloc(strlen(fontResource.location), sizeof(char));
     strncpy(fontLocCopy, fontResource.location, strlen(fontResource.location));
 	
-	appFont = TTF_OpenFont(fontResource.location, 30);
+	appFont = TTF_OpenFont(fontResource.location, 45);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
 	textboxFont = TTF_OpenFont(fontLocCopy, 50);
@@ -56,6 +56,8 @@ bool InitApp()
 	}
 
 	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
+	windowWidth *= 2;
+	windowHeight *= 2;
 	
 	exteriorTextBox.x  = windowWidth * 0.18;
 	exteriorTextBox.y = windowHeight * 0.16;
@@ -65,7 +67,7 @@ bool InitApp()
 	interiorTextBox.cursor = "I";
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
-    interiorTextBox.content = calloc(4, sizeof(char));
+    //interiorTextBox.content = calloc(4, sizeof(char));
 
 	ball.radius = 80;
 	ball.y = windowHeight - ball.radius;

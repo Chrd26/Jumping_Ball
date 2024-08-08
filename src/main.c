@@ -30,7 +30,7 @@ int main(void)
             {
                 case SDL_EVENT_QUIT:
                     quit = true;
-                break;
+					break;
                 case SDL_EVENT_MOUSE_BUTTON_UP:
                     if (mouseState == LEFT_MOUSE_BUTTON)
                     {
@@ -59,8 +59,9 @@ int main(void)
                                     break;
                                 }
 
-                                free(interiorTextBox.content);
-                                interiorTextBox.content = calloc(4, sizeof(char));
+                                //free(interiorTextBox.content);
+                                //interiorTextBox.content = calloc(4, sizeof(char));
+                                memset(interiorTextBox.content, 0, 1024);
                             }else
                             {
                                 hasSimStarted = false;
@@ -88,7 +89,8 @@ int main(void)
                     {
                         break;
                     }
-
+					
+					/*
                     temp = calloc(currentStringSize + 1, sizeof(char));
                     strncpy(temp, interiorTextBox.content, currentStringSize);
                     strncat(temp, events.text.text, 1);
@@ -96,6 +98,37 @@ int main(void)
                     interiorTextBox.content = calloc(strlen(temp), sizeof(char));
                     strncpy(interiorTextBox.content, temp, strlen(temp));
                     free(temp);
+                    */
+                    
+                    char *newCharacter = events.text.text;
+                    char cpyTemp[1024];
+
+                    if (strlen(interiorTextBox.content) == 0)
+                    {
+                        for (int i = 0; i < strlen(newCharacter); i++)
+                        {
+                            interiorTextBox.content[i] = newCharacter[i];
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < strlen(interiorTextBox.content); i++)
+                        {
+                            cpyTemp[i] = interiorTextBox.content[i];
+                        }
+
+                        cpyTemp[strlen(interiorTextBox.content)] = newCharacter[0];
+                        cpyTemp[strlen(interiorTextBox.content) + 1] = '\0';
+
+                        for (int k = 0; k < strlen(cpyTemp); k++)
+                        {
+                            interiorTextBox.content[k] = cpyTemp[k];
+                        }
+
+                        interiorTextBox.content[strlen(cpyTemp)] = '\0';
+                        printf("Result: %s", interiorTextBox.content);
+                    }
+ 
                 break;
                 case SDL_EVENT_KEY_UP:
                     switch(events.key.keysym.sym)
@@ -103,8 +136,9 @@ int main(void)
                         case SDLK_ESCAPE:
                             interiorTextBox.isEnabled = false;
                             SDL_StopTextInput();
-                        break;
+							break;
                         case SDLK_BACKSPACE:
+                        /*
                             if (currentStringSize <= 0)
                             {
                                 break;
@@ -115,16 +149,42 @@ int main(void)
                             interiorTextBox.content = calloc(strlen(temp), sizeof(char));
                             strncpy(interiorTextBox.content, temp, strlen(temp));
                             free(temp);
-                        break;
+                        */
+                        
+                          if (currentStringSize <= 0)
+                            {
+                                break;
+                            }
+
+                            char cpyTemp[1024];
+
+                            for (int i = 0; i < strlen(interiorTextBox.content) - 1; i++)
+                            {
+                                cpyTemp[i] = interiorTextBox.content[i];
+                            }
+
+                            cpyTemp[strlen(interiorTextBox.content) - 1] = '\0';
+
+                            for (int j = 0; j < strlen(cpyTemp); j++)
+                            {
+                                interiorTextBox.content[j] = cpyTemp[j];
+                            }
+
+                            interiorTextBox.content[strlen(cpyTemp)] = '\0';
+
+                            printf("Deleted string %s\n", interiorTextBox.content);
+                                
+                            break;
                     }
-                break;
+                    
+					break;
             }
         }
 
         SDL_PumpEvents();
         mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-        DisplayText(appRenderer, appFont, "Add a starting value and press start", 
+        DisplayText(appRenderer, appFont, "Add a starting value under 100 and press start", 
                     windowWidth * 0.065, windowHeight * 0.1);	
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);

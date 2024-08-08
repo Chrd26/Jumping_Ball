@@ -27,13 +27,22 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=0
+current_page=5
+FILE_NAME_0=6836;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;4
+FILE_NAME_1=394;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.c;0;4
+FILE_NAME_2=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.h;0;4
+FILE_NAME_3=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.c;0;4
+FILE_NAME_4=465;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;4
+FILE_NAME_5=1465;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;4
+FILE_NAME_6=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fbutton.h;0;4
+FILE_NAME_7=849;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fbutton.c;0;4
+FILE_NAME_8=3857;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2FCMakeLists.txt;0;4
 
 [VTE]
 last_dir=/Users/chrisd
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/jumping_physics;
+expanded_paths=/Users/chrisd/Desktop/jumping_physics/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

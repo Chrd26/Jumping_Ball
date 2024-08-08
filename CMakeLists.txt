@@ -75,6 +75,14 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_compile_definitions(${PROJECT_NAME} PUBLIC SDL_MAIN_USE_CALLBACKS)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 
+# Special thanks 
+# https://stackoverflow.com/questions/45048882/how-can-i-set-nshighresolutioncapable-in-info-plist-via-cmake
+ add_custom_command(
+      TARGET ${PROJECT_NAME}
+      POST_BUILD
+      COMMAND plutil -replace NSHighResolutionCapable -bool true ${PROJECT_NAME}.app/Contents/Info.plist
+      )
+
 set(CMAKE_INSTALL_PREFIX "Jumping Ball")
 #message(${CMAKE_INSTALL_RPATH})
 install(DIRECTORY "./modules/SDL/build/" DESTINATION "lib")
