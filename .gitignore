@@ -417,3 +417,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+setup-project/Release
+setup-project/Debug
