@@ -10,7 +10,8 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    double startTick = 0, endTick = 0, cursorTimer = 0, deltaTime = 0;
+    double startTick = 0, endTick = 0, cursorTimer = 0; 
+    // double deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -89,16 +90,6 @@ int main(void)
                     {
                         break;
                     }
-					
-					/*
-                    temp = calloc(currentStringSize + 1, sizeof(char));
-                    strncpy(temp, interiorTextBox.content, currentStringSize);
-                    strncat(temp, events.text.text, 1);
-                    free(interiorTextBox.content);
-                    interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                    strncpy(interiorTextBox.content, temp, strlen(temp));
-                    free(temp);
-                    */
                     
                     char *newCharacter = events.text.text;
                     char cpyTemp[1024];
@@ -138,18 +129,6 @@ int main(void)
                             SDL_StopTextInput();
 							break;
                         case SDLK_BACKSPACE:
-                        /*
-                            if (currentStringSize <= 0)
-                            {
-                                break;
-                            }
-                            temp = calloc(currentStringSize - 1, sizeof(char));
-                            strncpy(temp, interiorTextBox.content, currentStringSize - 1);
-                            free(interiorTextBox.content);
-                            interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                            strncpy(interiorTextBox.content, temp, strlen(temp));
-                            free(temp);
-                        */
                         
                           if (currentStringSize <= 0)
                             {
@@ -280,7 +259,8 @@ int main(void)
             cursorTimer += (endTick-startTick)/1000;
         }
 
-        deltaTime = (endTick-startTick)/1000;
+        //deltaTime = (endTick-startTick)/1000;
+        
     }
 
     ExitApplication();
