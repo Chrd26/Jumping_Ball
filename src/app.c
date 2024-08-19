@@ -42,10 +42,10 @@ bool InitApp()
     char *fontLocCopy = calloc(strlen(fontResource.location), sizeof(char));
     strncpy(fontLocCopy, fontResource.location, strlen(fontResource.location));
 	
-	appFont = TTF_OpenFont(fontResource.location, 45);
+	appFont = TTF_OpenFont(fontResource.location, 50);
 	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
 	
-	textboxFont = TTF_OpenFont(fontLocCopy, 50);
+	textboxFont = TTF_OpenFont(fontLocCopy, 90);
 	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
 	
 	if (appFont == NULL || textboxFont == NULL)
@@ -69,7 +69,7 @@ bool InitApp()
 	interiorTextBox.asciiSubstractionValue = 48;
     //interiorTextBox.content = calloc(4, sizeof(char));
 
-	ball.radius = 80;
+	ball.radius = 160;
 	ball.y = windowHeight - ball.radius;
 	ball.x = windowWidth * 0.75;
 	

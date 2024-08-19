@@ -18,7 +18,7 @@ struct Results GetResults(char *value)
 
     int getValue = atoi(value);
 
-    if (getValue > 100)
+    if (getValue > 200)
     {
         results.maxHeight = 0;
         results.timeToMaximumHeight = 0;

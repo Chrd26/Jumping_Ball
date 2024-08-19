@@ -31,6 +31,7 @@ struct InteriorBox
 
 void TextBoxHandler(TTF_Font *font, SDL_Renderer *renderer, struct ExteriorBox exteriorBox, 
 										struct InteriorBox interiorBox, size_t length, double *frameTime);
+										
 bool IsHoveringExteriorBox(int mouseX, int mouseY, struct ExteriorBox exteriorBox);
 
 

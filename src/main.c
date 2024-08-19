@@ -183,8 +183,11 @@ int main(void)
 
         SDL_PumpEvents();
         mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+        
+        mouseX *= 2;
+        mouseY *= 2;
 
-        DisplayText(appRenderer, appFont, "Add a starting value under 100 and press start", 
+        DisplayText(appRenderer, appFont, "Add a starting value under 200 and press start", 
                     windowWidth * 0.065, windowHeight * 0.1);	
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
@@ -202,11 +205,11 @@ int main(void)
                 if (executionResults.upwardsMovement) 
                 {
                     ball.y -= (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)executionResults.gravity * deltaTime;  
+                    executionResults.operatedVelocity -= (int)executionResults.gravity;  
                 }else
                 {
                     ball.y += (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity += (int)executionResults.gravity * deltaTime; 
+                    executionResults.operatedVelocity += (int)executionResults.gravity; 
 
                     if (ball.y > windowHeight - ball.radius)
                     {
@@ -222,7 +225,15 @@ int main(void)
                 }
 
                 executionResults.upwardsMovement = !executionResults.upwardsMovement;
-                executionResults.operatedVelocity = executionResults.initialVelocity;
+                
+                if (executionResults.upwardsMovement)
+                {
+					executionResults.operatedVelocity = executionResults.initialVelocity;
+				}else
+				{
+					executionResults.operatedVelocity = executionResults.initialVelocity / 2;
+				}
+				
 
                 if (executionResults.initialVelocity <= 1)
                 {
@@ -259,7 +270,7 @@ int main(void)
             GenerateButton(appFont, appRenderer, &exitButton, IsHoveringButton(mouseX, mouseY, exitButton));
         }
 
-        SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
+        SDL_SetRenderDrawColor(	appRenderer, 0x55, 0x55, 0x66, 0xAA);	
         SDL_RenderPresent(appRenderer);										
 
         endTick = SDL_GetTicks();

@@ -11,7 +11,7 @@ void GenerateBall(struct Ball ball, SDL_Renderer *renderer)
 	// special thanks 
 	// https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
 	// https://www.sanfoundry.com/c-tutorials-various-trigonometric-functions-standard-library/
-	for (float i = 0; i < 360; i += 1)
+	for (float i = 0; i < 360; i += 1.0f)
 	{
 		SDL_RenderPoint(renderer, (ball.radius * cos(i)) + ball.x, (ball.radius* sin(i)) + ball.y);
 	}
