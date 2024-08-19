@@ -64,8 +64,6 @@ int main(void)
                                     break;
                                 }
 
-                                //free(interiorTextBox.content);
-                                //interiorTextBox.content = calloc(4, sizeof(char));
                             }else
                             {
                                 hasSimStarted = false;
@@ -93,17 +91,7 @@ int main(void)
                     {
                         break;
                     }
-                    /*
-                    temp = calloc(currentStringSize + 1, sizeof(char));
-                    strncpy(temp, interiorTextBox.content, currentStringSize);
-                    strncat(temp, events.text.text, 1);
-                    free(interiorTextBox.content);
-                    int tempLength = strlen(temp);
-                    interiorTextBox.content = calloc(tempLength, sizeof(char));
-                    interiorTextBox.content = temp;
-                    free(temp);
-                    */
-                    
+
                     char *newCharacter = events.text.text;
                     char cpyTemp[1024];
 
@@ -148,16 +136,6 @@ int main(void)
                                 break;
                             }
 
-                            /*
-                            temp = calloc(currentStringSize - 1, sizeof(char));
-                            strncpy(temp, interiorTextBox.content, currentStringSize - 1);
-                            free(interiorTextBox.content);
-                            //interiorTextBox.content = calloc(strlen(temp), sizeof(char));
-                            //interiorTextBox.content = temp;
-                            printf("Temp delete: %s\n", temp);
-                            free(temp);
-                            */
-
                             char cpyTemp[1024];
 
                             for (int i = 0; i < strlen(interiorTextBox.content) - 1; i++)
@@ -185,7 +163,7 @@ int main(void)
         SDL_PumpEvents();
         mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
-        DisplayText(appRenderer, appFont, "Add a starting value under 100 and press start", 
+        DisplayText(appRenderer, appFont, "Add a starting value under 200 and press start", 
                     windowWidth * 0.065, windowHeight * 0.1);	
         SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
