@@ -210,11 +210,11 @@ int main(void)
                 if (executionResults.upwardsMovement) 
                 {
                     ball.y -= (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)executionResults.gravity * deltaTime;  
+                    executionResults.operatedVelocity -= (int)executionResults.gravity;  
                 }else
                 {
                     ball.y += (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity += (int)executionResults.gravity * deltaTime; 
+                    executionResults.operatedVelocity += (int)executionResults.gravity; 
                     printf("%d", ball.y);
 
                     if (ball.y > windowHeight - ball.radius)
