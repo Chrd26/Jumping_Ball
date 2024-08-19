@@ -10,7 +10,8 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    double startTick = 0, endTick = 0,cursorTimer = 0, deltaTime = 0;
+    double startTick = 0, endTick = 0, cursorTimer = 0;
+    //doube deltaTime = 0; I do not need delta time anymore
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -276,7 +277,7 @@ int main(void)
             GenerateButton(appFont, appRenderer, &exitButton, IsHoveringButton(mouseX, mouseY, exitButton));
         }
 
-        SDL_SetRenderDrawColor(	appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);	
+        SDL_SetRenderDrawColor(appRenderer, 0xAA, 0xAA, 0xFF, 0xFF);
         SDL_RenderPresent(appRenderer);										
 
         endTick = SDL_GetTicks();
@@ -284,10 +285,9 @@ int main(void)
         if (interiorTextBox.isEnabled)
         {
             cursorTimer += (endTick-startTick)/1000;
-            printf("%d\n", (endTick - startTick) / 1000);
         }
 
-        deltaTime = (endTick-startTick)/1000;
+        //deltaTime = (endTick-startTick)/1000;
     }
 
     ExitApplication();
