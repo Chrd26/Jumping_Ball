@@ -24,7 +24,7 @@ bool InitApp()
 		return false;
 	}
 
-    char *temp = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf";
+    char *temp = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf\0";
 
     for (int i = 0; i < strlen(temp); i++)
     {
@@ -67,7 +67,6 @@ bool InitApp()
 	interiorTextBox.cursor = "I";
 	interiorTextBox.keyboardPress = false;
 	interiorTextBox.asciiSubstractionValue = 48;
-    //interiorTextBox.content = calloc(4, sizeof(char));
 
 	ball.radius = 160;
 	ball.y = windowHeight - ball.radius;
