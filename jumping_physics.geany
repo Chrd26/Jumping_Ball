@@ -1,6 +1,6 @@
 [editor]
 line_wrapping=false
-line_break_column=78
+line_break_column=72
 auto_continue_multiline=true
 
 [file_prefs]
@@ -18,33 +18,22 @@ detect_indent_width=false
 indent_mode=2
 
 [project]
-name=jumping_physics
-base_path=/Users/chrisd/Desktop/jumping_physics
+name=untitled
+base_path=
 description=
 
 [long line marker]
 long_line_behaviour=1
-long_line_column=100
+long_line_column=72
 
 [files]
-current_page=6
-FILE_NAME_0=6790;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fmain.c;0;4
-FILE_NAME_1=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.c;0;4
-FILE_NAME_2=755;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftextbox.h;0;4
-FILE_NAME_3=1097;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fapp.c;0;4
-FILE_NAME_4=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.c;0;4
-FILE_NAME_5=0;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Ftext.h;0;4
-FILE_NAME_6=477;C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2Fjumping_physics%2Fsrc%2Fball.c;0;4
+current_page=3
+FILE_NAME_0=352;CMake;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2FCMakeLists.txt;0;4
+FILE_NAME_1=10895;C;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2Fsrc%2Fmain.c;0;4
+FILE_NAME_2=398;C++;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2Fsrc%2Fapp.h;0;4
+FILE_NAME_3=1364;C;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2Fsrc%2Fapp.c;0;4
+FILE_NAME_4=0;C++;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2Fsrc%2Fball.h;0;4
+FILE_NAME_5=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FJumping_Ball%2Fsrc%2Fball.c;0;4
 
 [VTE]
-last_dir=/Users/chrisd
-
-[prjorg]
-expanded_paths=/Users/chrisd/Desktop/jumping_physics/src;
-source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
-header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
-ignored_dirs_patterns=.*;CVS;
-ignored_file_patterns=*.o;*.obj;*.a;*.lib;*.so;*.dll;*.lo;*.la;*.class;*.jar;*.pyc;*.mo;*.gmo;
-generate_tag_prefs=0
-show_empty_dirs=true
-external_dirs=
+last_dir=/home/vmware-ubuntu/Desktop/Jumping_Ball

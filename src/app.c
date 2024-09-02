@@ -1,6 +1,6 @@
 #include "app.h"
 
-bool InitApp()
+bool InitApp(struct Application *application)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -8,17 +8,22 @@ bool InitApp()
 		return false;
 	}
 	
-	appWindow = SDL_CreateWindow("Jumping Ball", screenwidth, screenheight, SDL_WINDOW_FULLSCREEN|SDL_WINDOW_HIGH_PIXEL_DENSITY);
+	application->appWindow = SDL_CreateWindow(	"Jumping Ball", 
+												screenwidth, 
+												screenheight, 
+												SDL_WINDOW_FULLSCREEN|SDL_WINDOW_HIGH_PIXEL_DENSITY);
 																				
-	if (appWindow == NULL)
+	if (application->appWindow == NULL)
 	{
 		printf("Failed to create window %s", SDL_GetError());
 		return false;
 	}
 	
-	appRenderer = SDL_CreateRenderer(appWindow, NULL, 0);
+	application->appRenderer = SDL_CreateRenderer(	application->appWindow, 
+													NULL, 
+													0);
 	
-	if (appRenderer == NULL)
+	if (application->appRenderer == NULL)
 	{
 		printf("Failed to create rendenrer %s", SDL_GetError());
 		return false;
@@ -28,78 +33,84 @@ bool InitApp()
 
     for (int i = 0; i < strlen(temp); i++)
     {
-        fontResource.location[i] = temp[i]; 
+        application->fontResource.location[i] = temp[i]; 
     }
 
-    fontResource.location[strlen(temp)] = '\0';
+    application->fontResource.location[strlen(temp)] = '\0';
 	
-	if (!TextComponentInit(&fontResource))
+	if (!TextComponentInit(&application->fontResource))
 	{
 		printf("Failed to initialise font module\n");
 		return false;
     }
 
-    char *fontLocCopy = calloc(strlen(fontResource.location), sizeof(char));
-    strncpy(fontLocCopy, fontResource.location, strlen(fontResource.location));
+    char *fontLocCopy = calloc(	strlen(application->fontResource.location), 
+								sizeof(char));
+    strncpy(	fontLocCopy, 
+				application->fontResource.location, 
+				strlen(application->fontResource.location));
 	
-	appFont = TTF_OpenFont(fontResource.location, 50);
-	TTF_SetFontStyle(appFont, TTF_STYLE_BOLD);
+	application->appFont = TTF_OpenFont(application->fontResource.location, 50);
+	TTF_SetFontStyle(application->appFont, TTF_STYLE_BOLD);
 	
-	textboxFont = TTF_OpenFont(fontLocCopy, 90);
-	TTF_SetFontStyle(textboxFont, TTF_STYLE_BOLD);
+	application->textboxFont = TTF_OpenFont(fontLocCopy, 90);
+	TTF_SetFontStyle(application->textboxFont, TTF_STYLE_BOLD);
 	
-	if (appFont == NULL || textboxFont == NULL)
+	if (application->appFont == NULL || application->textboxFont == NULL)
 	{
 		printf("Failed to open font ");
 		printf("%s\n", TTF_GetError());
 		return false;
 	}
 
-	SDL_GetWindowSize(appWindow, &windowWidth, &windowHeight);
-	windowWidth *= 2;
-	windowHeight *= 2;
+	SDL_GetWindowSize(	application->appWindow, 
+						&application->windowWidth, 
+						&application->windowHeight);
+						
+	application->windowWidth *= 2;
+	application->windowHeight *= 2;
 	
-	exteriorTextBox.x  = windowWidth * 0.18;
-	exteriorTextBox.y = windowHeight * 0.16;
-	exteriorTextBox.width = windowWidth/7;
-	exteriorTextBox.height = windowHeight/10;			
+	application->exteriorTextBox.x  = application->windowWidth * 0.18;
+	application->exteriorTextBox.y = application->windowHeight * 0.16;
+	application->exteriorTextBox.width = application->windowWidth/7;
+	application->exteriorTextBox.height = application->windowHeight/10;			
 
-	interiorTextBox.cursor = "I";
-	interiorTextBox.keyboardPress = false;
-	interiorTextBox.asciiSubstractionValue = 48;
+	application->interiorTextBox.cursor = "I";
+	application->interiorTextBox.keyboardPress = false;
+	application->interiorTextBox.asciiSubstractionValue = 48;
 
-	ball.radius = 160;
-	ball.y = windowHeight - ball.radius;
-	ball.x = windowWidth * 0.75;
+	application->ball.radius = 160;
+	application->ball.y = application->windowHeight - application->ball.radius;
+	application->ball.x = application->windowWidth * 0.75;
 	
-	startButton.x = windowWidth * 0.22;
-	startButton.y = windowHeight * 0.3;
-	startButton.height = 0;
-	startButton.width = 0;
-    startButton.text = "Start";
+	application->startButton.x = application->windowWidth * 0.22;
+	application->startButton.y = application->windowHeight * 0.3;
+	application->startButton.height = 0;
+	application->startButton.width = 0;
+    application->startButton.text = "Start";
 
-	exitButton.x = windowWidth * 0.225;
-	exitButton.y = windowHeight * 0.355;
-	exitButton.height = 0;
-	exitButton.width = 0;
-    exitButton.text = "Exit";
+	application->exitButton.x = application->windowWidth * 0.225;
+	application->exitButton.y = application->windowHeight * 0.355;
+	application->exitButton.height = 0;
+	application->exitButton.width = 0;
+    application->exitButton.text = "Exit";
 
-    hasSimStarted = false;
+    application->hasSimStarted = false;
     free(fontLocCopy);
 																										
 	return true;									
 }
 
-void ExitApplication()
+void ExitApplication(struct Application *application)
 {
-	SDL_DestroyRenderer(appRenderer);
-	SDL_DestroyWindow(appWindow);
-	TTF_CloseFont(appFont);
-	TTF_CloseFont(textboxFont);
+	SDL_DestroyRenderer(application->appRenderer);
+	SDL_DestroyWindow(application->appWindow);
+	TTF_CloseFont(application->appFont);
+	TTF_CloseFont(application->textboxFont);
 	TTF_Quit();		
-	appWindow = NULL;
-	appRenderer = NULL;			
-	appFont = NULL;
-	textboxFont = NULL;										
+	application->appWindow = NULL;
+	application->appRenderer = NULL;			
+	application->appFont = NULL;
+	application->textboxFont = NULL;										
 	SDL_Quit();
 }

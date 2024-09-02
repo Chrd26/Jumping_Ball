@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
+#pragma once
 #include <string.h>
 #include "resourcelocator.h"
 #include "text.h"
@@ -17,21 +18,24 @@
 #define RIGHT_MOUSE_BUTTON 4
 
 // Variables
-SDL_Window *appWindow;
-SDL_Renderer *appRenderer;
-TTF_Font *appFont;
-TTF_Font *textboxFont;
-int windowWidth, windowHeight;
-bool hasSimStarted;
-struct Resource fontResource;
-struct ExteriorBox exteriorTextBox;
-struct InteriorBox interiorTextBox;
-struct Button startButton;
-struct Button exitButton;
-struct Ball ball;
-struct Results executionResults;
-int ballMovementCounter;
-float mouseX, mouseY;
+struct Application
+{
+	SDL_Window *appWindow;
+	SDL_Renderer *appRenderer;
+	TTF_Font *appFont;
+	TTF_Font *textboxFont;
+	int windowWidth, windowHeight;
+	bool hasSimStarted;
+	struct Resource fontResource;
+	struct ExteriorBox exteriorTextBox;
+	struct InteriorBox interiorTextBox;
+	struct Button startButton;
+	struct Button exitButton;
+	struct Ball ball;
+	struct Results executionResults;
+	int ballMovementCounter;
+	float mouseX, mouseY;
+};
 
 // Functions
 bool InitApp();

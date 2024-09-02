@@ -5,7 +5,8 @@
 
 int main(void)
 {
-    if (!InitApp())
+	struct Application application;
+    if (!InitApp(&application))
     {
         exit(EXIT_FAILURE);
     }
@@ -22,8 +23,8 @@ int main(void)
     {
         // Start counting
         startTick = SDL_GetTicks();
-        SDL_RenderClear(appRenderer);	
-        currentStringSize = strlen(interiorTextBox.content);
+        SDL_RenderClear(application.appRenderer);	
+        currentStringSize = strlen(application.interiorTextBox.content);
 
         while(SDL_PollEvent(&events))
         {
@@ -35,26 +36,30 @@ int main(void)
                 case SDL_EVENT_MOUSE_BUTTON_UP:
                     if (mouseState == LEFT_MOUSE_BUTTON)
                     {
-                        if (IsHoveringExteriorBox(mouseX, mouseY, exteriorTextBox))
+                        if (IsHoveringExteriorBox(	application.mouseX, 
+													application.mouseY, 
+													application.exteriorTextBox))
                         {
                             
-                            if(!interiorTextBox.isEnabled && hasSimStarted == false)
+                            if(!application.interiorTextBox.isEnabled && application.hasSimStarted == false)
                             {
-                                interiorTextBox.isEnabled = true;
+                                application.interiorTextBox.isEnabled = true;
                                 SDL_StartTextInput();
                             }
                             break;
                         }
 
-                        if (IsHoveringButton(mouseX, mouseY, startButton))
+                        if (IsHoveringButton(	application.mouseX, 
+												application.mouseY, 
+												application.startButton))
                         {
-                            if (!hasSimStarted)
+                            if (!application.hasSimStarted)
                             {
-                                executionResults = GetResults(interiorTextBox.content); 
+                                application.executionResults = GetResults(application.interiorTextBox.content); 
 
-                                if (executionResults.doResultsExist)
+                                if (application.executionResults.doResultsExist)
                                 {
-                                    hasSimStarted = true;
+                                    application.hasSimStarted = true;
                                 }else
                                 {
                                     break;
@@ -62,19 +67,21 @@ int main(void)
 
                                 //free(interiorTextBox.content);
                                 //interiorTextBox.content = calloc(4, sizeof(char));
-                                memset(interiorTextBox.content, 0, 1024);
+                                memset(application.interiorTextBox.content, 0, 1024);
                             }else
                             {
-                                hasSimStarted = false;
+                                application.hasSimStarted = false;
                             }
                         }
 
-                        if (IsHoveringButton(mouseX, mouseY, exitButton))
+                        if (IsHoveringButton(	application.mouseX, 
+												application.mouseY, 
+												application.exitButton))
                         {
                             quit = true;
                         }
 
-                        interiorTextBox.isEnabled = false;
+                        application.interiorTextBox.isEnabled = false;
                         SDL_StopTextInput();
                     }
                 break;
@@ -94,30 +101,30 @@ int main(void)
                     char *newCharacter = events.text.text;
                     char cpyTemp[1024];
 
-                    if (strlen(interiorTextBox.content) == 0)
+                    if (strlen(application.interiorTextBox.content) == 0)
                     {
                         for (int i = 0; i < strlen(newCharacter); i++)
                         {
-                            interiorTextBox.content[i] = newCharacter[i];
+                            application.interiorTextBox.content[i] = newCharacter[i];
                         }
                     }
                     else
                     {
-                        for (int i = 0; i < strlen(interiorTextBox.content); i++)
+                        for (int i = 0; i < strlen(application.interiorTextBox.content); i++)
                         {
-                            cpyTemp[i] = interiorTextBox.content[i];
+                            cpyTemp[i] = application.interiorTextBox.content[i];
                         }
 
-                        cpyTemp[strlen(interiorTextBox.content)] = newCharacter[0];
-                        cpyTemp[strlen(interiorTextBox.content) + 1] = '\0';
+                        cpyTemp[strlen(application.interiorTextBox.content)] = newCharacter[0];
+                        cpyTemp[strlen(application.interiorTextBox.content) + 1] = '\0';
 
                         for (int k = 0; k < strlen(cpyTemp); k++)
                         {
-                            interiorTextBox.content[k] = cpyTemp[k];
+                            application.interiorTextBox.content[k] = cpyTemp[k];
                         }
 
-                        interiorTextBox.content[strlen(cpyTemp)] = '\0';
-                        printf("Result: %s", interiorTextBox.content);
+                        application.interiorTextBox.content[strlen(cpyTemp)] = '\0';
+                        printf("Result: %s", application.interiorTextBox.content);
                     }
  
                 break;
@@ -125,7 +132,7 @@ int main(void)
                     switch(events.key.keysym.sym)
                     {
                         case SDLK_ESCAPE:
-                            interiorTextBox.isEnabled = false;
+                            application.interiorTextBox.isEnabled = false;
                             SDL_StopTextInput();
 							break;
                         case SDLK_BACKSPACE:
@@ -137,21 +144,22 @@ int main(void)
 
                             char cpyTemp[1024];
 
-                            for (int i = 0; i < strlen(interiorTextBox.content) - 1; i++)
+                            for (int i = 0; i < strlen(application.interiorTextBox.content) - 1; i++)
                             {
-                                cpyTemp[i] = interiorTextBox.content[i];
+                                cpyTemp[i] = application.interiorTextBox.content[i];
                             }
 
-                            cpyTemp[strlen(interiorTextBox.content) - 1] = '\0';
+                            cpyTemp[strlen(application.interiorTextBox.content) - 1] = '\0';
 
                             for (int j = 0; j < strlen(cpyTemp); j++)
                             {
-                                interiorTextBox.content[j] = cpyTemp[j];
+                                application.interiorTextBox.content[j] = cpyTemp[j];
                             }
 
-                            interiorTextBox.content[strlen(cpyTemp)] = '\0';
+                            application.interiorTextBox.content[strlen(cpyTemp)] = '\0';
 
-                            printf("Deleted string %s\n", interiorTextBox.content);
+                            printf(	"Deleted string %s\n", 
+									application.interiorTextBox.content);
                                 
                             break;
                     }
@@ -161,100 +169,123 @@ int main(void)
         }
 
         SDL_PumpEvents();
-        mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+        mouseState = SDL_GetMouseState(&application.mouseX, &application.mouseY);
         
-        mouseX *= 2;
-        mouseY *= 2;
+        application.mouseX *= 2;
+        application.mouseY *= 2;
 
-        DisplayText(appRenderer, appFont, "Add a starting value under 200 and press start", 
-                    windowWidth * 0.065, windowHeight * 0.1);	
-        SDL_SetRenderDrawColor(	appRenderer, 0x00, 0x00, 0x00, 0x00);
-        SDL_RenderLine(appRenderer, windowWidth/2, 0, windowWidth/2,  windowHeight);
+        DisplayText(application.appRenderer, application.appFont, "Add a starting value under 200 and press start", 
+                    application.windowWidth * 0.065, application.windowHeight * 0.1);	
+        SDL_SetRenderDrawColor(application.appRenderer, 0x00, 0x00, 0x00, 0x00);
+        SDL_RenderLine(	application.appRenderer, 
+						application.windowWidth/2, 
+						0, 
+						application.windowWidth/2,  
+						application.windowHeight);
 
-        TextBoxHandler(	textboxFont, appRenderer, exteriorTextBox, interiorTextBox, 
-                       strlen(interiorTextBox.content), &cursorTimer);
+        TextBoxHandler(	application.textboxFont, application.appRenderer, 
+						application.exteriorTextBox, 
+						application.interiorTextBox, 
+						strlen(application.interiorTextBox.content), &cursorTimer);
 
         // Simulation, it might be a good idea to use it in a function
-        if(hasSimStarted)
+        if(application.hasSimStarted)
         {
-            if (executionResults.operatedVelocity > 0)
+            if (application.executionResults.operatedVelocity > 0)
             {
-                printf("%d\n", executionResults.operatedVelocity);
+                printf("%d\n", application.executionResults.operatedVelocity);
 
-                if (executionResults.upwardsMovement) 
+                if (application.executionResults.upwardsMovement) 
                 {
-                    ball.y -= (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity -= (int)executionResults.gravity;  
+                    application.ball.y -= (double)application.executionResults.operatedVelocity;
+                    application.executionResults.operatedVelocity -= (int)application.executionResults.gravity;  
                 }else
                 {
-                    ball.y += (double)executionResults.operatedVelocity;
-                    executionResults.operatedVelocity += (int)executionResults.gravity; 
+                    application.ball.y += (double)application.executionResults.operatedVelocity;
+                    application.executionResults.operatedVelocity += (int)application.executionResults.gravity; 
 
-                    if (ball.y > windowHeight - ball.radius)
+                    if (application.ball.y > application.windowHeight - application.ball.radius)
                     {
-                        executionResults.operatedVelocity = 0;
+                        application.executionResults.operatedVelocity = 0;
                     }
                 }
             }
-            else if (executionResults.operatedVelocity <= 0) 
+            else if (application.executionResults.operatedVelocity <= 0) 
             {
-                if (!executionResults.upwardsMovement && executionResults.initialVelocity > 1)
+                if (!application.executionResults.upwardsMovement && application.executionResults.initialVelocity > 1)
                 {
-                    executionResults.initialVelocity = executionResults.initialVelocity / 1.1;
+                    application.executionResults.initialVelocity = application.executionResults.initialVelocity / 1.1;
                 }
 
-                executionResults.upwardsMovement = !executionResults.upwardsMovement;
+                application.executionResults.upwardsMovement = !application.executionResults.upwardsMovement;
                 
-                if (executionResults.upwardsMovement)
+                if (application.executionResults.upwardsMovement)
                 {
-					executionResults.operatedVelocity = executionResults.initialVelocity;
+					application.executionResults.operatedVelocity = application.executionResults.initialVelocity;
 				}else
 				{
-					executionResults.operatedVelocity = executionResults.initialVelocity / 2;
+					application.executionResults.operatedVelocity = application.executionResults.initialVelocity / 2;
 				}
 				
 
-                if (executionResults.initialVelocity <= 1)
+                if (application.executionResults.initialVelocity <= 1)
                 {
-                    hasSimStarted = false;
+                    application.hasSimStarted = false;
                 }
             }
 
-            startButton.text = "Stop";
+            application.startButton.text = "Stop";
 
         }else
         {
-            ball.y = windowHeight - ball.radius;
-            startButton.text = "Start";
+            application.ball.y = application.windowHeight - application.ball.radius;
+            application.startButton.text = "Start";
         }
 
-        GenerateBall(ball, appRenderer);
+        GenerateBall(application.ball, application.appRenderer);
 
-        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, startButton))
+        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(	application.mouseX, 
+																		application.mouseY, 
+																		application.startButton))
         {
-            GenerateButton(appFont, appRenderer, &startButton, false);
+            GenerateButton(	application.appFont, 
+							application.appRenderer, 
+							&application.startButton, false);
         }
         else
         {
-            GenerateButton(appFont, appRenderer, &startButton, IsHoveringButton(mouseX, mouseY, startButton));
+            GenerateButton(	application.appFont, application.appRenderer, 
+							&application.startButton, 
+							IsHoveringButton(	application.mouseX, 
+												application.mouseY, 
+												application.startButton));
         }
 
 
-        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(mouseX, mouseY, exitButton))
+        if ((mouseState &SDL_BUTTON_LMASK) != 0 && IsHoveringButton(application.mouseX, 
+																	application.mouseY, 
+																	application.exitButton))
         {
-            GenerateButton(appFont, appRenderer, &exitButton, false);
+            GenerateButton(	application.appFont, 
+							application.appRenderer, 
+							&application.exitButton, false);
         }
         else
         {
-            GenerateButton(appFont, appRenderer, &exitButton, IsHoveringButton(mouseX, mouseY, exitButton));
+            GenerateButton(	application.appFont, 
+							application.appRenderer, 
+							&application.exitButton, 
+							IsHoveringButton(	application.mouseX, 
+												application.mouseY, 
+												application.exitButton));
         }
 
-        SDL_SetRenderDrawColor(	appRenderer, 0x55, 0x55, 0x66, 0xAA);	
-        SDL_RenderPresent(appRenderer);										
+        SDL_SetRenderDrawColor(	application.appRenderer, 0x55, 0x55, 0x66, 0xAA);	
+        SDL_RenderPresent(application.appRenderer);										
 
         endTick = SDL_GetTicks();
 
-        if (interiorTextBox.isEnabled)
+        if (application.interiorTextBox.isEnabled)
         {
             cursorTimer += (endTick-startTick)/1000;
         }
@@ -263,7 +294,7 @@ int main(void)
         
     }
 
-    ExitApplication();
+    ExitApplication(&application);
     return EXIT_SUCCESS;
 }
 

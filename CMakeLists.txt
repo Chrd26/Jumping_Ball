@@ -3,11 +3,13 @@ project("JumpingBall" LANGUAGES C VERSION 0.1 DESCRIPTION "Jumping Ball Physics 
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(liblocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
+# set(CMAKE_C_COMPILER "/usr/bin/clang")
+#set(CMAKE_C_FLAGS "-ldl" "-lm")
 
 # Installation use otool -L to figure out rpath set rpath for macos with @loader_path
 # set rpath for linux with @executable_path
-set(CMAKE_MACOXS_RPATH ON)
-set(CMAKE_INSTALL_RPATH "@loader_path/../../../lib")
+#set(CMAKE_MACOXS_RPATH ON)
+#set(CMAKE_INSTALL_RPATH "@loader_path/../../../lib")
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -49,46 +51,46 @@ find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(liblocate REQUIRED CONFIG REQUIRED COMPONENTS liblocate)
 
 file(GLOB APP_FONT "./fonts/Montserrat-VariableFont_wght.ttf")
-file(GLOB MACOS_ICON "./packaging assets/img/Jumping_Ball_Logo.icns")
+#file(GLOB MACOS_ICON "./packaging assets/img/Jumping_Ball_Logo.icns")
 
-add_executable(	${PROJECT_NAME} MACOSX_BUNDLE ./src/main.c
+add_executable(	${PROJECT_NAME} ./src/main.c
 				./src/app.h ./src/app.c ./src/resourcelocator.h
 				./src/resourcelocator.c ./src/text.h ./src/text.c
 				./src/results.h ./src/results.c ./src/textbox.h 
 				./src/textbox.c ./src/ball.h ./src/ball.c 
-                ./src/button.h ./src/button.c ${APP_FONT} ${MACOS_ICON})
+                ./src/button.h ./src/button.c)
 
             
 # Set macos Icon
-file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${MACOS_ICON})
-get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
-set_property(SOURCE ${MACOS_ICON} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
-set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Contents/Resources/packaging assets/img/Jumping_Ball_Logo.icns")
+#file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${MACOS_ICON})
+#get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
+#set_property(SOURCE ${MACOS_ICON} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
+#set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE "Contents/Resources/packaging assets/img/Jumping_Ball_Logo.icns")
 
 #  Include font to the .app bundle
-file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})
-get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
-set_property(SOURCE ${APP_FONT} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
+#file(RELATIVE_PATH RES_PATH_NAME "${CMAKE_CURRENT_SOURCE_DIR}" ${APP_FONT})
+#get_filename_component(NEW_FILE_PATH_NAME ${RES_PATH_NAME} DIRECTORY)
+#set_property(SOURCE ${APP_FONT} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH_NAME}")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::liblocate)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
-target_compile_definitions(${PROJECT_NAME} PUBLIC SDL_MAIN_USE_CALLBACKS)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
+target_link_libraries(${PROJECT_NAME} PRIVATE -lm cpplocate::liblocate)
+target_link_libraries(${PROJECT_NAME} PRIVATE -lm SDL3::SDL3)
+#target_compile_definitions(${PROJECT_NAME} PUBLIC SDL_MAIN_USE_CALLBACKS)
+target_link_libraries(${PROJECT_NAME} PRIVATE -lm SDL3_ttf::SDL3_ttf)
 
 # Special thanks 
 # https://stackoverflow.com/questions/45048882/how-can-i-set-nshighresolutioncapable-in-info-plist-via-cmake
- add_custom_command(
-      TARGET ${PROJECT_NAME}
-      POST_BUILD
-      COMMAND plutil -replace NSHighResolutionCapable -bool true ${PROJECT_NAME}.app/Contents/Info.plist
-      )
+# add_custom_command(
+#      TARGET ${PROJECT_NAME}
+#      POST_BUILD
+#      COMMAND plutil -replace NSHighResolutionCapable -bool true ${PROJECT_NAME}.app/Contents/Info.plist
+#      )
 
-set(CMAKE_INSTALL_PREFIX "Jumping Ball")
+#set(CMAKE_INSTALL_PREFIX "Jumping Ball")
 #message(${CMAKE_INSTALL_RPATH})
-install(DIRECTORY "./modules/SDL/build/" DESTINATION "lib")
-install(DIRECTORY "./modules/SDL_ttf/build/" DESTINATION "lib")
-install(DIRECTORY "./modules/SDL/include/SDL3/" DESTINATION "include/SDL3")
-install(DIRECTORY "./modules/SDL_ttf/include/SDL3_ttf/" DESTINATION "include/SDL3_ttf")
-install(TARGETS "${PROJECT_NAME}" BUNDLE DESTINATION .)
+#install(DIRECTORY "./modules/SDL/build/" DESTINATION "lib")
+#install(DIRECTORY "./modules/SDL_ttf/build/" DESTINATION "lib")
+#install(DIRECTORY "./modules/SDL/include/SDL3/" DESTINATION "include/SDL3")
+#install(DIRECTORY "./modules/SDL_ttf/include/SDL3_ttf/" DESTINATION "include/SDL3_ttf")
+#install(TARGETS "${PROJECT_NAME}" BUNDLE DESTINATION .)
 
 include(CPack)
