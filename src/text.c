@@ -11,6 +11,7 @@ bool TextComponentInit(Resource *resource)
 	}
 	
 	// load font
+	/*
 	char *temp = FindResource(resource->location);
 
     for (int i = 0; i < strlen(temp); i++)
@@ -19,6 +20,7 @@ bool TextComponentInit(Resource *resource)
     }
 
     resource->location[strlen(temp)] = '\0';
+    */
 	return true;
 }
 

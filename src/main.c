@@ -12,7 +12,6 @@ int main(void)
     }
 
     double startTick = 0, endTick = 0, cursorTimer = 0; 
-    // double deltaTime = 0;
     char *temp;
     size_t currentStringSize = 0;
     Uint32 mouseState;
@@ -171,17 +170,17 @@ int main(void)
         SDL_PumpEvents();
         mouseState = SDL_GetMouseState(&application.mouseX, &application.mouseY);
         
-        application.mouseX *= 2;
-        application.mouseY *= 2;
+        //application.mouseX *= 2;
+        //application.mouseY *= 2;
 
         DisplayText(application.appRenderer, application.appFont, "Add a starting value under 200 and press start", 
-                    application.windowWidth * 0.065, application.windowHeight * 0.1);	
+                    (application.windowWidth *1.5) * 0.05, (application.windowHeight * 1.5) * 0.1);	
         SDL_SetRenderDrawColor(application.appRenderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderLine(	application.appRenderer, 
-						application.windowWidth/2, 
+						application.windowWidth/1.5, 
 						0, 
-						application.windowWidth/2,  
-						application.windowHeight);
+						application.windowWidth/1.5,  
+						application.windowHeight*1.5);
 
         TextBoxHandler(	application.textboxFont, application.appRenderer, 
 						application.exteriorTextBox, 
@@ -238,7 +237,7 @@ int main(void)
 
         }else
         {
-            application.ball.y = application.windowHeight - application.ball.radius;
+            application.ball.y = application.windowHeight * 1.46 - application.ball.radius;
             application.startButton.text = "Start";
         }
 

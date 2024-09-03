@@ -11,7 +11,7 @@ bool InitApp(struct Application *application)
 	application->appWindow = SDL_CreateWindow(	"Jumping Ball", 
 												screenwidth, 
 												screenheight, 
-												SDL_WINDOW_FULLSCREEN|SDL_WINDOW_HIGH_PIXEL_DENSITY);
+												SDL_WINDOW_FULLSCREEN);
 																				
 	if (application->appWindow == NULL)
 	{
@@ -29,7 +29,8 @@ bool InitApp(struct Application *application)
 		return false;
 	}
 
-    char *temp = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf\0";
+    //char *temp = "/Contents/Resources/fonts/Montserrat-VariableFont_wght.ttf\0";
+    char temp[1024] = "/home/vmware-ubuntu/Desktop/Jumping_Ball/fonts/Montserrat-VariableFont_wght.ttf";
 
     for (int i = 0; i < strlen(temp); i++)
     {
@@ -44,17 +45,26 @@ bool InitApp(struct Application *application)
 		return false;
     }
 
-    char *fontLocCopy = calloc(	strlen(application->fontResource.location), 
-								sizeof(char));
-    strncpy(	fontLocCopy, 
-				application->fontResource.location, 
-				strlen(application->fontResource.location));
+    //char *fontLocCopy = calloc(	strlen(application->fontResource.location), 
+	//							sizeof(char));
+    //strncpy(	fontLocCopy, 
+	//			application->fontResource.location, 
+	//			strlen(application->fontResource.location));
 	
-	application->appFont = TTF_OpenFont(application->fontResource.location, 50);
+	application->appFont = TTF_OpenFont(temp, 25);
 	TTF_SetFontStyle(application->appFont, TTF_STYLE_BOLD);
+	printf("%s\n", temp);
 	
-	application->textboxFont = TTF_OpenFont(fontLocCopy, 90);
+	if (application->appFont == NULL)
+	{
+		printf("Failed to open font ");
+		printf("%s\n", TTF_GetError());
+		return false;
+	}
+	
+	application->textboxFont = TTF_OpenFont(application->fontResource.location, 50);
 	TTF_SetFontStyle(application->textboxFont, TTF_STYLE_BOLD);
+	printf("%s\n", application->fontResource.location);
 	
 	if (application->appFont == NULL || application->textboxFont == NULL)
 	{
@@ -67,36 +77,36 @@ bool InitApp(struct Application *application)
 						&application->windowWidth, 
 						&application->windowHeight);
 						
-	application->windowWidth *= 2;
-	application->windowHeight *= 2;
+	//application->windowWidth *= 2;
+	//application->windowHeight *= 2;
 	
-	application->exteriorTextBox.x  = application->windowWidth * 0.18;
-	application->exteriorTextBox.y = application->windowHeight * 0.16;
-	application->exteriorTextBox.width = application->windowWidth/7;
-	application->exteriorTextBox.height = application->windowHeight/10;			
+	application->exteriorTextBox.x  = (application->windowWidth * 1.5) * 0.155;
+	application->exteriorTextBox.y = (application->windowHeight * 1.5) * 0.16;
+	application->exteriorTextBox.width = (application->windowWidth * 1.5)/7;
+	application->exteriorTextBox.height = (application->windowHeight * 1.5)/10;			
 
 	application->interiorTextBox.cursor = "I";
 	application->interiorTextBox.keyboardPress = false;
 	application->interiorTextBox.asciiSubstractionValue = 48;
 
-	application->ball.radius = 160;
-	application->ball.y = application->windowHeight - application->ball.radius;
-	application->ball.x = application->windowWidth * 0.75;
+	application->ball.radius = 120;
+	application->ball.y = application->windowHeight * 1.46 - application->ball.radius;
+	application->ball.x = application->windowWidth;
 	
-	application->startButton.x = application->windowWidth * 0.22;
-	application->startButton.y = application->windowHeight * 0.3;
+	application->startButton.x = (application->windowWidth * 1.5) * 0.2;
+	application->startButton.y = (application->windowHeight * 1.5)* 0.3;
 	application->startButton.height = 0;
 	application->startButton.width = 0;
     application->startButton.text = "Start";
 
-	application->exitButton.x = application->windowWidth * 0.225;
-	application->exitButton.y = application->windowHeight * 0.355;
+	application->exitButton.x = (application->windowWidth * 1.5) * 0.205;
+	application->exitButton.y = (application->windowHeight * 1.5) * 0.35;
 	application->exitButton.height = 0;
 	application->exitButton.width = 0;
     application->exitButton.text = "Exit";
 
     application->hasSimStarted = false;
-    free(fontLocCopy);
+    //free(fontLocCopy);
 																										
 	return true;									
 }
